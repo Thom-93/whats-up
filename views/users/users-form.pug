@@ -1,0 +1,22 @@
+extends ../layout
+
+block content 
+  div(class="d-flex flex-row content justify-content-center mx-auto")
+      form(class="card w-50 mt-5" method="post" action="/users/signup" )
+        div(class="card-header") Inscription
+        div(clas="card-body")
+          div(class="form-group m-3")
+            label Username 
+            input(class="form-control" type="text" name="username")
+          div(class="form-group m-3")
+            label Email 
+            input(class="form-control" type="text" name="email")
+          div(class="form-group m-3")
+            label Password 
+            input(class="form-control" type="password" name="password")
+          if errors
+            ul(class="my-2")
+              each error in errors
+                li(class="text-danger")= error
+          div(class="w-100")
+            input(type="submit" value="valider" class="btn btn-primary d-block m-1 float-end") 
