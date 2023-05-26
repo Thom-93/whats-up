@@ -1,4 +1,5 @@
-const { createUser } = require('../queries/users.queries');
+const { createUser, findUserPerUsername, searchUsersPerUsername, findUserPerId, addUserIdToCurrentUserFollowing, removeUserIdToCurrentUserFollowing } = require('../queries/users.queries');
+const { getUserTweetsFromAuthorId } = require('../queries/tweet.queries');
 const path = require('path');
 const multer = require('multer');
 const upload = multer({ storage: multer.diskStorage({ 
@@ -9,6 +10,32 @@ const upload = multer({ storage: multer.diskStorage({
     cb(null, `${ Date.now() }-${ file.originalname }}`);
   }
 })})
+
+exports.userList = async (req, res, next) => {
+  try {
+    const search = req.query.search;
+    const users = await searchUsersPerUsername(search);
+    res.render('includes/search-menu', { users });
+  } catch(e) {
+    next(e);  
+  }
+}
+
+exports.userProfile = async (req, res ,next) => {
+  try {
+    const username = req.params.username;
+    const user = await findUserPerUsername(username);
+    const tweets = await getUserTweetsFromAuthorId(user._id);
+    res.render('tweets/tweet', { 
+      tweets, 
+      isAuthenticated: req.isAuthenticated(), 
+      currentUser: req.user, 
+      user, 
+      editable: false });
+  } catch(e) {
+    next(e);
+  }
+}
 
 exports.signupForm = (req, res, next) => {
   res.render('users/users-form', { errors: null, isAuthenticated: req.isAuthenticated(), currentUser: req.user})
@@ -37,3 +64,23 @@ exports.uploadImage = [
     }
   }
 ]
+
+exports.followUser = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const [, user] = await Promise.all([ addUserIdToCurrentUserFollowing(req.user, userId), findUserPerId(userId) ])
+    res.redirect(`/users/${ user.username }`);
+  } catch(e) {
+    next(e);
+  }
+}
+
+exports.unfollowUser = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const [, user] = await Promise.all([ removeUserIdToCurrentUserFollowing(req.user, userId), findUserPerId(userId) ])
+    res.redirect(`/users/${ user.username }`);
+  } catch(e) {
+    next(e);
+  }
+}
