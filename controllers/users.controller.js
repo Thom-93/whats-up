@@ -44,8 +44,9 @@ exports.signupForm = (req, res, next) => {
 exports.signup = async (req, res, next) => {
   const body = req.body;
   try{
-    const user = await createUser(body)
-    res.redirect('/');
+    const user = await createUser(body);
+    req.login(user);
+    res.redirect('/protected');
   } catch(e) {
     res.render('users/users-form', { errors: [ e.message ], isAuthenticated: req.isAuthenticated(), currentUser: req.user });
   }

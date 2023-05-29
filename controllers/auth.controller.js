@@ -1,30 +1,30 @@
-const passport = require("passport");
+const { findUserPerEmail } = require('../queries/users.queries');
 
 exports.signinForm = (req, res, next) => {
   res.render('auth/auth-form', { errors: null, isAuthenticated: req.isAuthenticated(), currentUser: req.user});
 }
 
-exports.signin = (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
-    if (err) {
-      next(err);
-    } else if (!user) {
-      res.render('auth/auth-form', { errors: [info.message ], isAuthenticated: req.isAuthenticated(), currentUser: req.user});
-    } else {
-      req.login(user, (err) => {
-        if (err) { next(err) } else {
-          res.redirect('/tweets');
-        }
-      })
-    }
-  })(req, res, next);
-}
+exports.signin = async (req, res, next) => {
+  try {
+    const { email, password} = req.body;
+    const user = await findUserPerEmail(email);
+    if (user) {
+      const match = await user.comparePassword(password);
+      if (match) {
+        req.login(user);
+        res.redirect('/');
+      } else {
+      res.render('signin', { error: 'Wrong Password'});
+      }
 
-exports.signout = (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
+    } else {
+      res.render('signin', { error: 'User not found'});
     }
-    res.redirect('/auth/signin/form');
-  });
+  } catch(e) {
+    next(e);
+  }
+}
+exports.signout = (req, res, next) => {
+  req.logout();
+  res.redirect('/auth/signin/form');
 }

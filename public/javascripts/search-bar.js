@@ -1,5 +1,6 @@
 let menuContainer;
 
+
 window.addEventListener('click', () => {
   menuContainer.innerHTML = '';
 })
