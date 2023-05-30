@@ -1,7 +1,7 @@
 const emailjs = require('@emailjs/nodejs');
 
 const publickey = "t9GMVP_mWg78xuX8w";
-const privateKey = "ejOXJ1ANq66dw-hkYXX9N";
+const privateKey = "";
 
 const serviceID = "service_j44n03q";
 const templateID = "template_qn4hkzn";

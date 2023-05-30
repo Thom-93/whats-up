@@ -10,7 +10,8 @@ const upload = multer({ storage: multer.diskStorage({
   filename: (req, file, cb) => {
     cb(null, `${ Date.now() }-${ file.originalname }}`);
   }
-})})
+})});
+const emailFactory = require('../emails');
 
 exports.userList = async (req, res, next) => {
   try {
@@ -47,7 +48,14 @@ exports.signup = async (req, res, next) => {
   try{
     const user = await createUser(body);
     req.login(user);
-    sendMail(user);
+    emailFactory.sendEmailVerification({
+      to: user.local.email,
+      host: req.headers.host,
+      username: user.username,
+      userId: user._id,
+      token: user.local.emailToken
+    });
+    // sendMail(user);
     res.redirect('/');
   } catch(e) {
     res.render('users/users-form', { errors: [ e.message ], isAuthenticated: req.isAuthenticated(), currentUser: req.user });
@@ -83,6 +91,23 @@ exports.unfollowUser = async (req, res, next) => {
     const userId = req.params.userId;
     const [, user] = await Promise.all([ removeUserIdToCurrentUserFollowing(req.user, userId), findUserPerId(userId) ])
     res.redirect(`/users/${ user.username }`);
+  } catch(e) {
+    next(e);
+  }
+}
+
+exports.emailLinkVerification = async (req, res, next) => {
+  try {
+    const { userId, token } = req.params;
+    const user = await findUserPerId(userId);
+
+    if (user && token && token === user.local.emailToken ) {
+      user.local.emailVerified = true;
+      await user.save();
+      return res.redirect('/');
+    } else {
+      return res.status(400).json('Problem durin email verification');
+    }
   } catch(e) {
     next(e);
   }

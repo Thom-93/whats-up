@@ -22,4 +22,13 @@ div(class="profile-container bg-white d-flex flex-column")
         strong Following 
         br
         span(class="text-primary")= user.following.length
+    div(class="flex-fill")
+      p
+        strong Email 
+        br
+        if user.local.emailVerified
+          span(class="text-primary") Verified
+        else
+          span(class="text-warning") Not verified
+        
 
