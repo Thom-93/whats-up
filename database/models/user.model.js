@@ -8,7 +8,9 @@ const userSchema = schema({
     email: { type: String, required: true, unique: true},
     emailVerified: { type: Boolean, default: false},
     emailToken: { type: String },
-    password: { type: String, required: true}
+    password: { type: String, required: true},
+    passwordToken: { type: String },
+    passwordTokenExpiration: { type: Date }
   },
   avatar: { type: String, default: '/images/default-profile.svg'},
   following: { type: [schema.Types.ObjectId], ref: 'user'}

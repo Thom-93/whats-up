@@ -40,6 +40,23 @@ class Email {
       throw e;
     }
   }
+  async sendResetPasswordLink(options) {
+    try {
+      const email = {
+        from: this.from,
+        subject: "Password reset",
+        to: options.to,
+        html: pug.renderFile(path.join(__dirname, "templates/password-reset.pug"), {
+          username: options.username,
+          url: `https://${ options.host }/users/reset-password/${ options.userId }/${ options.token }`
+        })
+      };
+      const response = await this.transporter.sendMail(email);
+      console.log(response);
+    } catch(e) {
+      throw e;
+    }
+  }
 }
 
 module.exports = new Email();
