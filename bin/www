@@ -1,8 +1,8 @@
 const fs = require('fs');
 const https = require('https');
 const http = require('http');
-const env = require(`../environment/${ process.env.NODE_ENV }`);
 const app = require('../app');
+const env = require(`../environment/${ process.env.NODE_ENV }`);
 
 const httpServer = http.createServer((req, res) => {
   res.writeHead(301, { Location: `https://${ req.headers.host.split(':')[0] + ':' + env.portHttps }${ req.url }`});

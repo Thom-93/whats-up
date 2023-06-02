@@ -27,7 +27,6 @@ window.addEventListener('DOMContentLoaded', () => {
         axios.get('/users?search=' + value)
              .then(response => {
               menuContainer.innerHTML = response.data;
-              console.log(response);
              })
              .catch(err => {
               console.log(err);
