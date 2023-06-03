@@ -14,7 +14,7 @@ div(class="profile-container bg-white d-flex flex-column")
   div(class="text-center d-flex flex-row justify-content-center align-items-center my-3")
     div(class="flex-fill")
       p 
-        strong Tweet 
+        strong Letter 
         br
         span(class="text-primary")= tweets && tweets.filter( t => t.author.id.toString() === user._id.toString()).length
     div(class="flex-fill")

@@ -3,8 +3,8 @@ if tweets
     div(class="card tweet-element")
       div(class="card-body d-flex flex-column")
        div(class="d-flex flex-row justify-content-center align-items-center")
-        img(width="30" height="30" class="rounded-circle" src=tweet.author.avatar)
-        span(class="flex-fill ms-1")= tweet.author.username
+        img(width="40" height="40" class="rounded-circle" src=tweet.author.avatar)
+        span(class="flex-fill ms-1 fw-bold")= tweet.author.username
         if editable && tweet.author._id.toString() === currentUser._id.toString()
           div(class="d-flex flex-row justify-content-center")
             a(class="fa-solid fa-pen-to-square pe-2 text-success" href='/tweets/edit/' + tweet._id)
