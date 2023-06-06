@@ -9,7 +9,6 @@ const {
 const { getUserTweetsFromAuthorId } = require('../queries/tweet.queries');
 const path = require('path');
 const multer = require('multer');
-const { sendMail } = require('../public/javascripts/emails/email.send');
 const upload = multer({ storage: multer.diskStorage({ 
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, '../public/images/avatars'));
@@ -65,7 +64,6 @@ exports.signup = async (req, res, next) => {
       userId: user._id,
       token: user.local.emailToken
     });
-    // sendMail(user);
     res.redirect('/');
   } catch(e) {
     res.render('users/users-form', { errors: [ e.message ], isAuthenticated: req.isAuthenticated(), currentUser: req.user });

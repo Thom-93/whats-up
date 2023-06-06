@@ -5,12 +5,12 @@ const pug = require('pug');
 
 class Email {
   constructor() {
-    this.from = 'whats-up <no-replay@whats-up.site>'
+    this.from = 'whats-up <no-replay@whats-up.site>';
     if (process.env.NODE_ENV === 'production'){
       this.transporter = nodemailer.createTransport(sparkPostTransporter({
         sparkPostApiKey: '8739b4e60419064aa328ad0da459e5932fa0bf50',
-        endpoint: 'https://api.eu.sparkpost.com/api/v1'
-      }))
+        endpoint: 'https://api.eu.sparkpost.com'
+      }));
     } else {
       this.transporter = nodemailer.createTransport({
         host: "sandbox.smtp.mailtrap.io",
@@ -31,7 +31,7 @@ class Email {
         to: options.to,
         html: pug.renderFile(path.join(__dirname, "templates/email-verification.pug"), {
           username: options.username,
-          url: `https://${ options.host }/users/email-verification/${ options.userId }/${ options.token }`
+          url: `https://${options.host}/users/email-verification/${options.userId}/${options.token}`
         })
       };
       const response = await this.transporter.sendMail(email);
@@ -48,11 +48,10 @@ class Email {
         to: options.to,
         html: pug.renderFile(path.join(__dirname, "templates/password-reset.pug"), {
           username: options.username,
-          url: `https://${ options.host }/users/reset-password/${ options.userId }/${ options.token }`
+          url: `https://${options.host}/users/reset-password/${options.userId}/${options.token}`
         })
       };
       const response = await this.transporter.sendMail(email);
-      console.log(response);
     } catch(e) {
       throw e;
     }
