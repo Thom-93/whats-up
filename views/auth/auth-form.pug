@@ -2,9 +2,11 @@ extends ../layout
 
 block content 
   script(src="/javascripts/auth/auth-form.js") 
-  div(class="d-flex flex-row content justify-content-center mx-auto")
-      form(class="card w-50 mt-5" method="post" action="/auth/signin" )
-        div(class="card-header") Connexion
+  div(class="d-flex content-auth mx-auto")
+      form(class="card auth-form" method="post" action="/auth/signin" )
+        div(class="card-header auth-header")
+          a(class="auth-a-link active" href="/auth/signin/form") Connexion
+          a(class="auth-a-link" href="/users/signup/form") Inscription  
         div(clas="card-body")
           div(class="form-group m-3")
             label Email 

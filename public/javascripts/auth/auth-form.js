@@ -1,4 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
+  // Connexion Start
   const forgot = document.querySelector("#forgot");
   if (forgot) {
     forgot.addEventListener('click', () => {
@@ -27,4 +28,7 @@ window.addEventListener('DOMContentLoaded', () => {
       })
     });
   }
+  // Connexion End
+
+
 });

@@ -1,9 +1,11 @@
 extends ../layout
 
 block content 
-  div(class="d-flex flex-row content justify-content-center mx-auto")
-      form(class="card w-50 mt-5" method="post" action="/users/signup" )
-        div(class="card-header") Inscription
+  div(class="d-flex content-auth mx-auto")
+      form(class="card auth-form" method="post" action="/users/signup" )
+        div(class="card-header auth-header")
+          a(class="auth-a-link" href="/auth/signin/form") Connexion
+          a(class="auth-a-link active" href="/users/signup/form") Inscription  
         div(clas="card-body")
           div(class="form-group m-3")
             label Username 
