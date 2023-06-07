@@ -1,15 +1,15 @@
 extends ../layout
 
 block content 
-  div(class="d-flex flex-row content mx-auto")
+  div(class="d-flex content mx-auto")
     div(class="profile-container")
       include ../includes/profile
-    div(class="flex-fill")
+    div(class="flex-fill mt-5 new-tweet-container")
       form(class="card" method="post" action= tweet._id ? "/tweets/update/" + tweet._id : "/tweets" )
-        div(class="card-header") Ecrire un tweet
+        div(class="card-header") Ecrire une lettre
         div(clas="card-body")
           div(class="form-group m-3")
-            textarea(class="form-control" name="content" placeholder="What is happening")=tweet.content
+            textarea(class="form-control input-new-tweet" name="content" placeholder="What is happening")=tweet.content
           if errors
             ul(class="my-2")
               each error in errors

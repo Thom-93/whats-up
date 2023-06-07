@@ -20,19 +20,21 @@ window.addEventListener('DOMContentLoaded', () => {
   
     searchInput.addEventListener('input', (e) => {
       const value = e.target.value
-      if (ref) {
-        clearTimeout(ref);
+      if (value !== "") {
+        if (ref) {
+          clearTimeout(ref);
+        }
+        ref = setTimeout(() => {
+          axios.get('/users?search=' + value)
+               .then(response => {
+                menuContainer.innerHTML = response.data;
+               })
+               .catch(err => {
+                console.log(err);
+               })
+    
+        }, 250);
       }
-      ref = setTimeout(() => {
-        axios.get('/users?search=' + value)
-             .then(response => {
-              menuContainer.innerHTML = response.data;
-             })
-             .catch(err => {
-              console.log(err);
-             })
-  
-      }, 250);
     })
   }
 })

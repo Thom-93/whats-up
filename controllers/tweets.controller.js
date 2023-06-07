@@ -9,8 +9,13 @@ exports.tweetList = async (req, res, next) => {
   }
 }
 
-exports.tweetNew = (req, res, next) => {
-  res.render('tweets/tweet-form', { tweet: {}, isAuthenticated: req.isAuthenticated(), currentUser: req.user, user: req.user });
+exports.tweetNew = async (req, res, next) => {
+  try {
+    const tweets = await getCurrentUserTweetsWithFollowing(req.user);
+    res.render('tweets/tweet-form', { tweets, tweet: {}, isAuthenticated: req.isAuthenticated(), currentUser: req.user, user: req.user });
+  } catch (e) {
+    next(e);
+  }
 }
 
 exports.tweetCreate = async (req, res, next) => {
@@ -28,7 +33,7 @@ exports.tweetDelete = async (req, res, next) => {
   try {
     const tweetId = req.params.tweetId;
     await deleteTweet(tweetId);
-    
+    const tweets = await getCurrentUserTweetsWithFollowing(req.user);
     res.render('tweets/tweet-list', { tweets, currentUser: req.user, editable: true })
   }catch (e) {
     next(e);
