@@ -1,7 +1,7 @@
 const Tweet = require('../database/models/tweet.model');
 
 exports.getTweets = () => {
-  return Tweet.find({}).exec();
+  return Tweet.find({}).sort({ createdAt: 1 }).exec();
 }
 
 exports.createTweet = (tweet) => {

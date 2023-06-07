@@ -220,6 +220,13 @@ body {
   width: -webkit-fill-available;
 }
 
+.tweet-time {
+  display: flex;
+  justify-content: end;
+  font-variant: diagonal-fractions;
+  font-style: italic;
+}
+
 .card-new-tweet {
   background-color: rgba(255,255,255, .4);
 }
