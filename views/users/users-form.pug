@@ -2,6 +2,9 @@ extends ../layout
 
 block content 
   div(class="d-flex content-auth mx-auto")
+      a(class="logo-auth mb-5" href="/tweets")
+        img(width="40" height="40" src="/images/whats-up-logo.png" alt="Whats-UP logo")
+        span(class="logo-name-auth") Whats-UP
       form(class="card auth-form" method="post" action="/users/signup" )
         div(class="card-header auth-header")
           a(class="auth-a-link" href="/auth/signin/form") Connexion
