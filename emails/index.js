@@ -34,8 +34,7 @@ class Email {
           url: `https://${options.host}/users/email-verification/${options.userId}/${options.token}`
         })
       };
-      const response = await this.transporter.sendMail(email);
-      console.log(response);
+      await this.transporter.sendMail(email);
     } catch(e) {
       throw e;
     }
@@ -51,7 +50,7 @@ class Email {
           url: `https://${options.host}/users/reset-password/${options.userId}/${options.token}`
         })
       };
-      const response = await this.transporter.sendMail(email);
+      await this.transporter.sendMail(email);
     } catch(e) {
       throw e;
     }
