@@ -10,7 +10,7 @@ if tweets
             a(class="fa-solid fa-pen-to-square pe-2 text-success" href='/tweets/edit/' + tweet._id)
             i(class="fa-solid fa-trash-can text-danger pointer-cursor" tweetid=tweet._id)
       div(class="ms-3 mb-3")= tweet.content
-      if new Date(tweet.updatedAt).getDate() === new Date(Date.now()).getDate()
-        span(class="flex-fill ms-1 tweet-time")= new Date(tweet.updatedAt).getHours() + '`' + new Date(tweet.updatedAt).getMinutes()
+      if new Date(tweet.updatedAt).toLocaleDateString() === new Date(Date.now()).toLocaleDateString()
+        span(class="flex-fill ms-1 tweet-time")= new Date(tweet.updatedAt).toLocaleTimeString()
       else 
-        span(class="flex-fill ms-1 tweet-time")= new Date(tweet.updatedAt).getHours() + '`' + new Date(tweet.updatedAt).getMinutes() + ' ' + new Date(tweet.updatedAt).toLocaleDateString()
+        span(class="flex-fill ms-1 tweet-time")= new Date(tweet.updatedAt).toLocaleTimeString() + ' ' + new Date(tweet.updatedAt).toLocaleDateString()
