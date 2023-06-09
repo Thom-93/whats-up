@@ -8,7 +8,7 @@ window.addEventListener('DOMContentLoaded', () => {
         input: 'email',
         inputPlaceholder: 'Enter your email address'
       }).then( result => {
-        const email = result.value;
+        const email = result.value.toLowerCase();
         if (email) {
           axios
           .post('/users/forgot-password', {

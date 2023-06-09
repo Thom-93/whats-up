@@ -7,7 +7,7 @@ exports.createUser = async (user) => {
     const newUser = new User({
       username: user.username,
       local: {
-        email: user.email,
+        email: user.email.toLowerCase(),
         password: hashedPassword,
         emailToken: uuidv4()
       }
