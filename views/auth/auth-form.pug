@@ -12,14 +12,14 @@ block content
           a(class="auth-a-link" href="/users/signup/form") Inscription  
         div(clas="card-body")
           div(class="form-group m-3")
-            label Email 
+            label Email :
             input(class="form-control" type="text" name="email")
           div(class="form-group m-3")
-            label Password 
+            label Password : 
             input(class="form-control" type="password" name="password")
             if error
             ul(class="my-2")
                 li(class="auth-error")= error 
           div(class="w-100 d-flex flex-row justify-content-between align-items-center")
             div(id="forgot" class="text-hint ps-1") forgot password ?
-            input(type="submit" value="connexion" class="btn btn-primary d-block m-1 float-end") 
+            input(type="submit" value="connexion" class="btn btn-primary d-block m-1 float-end btn-login") 
