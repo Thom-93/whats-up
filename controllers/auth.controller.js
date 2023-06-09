@@ -14,11 +14,10 @@ exports.signin = async (req, res, next) => {
         req.login(user);
         res.redirect('/');
       } else {
-      res.render('signin', { error: 'Wrong Password'});
+        res.render('auth/auth-form', { error: 'Wrong Password'});
       }
-
     } else {
-      res.render('signin', { error: 'User not found'});
+      res.render('auth/auth-form', { error: 'Email not found'});
     }
   } catch(e) {
     next(e);

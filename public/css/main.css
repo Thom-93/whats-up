@@ -213,6 +213,11 @@ body {
   text-shadow: #25bfaa 0em 0em 1em;
 }
 
+.auth-error {
+  list-style: none;
+  color: rgb(222, 0, 0);
+}
+
 /* AUTH  END */
 
 #tweet-list-container {

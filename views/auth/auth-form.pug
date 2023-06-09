@@ -17,10 +17,9 @@ block content
           div(class="form-group m-3")
             label Password 
             input(class="form-control" type="password" name="password")
-          if errors
+            if error
             ul(class="my-2")
-              each error in errors
-                li(class="text-danger")= error
+                li(class="auth-error")= error 
           div(class="w-100 d-flex flex-row justify-content-between align-items-center")
             div(id="forgot" class="text-hint ps-1") forgot password ?
             input(type="submit" value="connexion" class="btn btn-primary d-block m-1 float-end") 
