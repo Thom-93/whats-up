@@ -33,6 +33,15 @@ body {
   height: 7rem;
 }
 
+.div-profile-LFE {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-variant-caps: petite-caps;
+}
+
 
 .img-fluid {
   max-height: 100px;
@@ -260,6 +269,7 @@ body {
 
 .input-new-tweet {
   box-shadow: 1em 1em 1em #00000059;
+  resize: none;
 }
 
 /* TWEET END   */
