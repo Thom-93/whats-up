@@ -29,7 +29,7 @@ function bindTweet() {
     e.addEventListener('click', ($event) => {
       const tweetId = $event.target.getAttribute('tweetid')
       console.log(tweetId);
-      axios.delete('/tweets/'+ tweetId)
+      axios.delete('/letters/'+ tweetId)
            .then( function (response) {
             tweetContainer.innerHTML = response.data;
             bindTweet();

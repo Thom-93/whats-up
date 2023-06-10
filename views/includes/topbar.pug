@@ -2,14 +2,14 @@ if isAuthenticated
   script(src="/javascripts/topbar/search-bar.js")
   script(src="/javascripts/topbar/topbar.js")
   navbar(class="navbar navbar-expand-lg navbar-light" id="navbar-container")
-    a(class="navbar-brand" href="/tweets")
+    a(class="navbar-brand" href="/letters")
       img(class="ms-3 navbar-logo" width="40" height="40" src="/images/whats-up-logo.png" alt="twitter logo")
     div(class="navbar-collapse" id="navbar-content")
         form
         ul(class="navbar-nav")
           li(class="nav-item list-unstyled me-3")
-            a(class="btn btn-primary btn-tweet" href="/tweets/new") New Letter
-            a(class="btn btn-tweet-img" href="/tweets/new") 
+            a(class="btn btn-primary btn-tweet" href="/letters/new") New Letter
+            a(class="btn btn-tweet-img" href="/letters/new") 
               img( width="40" height="35" src="/images/topbar/new-letter.svg", alt="new letter")
         div(class="search-menu-div")
           input(type='text' class="form-control input-search" placeholder="user" id="search-input")
