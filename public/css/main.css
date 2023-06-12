@@ -272,6 +272,55 @@ body {
   resize: none;
 }
 
+#div-letter-secu {
+  visibility: hidden;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255,255,255, .80);
+  padding: 1em;
+  margin-top: 12em;
+  border-radius: 1em;
+  z-index: 10;
+  box-shadow: 0em 0em .5em .1em black;
+  background: linear-gradient(90deg, rgba(37, 150, 191, 0.657) 0%, rgba(37, 191, 170, 0.649) 37%, rgba(37, 191, 119, 0.69) 100%);
+}
+
+.ul-letter-secu {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2em;
+  list-style: none;
+  font-weight: bold;
+  font-variant-caps: petite-caps;
+}
+
+#secu-yes {
+  color: rgb(0, 170, 0);
+  cursor: pointer;
+}
+
+#secu-yes:hover {
+  text-shadow: 0em 0em .2em .1em black;
+}
+
+#secu-no {
+  color: rgb(194, 0, 0)!important;
+  cursor: pointer;
+}
+
+#secu-no:hover {
+  text-shadow: 0em 0em .2em .1em black;
+}
+
+div:has(> ul > li#secu-no:hover):hover {
+  background: linear-gradient(90deg, rgba(209,0,0,1) 0%, rgba(138,0,0,1) 59%, rgba(116,0,0,1) 97%);
+}
+
+div:has(> ul > li#secu-yes:hover):hover {
+  background: linear-gradient(90deg, rgba(17,101,0,1) 0%, rgba(33,138,0,1) 49%, rgba(56,255,0,1) 97%);
+}
+
 /* TWEET END   */
 
 
@@ -337,6 +386,10 @@ body {
 
   .btn-tweet-img {
     display: none;
+  }
+
+  #div-letter-secu {
+    margin: 14em auto auto 33em;
   }
 
 }
