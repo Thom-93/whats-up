@@ -37,7 +37,7 @@ exports.userProfile = async (req, res ,next) => {
     const username = req.params.username;
     const user = await findUserPerUsername(username);
     const tweets = await getUserTweetsFromAuthorId(user._id);
-    res.render('tweets/tweet', { 
+    res.render('letters/letter', { 
       tweets, 
       isAuthenticated: req.isAuthenticated(), 
       currentUser: req.user, 
