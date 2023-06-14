@@ -300,10 +300,6 @@ body {
   cursor: pointer;
 }
 
-#secu-yes:hover {
-  text-shadow: 0em 0em .2em .1em black;
-}
-
 #secu-no {
   color: rgb(194, 0, 0)!important;
   cursor: pointer;
@@ -377,11 +373,18 @@ body {
   }
 
   #div-letter-secu {
-    margin: 14em auto auto 33em;
+    margin: 14em auto auto 0em;
+    left: 50%;
   }
 
   #secu-no:hover {
     text-shadow: 0em 0em .2em .1em black;
+    transform: scale(1.5);
+  }
+
+  #secu-yes:hover {
+    text-shadow: 0em 0em .2em .1em black;
+    transform: scale(1.5);
   }
   
   div:has(> ul > li#secu-no:hover):hover {
