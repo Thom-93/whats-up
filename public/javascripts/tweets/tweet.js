@@ -6,32 +6,32 @@ window.addEventListener("DOMContentLoaded", () => {
 function tweetTime() {
   let timeSpan = document.querySelectorAll(".tweet-time");
   const timeZone = navigator.language;
+  const currentDate = new Date();
 
   timeSpan.forEach((e) => {
     const tweetTime = e.getAttribute("lettertime");
     const tweetDate = new Date(tweetTime);
 
+    const isSameDate = tweetDate.getDate() === currentDate.getDate();
+    const isSameYear = tweetDate.getFullYear() === currentDate.getFullYear();
+
     // verifie si le tweet est d'aujourd'hui ou d'hier ou d'une autre année
     const time =
-      tweetDate.getDate() !== new Date().getDate() &&
-      tweetDate.getFullYear() !== new Date().getFullYear()
-        ? tweetDate.toLocaleDateString(timeZone) +
-          " " +
-          tweetDate.toLocaleTimeString(
+      !isSameDate && !isSameYear
+        ? `${tweetDate.toLocaleDateString(timeZone)}
+          ${tweetDate.toLocaleTimeString(
             timeZone,
             (options = { hour: "2-digit", minute: "2-digit" })
-          )
-        : tweetDate.getDate() !== new Date().getDate() &&
-          tweetDate.getFullYear() == new Date().getFullYear()
-        ? tweetDate.toLocaleDateString(
+          )}`
+        : !isSameDate && isSameYear
+        ? `${tweetDate.toLocaleDateString(
             timeZone,
             (options = { month: "long", day: "numeric" })
-          ) +
-          " " +
-          tweetDate.toLocaleTimeString(
+          )}
+          ${tweetDate.toLocaleTimeString(
             timeZone,
             (options = { hour: "2-digit", minute: "2-digit" })
-          )
+          )}`
         : tweetDate.toLocaleTimeString(timeZone);
 
     e.innerHTML = `${time}`;
