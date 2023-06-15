@@ -246,7 +246,7 @@ body {
 .tweet-time {
   display: flex;
   justify-content: end;
-  font-variant: diagonal-fractions;
+  font-size: smaller;
   font-style: italic;
 }
 

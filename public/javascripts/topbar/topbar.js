@@ -1,4 +1,3 @@
-
 window.addEventListener('DOMContentLoaded', () => {
   const navbarContainer = document.querySelector("#navbar-container");
   const navbarContent = document.querySelector("#navbar-content");
@@ -15,4 +14,5 @@ window.addEventListener('DOMContentLoaded', () => {
 
   window.onscroll = () => {scrollFunction()};
 
-})
+
+});

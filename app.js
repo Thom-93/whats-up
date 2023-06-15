@@ -34,6 +34,4 @@ if (process.env.NODE_ENV === 'development') {
       message: code === 500 ? null : err.message
     });
   })
-}
-
-
+};
