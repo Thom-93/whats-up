@@ -3,29 +3,11 @@ const https = require('https');
 const http = require('http');
 const app = require('../app');
 const env = require(`../environment/${process.env.NODE_ENV}`);
-const io = require('@pm2/io');
-
-io.init({
-  metrics: {
-    network: {
-      ports: true
-    }
-  }
-});
-
-const currentReqs = io.counter({
-  name: 'Realtime request count',
-  id: 'app/realtime/requests'
-});
 
 
 
 const httpServer = http.createServer((req, res) => {
-  currentReqs.inc();
   res.writeHead(301, { Location: `https://${ req.headers.host.split(':')[0] + ':' + env.portHttps }${ req.url }`});
-  req.on('end', () => {
-    currentReqs.dec();
-  });
   res.end();
 }).listen(env.portHttp);
 
