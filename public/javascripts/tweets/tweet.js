@@ -4,11 +4,12 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 function tweetTime() {
-  let timeSpan = document.querySelectorAll(".tweet-time");
+  let timeSpan = document.getElementsByClassName("tweet-time");
   const timeZone = navigator.language;
   const currentDate = new Date();
 
-  timeSpan.forEach((e) => {
+  for (let i = 0; i < timeSpan.length; i++) {
+    const e = timeSpan[i];
     const tweetTime = e.getAttribute("lettertime");
     const tweetDate = new Date(tweetTime);
 
@@ -34,8 +35,8 @@ function tweetTime() {
           )}`
         : tweetDate.toLocaleTimeString(timeZone);
 
-    e.innerHTML = `${time}`;
-  });
+    e.innerHTML = time;
+  }
 }
 
 function bindTweet() {
