@@ -68,9 +68,8 @@ function bindTweet() {
     const deleteLetter = (letterId) => {
       axios
         .delete("/letters/" + letterId)
-        .then(function (response) {
-          tweetContainer.innerHTML = response.data;
-          bindTweet();
+        .then(function () {
+          location.reload();
         })
         .catch(function (err) {
           console.log(err);
