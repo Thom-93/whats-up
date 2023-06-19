@@ -105,3 +105,17 @@ exports.tweetUpdate = async (req, res, next) => {
     });
   }
 };
+
+exports.lastLetters = async (req, res, next) => {
+  try {
+    const tweets = await getTweets();
+    res.render("letters/letters-last", {
+      tweets,
+      isAuthenticated: req.isAuthenticated(),
+      currentUser: req.user,
+      editable: true,
+    });
+  } catch (e) {
+    next(e);
+  }
+};

@@ -225,15 +225,24 @@ body {
   text-shadow: 0.1em 0.1em 0.3em black;
 }
 
+.label-auth {
+  font-variant-caps: small-caps;
+}
+
 /* select parent of child */
 /* div:has(> a.active) {
 
 } */
 .btn-login {
   font-variant-caps: all-petite-caps;
+  &:focus {
+    transform: scale(0.8);
+    transition: transform 0.2s;
+  }
 }
 
-.auth-a-link.active {
+.auth-a-link.active,
+.auth-a-link:hover {
   text-decoration: underline;
 }
 
@@ -258,11 +267,18 @@ body {
   width: -webkit-fill-available;
 }
 
+#last-letters-container {
+  display: flex;
+  flex-direction: column;
+  flex: content;
+}
+
 .tweet-time {
   display: flex;
   justify-content: end;
   font-size: smaller;
   font-style: italic;
+  padding: 0px 5px 1px 0px;
 }
 
 .card-new-tweet {
@@ -344,6 +360,22 @@ body {
   transition: transform 0.2s;
 }
 
+.edit-letter-btn,
+.delete-letter-btn {
+  &:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s;
+  }
+}
+
+.link-user-letter {
+  text-decoration: none;
+  color: #1e1e1e;
+  &:hover {
+    color: #0b5ed7;
+  }
+}
+
 /* TWEET END   */
 
 @media screen and (min-width: 900px) {
@@ -382,6 +414,17 @@ body {
 
   .auth-form {
     width: 50% !important ;
+    animation-name: auth-size;
+    animation-duration: 2s;
+  }
+
+  @keyframes auth-size {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
   }
 
   .search-menu-div {

@@ -1,30 +1,36 @@
-const Tweet = require('../database/models/tweet.model');
+const Tweet = require("../database/models/tweet.model");
+
+exports.getTweet = (tweetId) => {
+  return Tweet.findOne({ _id: tweetId }).exec();
+};
 
 exports.getTweets = () => {
-  return Tweet.find({}).sort({ createdAt: 1 }).exec();
-}
+  return Tweet.find({}).populate("author").sort({ createdAt: -1 }).exec();
+};
 
 exports.createTweet = (tweet) => {
   const newTweet = new Tweet(tweet);
   return newTweet.save();
-}
+};
 
 exports.deleteTweet = (tweetId) => {
   return Tweet.findByIdAndDelete(tweetId).exec();
-}
-
-exports.getTweet = (tweetId) => {
-  return Tweet.findOne({ _id: tweetId }).exec();
-}
+};
 
 exports.updateTweet = (tweetId, tweet) => {
-  return Tweet.findByIdAndUpdate(tweetId, { $set: tweet }, { runValidators: true });
-}
+  return Tweet.findByIdAndUpdate(
+    tweetId,
+    { $set: tweet },
+    { runValidators: true }
+  );
+};
 
 exports.getCurrentUserTweetsWithFollowing = (user) => {
-  return Tweet.find({ author: { $in: [ ...user.following, user._id ] } }).populate('author').exec();
-}
+  return Tweet.find({ author: { $in: [...user.following, user._id] } })
+    .populate("author")
+    .exec();
+};
 
 exports.getUserTweetsFromAuthorId = (authorId) => {
-  return Tweet.find({ author: authorId}).populate('author').exec();
-}
+  return Tweet.find({ author: authorId }).populate("author").exec();
+};
