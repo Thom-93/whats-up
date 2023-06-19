@@ -339,6 +339,11 @@ body {
   cursor: pointer;
 }
 
+.btn-send:focus {
+  transform: scale(0.9);
+  transition: transform 0.2s;
+}
+
 /* TWEET END   */
 
 @media screen and (min-width: 900px) {
@@ -445,5 +450,25 @@ body {
       rgba(33, 138, 0, 1) 49%,
       rgba(56, 255, 0, 1) 97%
     );
+  }
+  /* Largeur de la scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Fond de la scrollbar */
+  ::-webkit-scrollbar-track {
+    background: rgb(37, 191, 119);
+  }
+
+  /* Style de la poignée de la scrollbar */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(37, 149, 191);
+    border-radius: 5px;
+  }
+
+  /* Au survol de la poignée de la scrollbar */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(37, 117, 191);
   }
 }
