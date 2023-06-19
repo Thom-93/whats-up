@@ -1,18 +1,19 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 
-const tweetSchema = schema({
-  content: { 
-    type: String, 
-    maxlength: [140, 'Tweet trop long'], 
-    minlength: [1, 'Tweet trop court'], 
-    required: [true, 'Champs requis']
+const tweetSchema = schema(
+  {
+    content: {
+      type: String,
+      maxlength: [140, "Lettre trop longue"],
+      minlength: [1, "Lettre trop court"],
+      required: [true, "Champs requis"],
+    },
+    author: { type: schema.Types.ObjectId, ref: "user", required: true },
   },
-  author: {type: schema.Types.ObjectId, ref: 'user', required: true },
-},
-{ timestamps: true }
+  { timestamps: true }
 );
 
-const Tweet = mongoose.model('tweet', tweetSchema);
+const Tweet = mongoose.model("tweet", tweetSchema);
 
 module.exports = Tweet;

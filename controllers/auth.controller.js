@@ -1,8 +1,12 @@
-const { findUserPerEmail } = require('../queries/users.queries');
+const { findUserPerEmail } = require("../queries/users.queries");
 
 exports.signinForm = (req, res, next) => {
-  res.render('auth/auth-form', { errors: null, isAuthenticated: req.isAuthenticated(), currentUser: req.user});
-}
+  res.render("auth/auth-form", {
+    errors: null,
+    isAuthenticated: req.isAuthenticated(),
+    currentUser: req.user,
+  });
+};
 
 exports.signin = async (req, res, next) => {
   try {
@@ -13,21 +17,21 @@ exports.signin = async (req, res, next) => {
         const match = await user.comparePassword(password);
         if (match) {
           req.login(user);
-          res.redirect('/');
+          res.redirect("/");
         } else {
-          res.render('auth/auth-form', { error: 'Wrong Password'});
+          res.render("auth/auth-form", { error: "Wrong Password" });
         }
       } else {
-        res.render('auth/auth-form', { error: 'Email not found'});
+        res.render("auth/auth-form", { error: "Email not found" });
       }
     } else {
-      res.render('auth/auth-form', { error: 'Wrong Email or Password'});
+      res.render("auth/auth-form", { error: "Wrong Email or Password" });
     }
-  } catch(e) {
+  } catch (e) {
     next(e);
   }
-}
+};
 exports.signout = (req, res, next) => {
   req.logout();
-  res.redirect('/auth/signin/form');
-}
+  res.redirect("/auth/signin/form");
+};
