@@ -211,6 +211,17 @@ body {
   width: 70%;
   background-color: rgba(255, 255, 255, 0.4);
   box-shadow: black 1px 2px 8px;
+  animation-name: auth-size;
+  animation-duration: 2s;
+}
+
+@keyframes auth-size {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 .auth-header {
@@ -414,17 +425,6 @@ body {
 
   .auth-form {
     width: 50% !important ;
-    animation-name: auth-size;
-    animation-duration: 2s;
-  }
-
-  @keyframes auth-size {
-    from {
-      transform: scale(0);
-    }
-    to {
-      transform: scale(1);
-    }
   }
 
   .search-menu-div {
