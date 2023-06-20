@@ -1,6 +1,7 @@
 window.addEventListener("DOMContentLoaded", () => {
   bindTweet();
   tweetTime();
+  replaceBannedWords();
 });
 
 function tweetTime() {
@@ -75,5 +76,83 @@ function bindTweet() {
           console.log(err);
         });
     };
+  }
+}
+
+function replaceBannedWords() {
+  const sendBtn = document.querySelector(".btn-send");
+  console.log(sendBtn);
+  if (sendBtn) {
+    sendBtn.addEventListener("click", () => {
+      console.log("click");
+      const textarea = document.querySelector(".input-new-tweet");
+      console.log(textarea);
+      const wordList = [
+        "fdp",
+        "connard",
+        "pute",
+        "con",
+        "pute",
+        "pouffe",
+        "pouf",
+        "poufiase",
+        "pouffy",
+        "poufyase",
+        "pouffyase",
+        "cul",
+        "enculé",
+        "en cule",
+        "ntm",
+        "nique ta mère",
+        "enfoiré",
+        "pédé",
+        "pd",
+        "salot",
+        "mbdtc",
+        "fu",
+        "fuck",
+        "fucker",
+        "facka",
+        "maddafacka",
+        "bitch",
+        "biatch",
+        "motherfucker",
+        "fum",
+        "ass",
+        "asshole",
+        "fucking",
+        "fils de pute",
+        "fdp",
+        "bite",
+        "fuckoff",
+        "fuq",
+        "fuqa",
+        "f u ck",
+        "f u",
+        "c u l",
+        "p d",
+        "p é d é",
+        "n t m",
+        "porn",
+        "porno",
+        "pr0n",
+        "p0rn",
+        "gang bang",
+        "cilit bang",
+        "hand job",
+        "blow job",
+        "ta geule",
+        "tg",
+        "ftg",
+      ]; // Liste de mots interdits à remplacer
+
+      const content = textarea.value;
+      const replacedContent = wordList.reduce((prevContent, word) => {
+        const regex = new RegExp(`\\b${word}\\b`, "gi");
+        return prevContent.replace(regex, "***"); // Remplacer les mots interdits par '***' ici
+      }, content);
+
+      textarea.value = replacedContent;
+    });
   }
 }
