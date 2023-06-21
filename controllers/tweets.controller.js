@@ -76,8 +76,10 @@ exports.tweetEdit = async (req, res, next) => {
   try {
     const tweetId = req.params.tweetId;
     const tweet = await getTweet(tweetId);
+    const tweets = await getCurrentUserTweetsWithFollowing(req.user);
     res.render("letters/letter-form", {
       tweet,
+      tweets,
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,
       user: req.user,
