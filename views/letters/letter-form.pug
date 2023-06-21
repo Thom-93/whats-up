@@ -3,7 +3,7 @@ extends ../layout
 block content 
   script(src="/javascripts/tweets/tweet.js")
   div(class="d-flex content mx-auto")
-    div(class="profile-container")
+    div
       include ../includes/profile
     div(class="flex-fill mt-5 new-tweet-container")
       form(class="card card-new-tweet" method="post" action= tweet._id ? "/letters/update/" + tweet._id : "/letters" )
