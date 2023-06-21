@@ -6,7 +6,7 @@ div(class="profile-container d-flex flex-column")
     input(type="file" name="avatar" class="d-none" id="input-avatar")
     img(src=user.avatar class="img-fluid profile-user-img" id="image-profile")
   div(class="d-flex flex-row justify-content-center align-items-center")
-    p= `${user.username}`
+    a(id="profile-container-username" href=(currentUser._id.toString() == user._id.toString() ? "/" : href="/users/" + user.username ))= `${user.username}`
   if currentUser._id.toString() !== user._id.toString()
     div(class="d-flex flex-row justify-content-center align-items-center")
       if currentUser.following.map( objId => objId.toString() ).includes(user._id.toString())

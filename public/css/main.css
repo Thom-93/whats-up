@@ -53,6 +53,12 @@ body {
   }
 }
 
+#profile-container-username {
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+}
+
 #input-avatar {
   min-width: 7em;
 }
