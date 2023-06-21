@@ -276,12 +276,31 @@ body {
 #tweet-list-container {
   margin-top: 1em;
   width: -webkit-fill-available;
+  animation-name: tweet-come-bottom;
+  animation-duration: 500ms;
 }
 
-#last-letters-container {
-  display: flex;
-  flex-direction: column;
-  flex: content;
+@keyframes tweet-come-bottom {
+  from {
+    transform: translateY(100em);
+  }
+  to {
+    transform: translateY(0em);
+  }
+}
+
+#h1-tweet-list-container {
+  animation-name: tweet-come-left;
+  animation-duration: 500ms;
+}
+
+@keyframes tweet-come-left {
+  from {
+    transform: translateX(-30em);
+  }
+  to {
+    transform: translateX(0em);
+  }
 }
 
 .tweet-time {
