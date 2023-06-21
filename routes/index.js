@@ -12,4 +12,8 @@ router.get("/", (req, res) => {
   res.redirect("/letters");
 });
 
+router.get("*", (req, res) => {
+  res.redirect("/letters");
+});
+
 module.exports = router;
