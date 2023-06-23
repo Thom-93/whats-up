@@ -41,15 +41,17 @@ function tweetTime() {
 
 function bindTweet() {
   const elements = document.querySelectorAll(".fa-trash-can");
-  const tweetContainer = document.querySelector("#tweet-list-container");
+  const tweetContainer =
+    document.querySelector("#tweet-list-container") ||
+    document.querySelector("#admin-tweet-list-container");
 
   const divSecu = document.querySelector("#div-letter-secu");
   const liSecuYes = document.querySelector("#secu-yes");
   const liSecuNo = document.querySelector("#secu-no");
-
   if (tweetContainer) {
     elements.forEach((e) => {
       e.addEventListener("click", ($event) => {
+        console.log("click");
         const tweetId = $event.target.getAttribute("tweetid");
         if (tweetId) {
           divSecu.style.visibility = "visible";

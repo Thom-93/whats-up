@@ -1,0 +1,22 @@
+if tweets 
+  each tweet in tweets
+    div(class="card tweet-element")
+      div(class="card-body d-flex flex-column")
+       div(class="d-flex flex-row align-items-center")
+        if tweet.author._id.toString() === currentUser._id.toString()
+          a(class="link-user-letter" href="/")
+            img(width="40" height="40" class="rounded-circle" src=tweet.author.avatar)
+        else
+          a(class="link-user-letter" href="/users/" + tweet.author.username) 
+            img(width="40" height="40" class="rounded-circle" src=tweet.author.avatar)
+        if tweet.author._id.toString() === currentUser._id.toString()
+          a(class="link-user-letter" href="/")
+            span(class="flex-fill ms-1 fw-bold")= tweet.author.username
+        else
+          a(class="link-user-letter" href="/users/" + tweet.author.username) 
+            span(class="flex-fill ms-1 fw-bold")= tweet.author.username
+        if editable
+          div(class="d-flex ms-auto")
+            i(class="fa-solid fa-trash-can text-danger pointer-cursor delete-letter-btn" tweetid=tweet._id)
+      div(class="ms-3 mb-3 div-tweet-content")= tweet.content
+      span(class="flex-fill ms-1 tweet-time" lettertime=tweet.updatedAt)

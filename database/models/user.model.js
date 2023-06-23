@@ -11,6 +11,7 @@ const userSchema = schema({
     password: { type: String, required: true },
     passwordToken: { type: String },
     passwordTokenExpiration: { type: Date },
+    admin: { type: Boolean, default: false },
   },
   avatar: { type: String, default: "/images/default-profile.svg" },
   following: { type: [schema.Types.ObjectId], ref: "user" },

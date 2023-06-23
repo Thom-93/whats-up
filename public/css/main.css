@@ -53,6 +53,17 @@ body {
   }
 }
 
+#image-admin-logo {
+  position: absolute;
+  width: 2em;
+  margin: 1em 0em 0em 1em;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s;
+  }
+}
+
 #profile-container-username {
   text-decoration: none;
   color: black;
@@ -425,7 +436,46 @@ body {
   }
 }
 
+.a-admin-user {
+  text-decoration: none;
+  color: #1e1e1e;
+  &:hover {
+    color: #0b5ed7;
+  }
+}
+
+.admin-user-item:hover {
+  color: #0b5ed7;
+}
+
 /* TWEET END   */
+/* ADMIN START   */
+
+#admin-content {
+}
+
+#admin-user-list-container {
+  margin-top: 1em;
+  width: 15em;
+  height: 30em;
+  overflow: auto;
+  background: white;
+  border-radius: 0.3em;
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
+    0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  background-color: rgba(255, 255, 255, 0.25);
+  margin: 1em;
+}
+
+#admin-tweet-list-container {
+  margin-top: 1em;
+  width: 50em;
+  height: 30em;
+  padding: 0.5em;
+  overflow: auto;
+}
+
+/* ADMIN END  */
 
 @media screen and (min-width: 900px) {
   .btn-send {

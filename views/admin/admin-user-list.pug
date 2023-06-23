@@ -1,0 +1,11 @@
+div(class="d-flex flex-column")
+  if users && users.length 
+    each user in users
+      div(class="d-flex flex-row align-items-center search-menu-item admin-user-item")
+        a(class="pointer-cursor a-admin-user" href="/users/" + user.username )
+          img(width="40" heigth="40" class="p-1 search-menu-item-img" src=user.avatar)
+          span(class="pl-3")= user.username
+        div(class="d-flex ms-auto")
+          i(class="fa-solid fa-trash-can text-danger pointer-cursor delete-letter-btn" userid=user._id)
+  else 
+    span(class="p-3") Aucun utilisateur
