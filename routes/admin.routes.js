@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const { ensureAuthenticated } = require("../config/guards.config");
 const {
   adminPanel,
   adminTweetDelete,
@@ -7,9 +6,9 @@ const {
 } = require("../controllers/admin.controller");
 const { tweetList } = require("../controllers/tweets.controller");
 
-router.get("/:userId", ensureAuthenticated, tweetList);
-router.get("/:userId/panel", ensureAuthenticated, adminPanel);
-router.delete("/:tweetId", ensureAuthenticated, adminTweetDelete);
-router.delete("/:userId", adminUserDelete);
+router.get("/:userId", tweetList);
+router.get("/:userId/panel", adminPanel);
+router.delete("/:tweetId", adminTweetDelete);
+router.delete("/users/:userId", adminUserDelete);
 
 module.exports = router;

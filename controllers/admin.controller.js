@@ -4,7 +4,7 @@ const {
   getTweet,
   getCurrentUserTweetsWithFollowing,
 } = require("../queries/tweet.queries");
-const { getAllUsers } = require("../queries/users.queries");
+const { getAllUsers, deleteUser } = require("../queries/users.queries");
 
 exports.adminPanel = async (req, res, next) => {
   try {
@@ -27,7 +27,7 @@ exports.adminTweetDelete = async (req, res, next) => {
   try {
     const tweetId = req.params.tweetId;
     await deleteTweet(tweetId);
-    res.redirect("admin/admin-panel");
+    res.sendStatus(204);
   } catch (e) {
     next(e);
   }
@@ -37,7 +37,7 @@ exports.adminUserDelete = async (req, res, next) => {
   try {
     const userId = req.params.userId;
     await deleteUser(userId);
-    res.redirect("admin/admin-panel");
+    res.sendStatus(204);
   } catch (e) {
     next(e);
   }

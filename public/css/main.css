@@ -377,14 +377,16 @@ body {
   list-style: none;
 }
 
-#div-letter-secu {
-  visibility: hidden;
+#div-delete-secu {
+  display: none;
+  width: 90%;
   position: fixed;
-  display: flex;
   flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: rgba(255, 255, 255, 0.8);
   padding: 1em;
-  margin-top: 12em;
   border-radius: 1em;
   z-index: 10;
   box-shadow: 0em 0em 0.5em 0.1em black;
@@ -396,7 +398,47 @@ body {
   );
 }
 
-.ul-letter-secu {
+#div-delete-sucess {
+  display: none;
+  position: fixed;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 1em;
+  margin-top: 12em;
+  margin-left: 1em;
+  border-radius: 1em;
+  z-index: 10;
+  box-shadow: 0em 0em 0.5em 0.1em rgb(37, 212, 37);
+  background: linear-gradient(
+    90deg,
+    rgba(37, 150, 191, 0.657) 0%,
+    rgba(37, 191, 170, 0.649) 37%,
+    rgba(37, 191, 119, 0.69) 100%
+  );
+  &.active-sucess {
+    animation-name: delete-sucess;
+    animation-duration: 10s;
+  }
+}
+
+@keyframes delete-sucess {
+  0% {
+    transform: translateX(-30em);
+  }
+  5% {
+    transform: translateX(1em);
+  }
+  90% {
+    transform: translateX(-30em);
+  }
+}
+
+.span-delete-sucess {
+  color: rgb(75, 253, 75);
+  font-variant: small-caps;
+}
+
+.ul-delete-secu {
   display: flex;
   justify-content: space-around;
   margin-top: 2em;
@@ -450,8 +492,17 @@ body {
 
 /* TWEET END   */
 /* ADMIN START   */
+#admin-panel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1em;
+  width: -webkit-fill-available;
+}
 
 #admin-content {
+  display: flex;
+  flex-direction: column;
 }
 
 #admin-user-list-container {
@@ -469,8 +520,8 @@ body {
 
 #admin-tweet-list-container {
   margin-top: 1em;
-  width: 50em;
-  height: 30em;
+  margin-bottom: 2em;
+  height: 40em;
   padding: 0.5em;
   overflow: auto;
 }
@@ -478,6 +529,15 @@ body {
 /* ADMIN END  */
 
 @media screen and (min-width: 900px) {
+  #admin-content {
+    flex-direction: row;
+  }
+
+  #admin-tweet-list-container {
+    width: 50em;
+    height: 30em;
+  }
+
   .btn-send {
     font-variant-caps: all-petite-caps;
   }
@@ -550,9 +610,8 @@ body {
     display: none;
   }
 
-  #div-letter-secu {
-    margin: 14em auto auto 0em;
-    left: 50%;
+  #div-delete-secu {
+    width: 20%;
   }
 
   #secu-no:hover {

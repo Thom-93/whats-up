@@ -6,6 +6,7 @@ const {
   addUserIdToCurrentUserFollowing,
   removeUserIdToCurrentUserFollowing,
   findUserPerEmail,
+  deleteUser,
 } = require("../queries/users.queries");
 const { getUserTweetsFromAuthorId } = require("../queries/tweet.queries");
 const path = require("path");
@@ -206,6 +207,16 @@ exports.resetPassword = async (req, res, next) => {
         isAuthenticated: false,
       });
     }
+  } catch (e) {
+    next(e);
+  }
+};
+
+exports.userDelete = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    await deleteUser(userId);
+    res.redirect("/");
   } catch (e) {
     next(e);
   }

@@ -45,23 +45,22 @@ function bindTweet() {
     document.querySelector("#tweet-list-container") ||
     document.querySelector("#admin-tweet-list-container");
 
-  const divSecu = document.querySelector("#div-letter-secu");
+  const divSecu = document.querySelector("#div-delete-secu");
   const liSecuYes = document.querySelector("#secu-yes");
   const liSecuNo = document.querySelector("#secu-no");
   if (tweetContainer) {
     elements.forEach((e) => {
       e.addEventListener("click", ($event) => {
-        console.log("click");
         const tweetId = $event.target.getAttribute("tweetid");
         if (tweetId) {
-          divSecu.style.visibility = "visible";
+          divSecu.style.display = "flex";
           liSecuYes.addEventListener("click", () => {
             deleteLetter(tweetId);
-            divSecu.style.visibility = "hidden";
+            divSecu.style.display = "none";
           });
 
           liSecuNo.addEventListener("click", () => {
-            divSecu.style.visibility = "hidden";
+            divSecu.style.display = "none";
           });
         }
       });
