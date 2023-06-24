@@ -46,8 +46,10 @@ function bindTweet() {
     document.querySelector("#admin-tweet-list-container");
 
   const divSecu = document.querySelector("#div-delete-secu");
+  const divSucess = document.querySelector("#div-delete-sucess");
   const liSecuYes = document.querySelector("#secu-yes");
   const liSecuNo = document.querySelector("#secu-no");
+
   if (tweetContainer) {
     elements.forEach((e) => {
       e.addEventListener("click", ($event) => {
@@ -66,11 +68,25 @@ function bindTweet() {
       });
     });
 
-    const deleteLetter = (letterId) => {
+    const deleteLetter = (tweetId) => {
       axios
-        .delete("/letters/" + letterId)
+        .delete("/letters/" + tweetId)
         .then(function () {
-          location.reload();
+          divSucess.classList.add("active-sucess");
+          divSucess.style.display = "block";
+          const tweetToDelete = document.querySelector(
+            `i[tweetid="${tweetId}"]`
+          );
+          if (tweetToDelete) {
+            const tweetElement = tweetToDelete.closest(".tweet-element");
+            if (tweetElement) {
+              tweetElement.remove(); // Supprimer l'élément tweet
+              setTimeout(() => {
+                divSucess.classList.remove("active-sucess");
+                divSucess.style.display = "none";
+              }, 4000);
+            }
+          }
         })
         .catch(function (err) {
           console.log(err);

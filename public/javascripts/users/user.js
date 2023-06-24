@@ -37,13 +37,10 @@ function bindUser() {
         divSucess.classList.add("active-sucess");
         divSucess.style.display = "block";
         const userToDelete = document.querySelector(`i[userid="${userId}"]`);
-        console.log(userToDelete, "userToDelete");
         if (userToDelete) {
           const userElement = userToDelete.closest(".admin-user-item");
-          console.log(userElement, "userElement");
           if (userElement) {
             userElement.remove(); // Supprimer l'élément utilisateur
-            console.log("User deleted");
             setTimeout(() => {
               divSucess.classList.remove("active-sucess");
               divSucess.style.display = "none";
