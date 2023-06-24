@@ -8,7 +8,7 @@ const { getAllUsers } = require("../queries/users.queries");
 
 exports.adminPanel = async (req, res, next) => {
   try {
-    const tweets = await getCurrentUserTweetsWithFollowing(req.user);
+    const tweets = await getTweets();
     const users = await getAllUsers();
     res.render("admin/admin-panel", {
       tweets,

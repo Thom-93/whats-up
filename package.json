@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@emailjs/nodejs": "^2.2.0",
-    "bcrypt": "^5.1.0",
+    "bcrypt": "^5.0.1",
     "connect-mongo": "^3.2.0",
     "cookie-parser": "^1.4.6",
     "errorhandler": "^1.5.1",
@@ -25,7 +25,7 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.3",
     "nodemailer-sparkpost-transport": "^2.2.0",
-    "nodemon": "^2.0.21",
+    "nodemon": "^1.14.9",
     "pug": "^3.0.2",
     "uuid": "^9.0.0"
   }
