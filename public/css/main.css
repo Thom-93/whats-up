@@ -74,6 +74,15 @@ body {
   min-width: 7em;
 }
 
+#div-delete-profile-btn {
+  display: flex;
+  margin-top: 1em;
+  margin-right: 1em;
+  & #delete-profile-btn {
+    cursor: pointer;
+  }
+}
+
 .profile-user-img {
   border-radius: 100%;
   width: 7rem;
@@ -463,7 +472,8 @@ body {
 }
 
 .edit-letter-btn,
-.delete-letter-btn {
+.delete-letter-btn,
+#delete-profile-btn {
   &:hover {
     transform: scale(1.2);
     transition: transform 0.2s;

@@ -216,7 +216,18 @@ exports.userDelete = async (req, res, next) => {
   try {
     const userId = req.params.userId;
     await deleteUser(userId);
-    res.redirect("/");
+    res.sendStatus(204);
+  } catch (e) {
+    next(e);
+  }
+};
+
+exports.profileDelete = async (req, res, next) => {
+  try {
+    const profileId = req.params.userId;
+    await deleteUser(profileId);
+    req.logout();
+    res.sendStatus(204);
   } catch (e) {
     next(e);
   }

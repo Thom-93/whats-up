@@ -1,11 +1,14 @@
 if currentUser._id.toString() == user._id.toString()
   script(src="/javascripts/profile.js")
+  script(src="/javascripts/users/delete-user.js")
 else
 div(class="profile-container d-flex flex-column")
   if currentUser.local.admin
     a(href=`admin/${currentUser._id}/panel` id="a-image-admin-logo") 
       img(src="/images/admin-logo.svg", alt="logo-admin" id="image-admin-logo")
   else 
+  div(class="ms-auto" id="div-delete-profile-btn")
+    i(class="fa-solid fa-trash-can text-danger" id="delete-profile-btn" profileid=currentUser._id)
   form(id="form-container" action="/users/update/image" method="post" enctype='multipart/form-data') 
     input(type="file" name="avatar" class="d-none" id="input-avatar")
     img(src=user.avatar class="img-fluid profile-user-img" id="image-profile")

@@ -12,6 +12,7 @@ const {
   initResetPassword,
   resetPasswordForm,
   resetPassword,
+  profileDelete,
 } = require("../controllers/users.controller");
 
 router.get("/", userList);
@@ -25,5 +26,6 @@ router.get("/email-verification/:userId/:token", emailLinkVerification);
 router.post("/forgot-password", initResetPassword);
 router.get("/reset-password/:userId/:token", resetPasswordForm);
 router.post("/reset-password/:userId/:token", resetPassword);
+router.delete("/:userId", profileDelete);
 
 module.exports = router;
