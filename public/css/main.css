@@ -80,6 +80,11 @@ body {
   margin-right: 1em;
   & #delete-profile-btn {
     cursor: pointer;
+    & .delete-profile-btn-img {
+      width: 2em;
+      height: 2em;
+      margin-right: 0.5em;
+    }
   }
 }
 

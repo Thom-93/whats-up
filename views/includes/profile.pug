@@ -9,7 +9,8 @@ div(class="profile-container d-flex flex-column")
   else 
   if currentUser._id.toString() == user._id.toString()
     div(class="ms-auto" id="div-delete-profile-btn")
-      i(class="fa-solid fa-trash-can text-danger" id="delete-profile-btn" profileid=currentUser._id)
+      i(class="fa-solid text-danger" id="delete-profile-btn" profileid=currentUser._id)
+        img(class="delete-profile-btn-img" src="/images/profile-delete.svg", alt="profile-delete")
   else
   form(id="form-container" action="/users/update/image" method="post" enctype='multipart/form-data') 
     input(type="file" name="avatar" class="d-none" id="input-avatar")
