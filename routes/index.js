@@ -6,7 +6,7 @@ const auth = require("./auth.routes");
 const admin = require("./admin.routes");
 
 router.use("/letters", ensureAuthenticated, tweets);
-router.use("/users", ensureAuthenticated, users);
+router.use("/users", users);
 router.use("/auth", auth);
 router.use("/admin", ensureAuthenticated, admin);
 
