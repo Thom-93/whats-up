@@ -5,11 +5,15 @@ block content
   script(src="/javascripts/users/user.js")
   div(id="admin-panel-container")
     H1(class="text-center") Administration
-    div
-      div 
-        p= "user connecter"
-      div 
-        p= "user inscrit"
+    div(id="admin-panel-info")
+      div(class="admin-panel-info-nbr-user")
+        strong user connecter
+        br
+        p(class="effet-3d")= 0
+      div(class="admin-panel-info-nbr-user") 
+        strong user inscrit
+        br
+        p(class="effet-3d")= numberOfUsers
     div(id="admin-content")
       div
         h3(class="text-center") Liste des utilisateurs

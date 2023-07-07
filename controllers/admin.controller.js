@@ -10,17 +10,23 @@ exports.adminPanel = async (req, res, next) => {
   try {
     const tweets = await getTweets();
     const users = await getAllUsers();
-    if (!tweets || !users) {
+    if (tweets && users) {
+      let numberOfUsers = 0;
+      users.forEach((user) => {
+        numberOfUsers++;
+      });
+      res.render("admin/admin-panel", {
+        numberOfUsers,
+        tweets,
+        users,
+        isAuthenticated: req.isAuthenticated(),
+        currentUser: req.user,
+        user: req.user,
+        editable: true,
+      });
+    } else {
       return res.status(400).json("No tweets or users found");
     }
-    res.render("admin/admin-panel", {
-      tweets,
-      users,
-      isAuthenticated: req.isAuthenticated(),
-      currentUser: req.user,
-      user: req.user,
-      editable: true,
-    });
   } catch (e) {
     next(e);
   }
