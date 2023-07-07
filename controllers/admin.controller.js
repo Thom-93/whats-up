@@ -10,6 +10,9 @@ exports.adminPanel = async (req, res, next) => {
   try {
     const tweets = await getTweets();
     const users = await getAllUsers();
+    if (!tweets || !users) {
+      return res.status(400).json("No tweets or users found");
+    }
     res.render("admin/admin-panel", {
       tweets,
       users,
@@ -26,8 +29,12 @@ exports.adminPanel = async (req, res, next) => {
 exports.adminTweetDelete = async (req, res, next) => {
   try {
     const tweetId = req.params.tweetId;
-    await deleteTweet(tweetId);
-    res.sendStatus(204);
+    if (tweetId) {
+      await deleteTweet(tweetId);
+      res.sendStatus(204);
+    } else {
+      return res.status(400).json("Tweet not found");
+    }
   } catch (e) {
     next(e);
   }
@@ -36,8 +43,12 @@ exports.adminTweetDelete = async (req, res, next) => {
 exports.adminUserDelete = async (req, res, next) => {
   try {
     const userId = req.params.userId;
-    await deleteUser(userId);
-    res.sendStatus(204);
+    if (userId) {
+      await deleteUser(userId);
+      res.sendStatus(204);
+    } else {
+      return res.status(400).json("User not found");
+    }
   } catch (e) {
     next(e);
   }

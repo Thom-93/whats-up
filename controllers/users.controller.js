@@ -215,8 +215,12 @@ exports.resetPassword = async (req, res, next) => {
 exports.userDelete = async (req, res, next) => {
   try {
     const userId = req.params.userId;
-    await deleteUser(userId);
-    res.sendStatus(204);
+    if (userId) {
+      await deleteUser(userId);
+      res.sendStatus(204);
+    } else {
+      return res.status(400).json("User not found");
+    }
   } catch (e) {
     next(e);
   }
@@ -225,9 +229,13 @@ exports.userDelete = async (req, res, next) => {
 exports.profileDelete = async (req, res, next) => {
   try {
     const profileId = req.params.userId;
-    await deleteUser(profileId);
-    req.logout();
-    res.sendStatus(204);
+    if (profileId) {
+      await deleteUser(profileId);
+      req.logout();
+      res.sendStatus(204);
+    } else {
+      return res.status(400).json("Profile not found");
+    }
   } catch (e) {
     next(e);
   }
