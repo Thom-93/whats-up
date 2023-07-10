@@ -3,7 +3,7 @@ if currentUser._id.toString() == user._id.toString()
   script(src="/javascripts/users/delete-user.js")
 else
 div(class="profile-container d-flex flex-column")
-  if currentUser.local.admin
+  if currentUser.local.admin && currentUser._id.toString() == user._id.toString()
     a(href=`admin/${currentUser._id}/panel` id="a-image-admin-logo") 
       img(src="/images/admin-logo.svg", alt="logo-admin" id="image-admin-logo")
   else 
