@@ -4,6 +4,7 @@ block content
   script(src="/javascripts/tweets/tweet.js")
   div(class="d-flex content mx-auto flex-column")
     H1(class="fw-bold" id="h1-tweet-list-container") Last letters...
+    include ../letters/letter-form
     div(class="d-flex flex-fill flex-column" id="tweet-list-container")
       if tweets 
         each tweet in tweets

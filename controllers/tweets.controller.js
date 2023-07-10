@@ -22,26 +22,11 @@ exports.tweetList = async (req, res, next) => {
   }
 };
 
-exports.tweetNew = async (req, res, next) => {
-  try {
-    const tweets = await getCurrentUserTweetsWithFollowing(req.user);
-    res.render("letters/letter-form", {
-      tweets,
-      tweet: {},
-      isAuthenticated: req.isAuthenticated(),
-      currentUser: req.user,
-      user: req.user,
-    });
-  } catch (e) {
-    next(e);
-  }
-};
-
 exports.tweetCreate = async (req, res, next) => {
   try {
     const body = req.body;
     await createTweet({ ...body, author: req.user._id });
-    res.redirect("/letters");
+    res.redirect("/letters/letters-last");
   } catch (e) {
     const tweets = await getCurrentUserTweetsWithFollowing(req.user);
     const errors = Object.keys(e.errors).map((key) => e.errors[key].message);
@@ -76,8 +61,8 @@ exports.tweetEdit = async (req, res, next) => {
   try {
     const tweetId = req.params.tweetId;
     const tweet = await getTweet(tweetId);
-    const tweets = await getCurrentUserTweetsWithFollowing(req.user);
-    res.render("letters/letter-form", {
+    const tweets = await getTweets();
+    res.render("letters/letters-last", {
       tweet,
       tweets,
       isAuthenticated: req.isAuthenticated(),
@@ -93,8 +78,12 @@ exports.tweetUpdate = async (req, res, next) => {
   const tweetId = req.params.tweetId;
   try {
     const body = req.body;
-    await updateTweet(tweetId, body);
-    res.redirect("/letters");
+    if (body) {
+      await updateTweet(tweetId, body);
+      res.redirect("/letters/letters-last");
+    } else {
+      throw new Error("Une erreur est survenue veuillez réessayer plus tard");
+    }
   } catch (e) {
     const errors = Object.keys(e.errors).map((key) => e.errors[key].message);
     const tweet = await getTweet(tweetId);
@@ -113,6 +102,7 @@ exports.lastLetters = async (req, res, next) => {
     const tweets = await getTweets();
     res.render("letters/letters-last", {
       tweets,
+      tweet: {},
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,
       editable: true,
