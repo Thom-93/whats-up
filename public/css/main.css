@@ -140,6 +140,7 @@ body {
 .navbar-collapse {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .logout-btn {
@@ -170,12 +171,6 @@ body {
 
 .show-logout-btn {
   display: block;
-}
-
-@media (min-width: 768px) {
-  .padding-bottom {
-    padding-bottom: 0.5em;
-  }
 }
 
 /* Navbar End */
@@ -735,6 +730,11 @@ body {
       rgba(56, 255, 0, 1) 97%
     );
   }
+
+  .padding-bottom {
+    padding-bottom: 0.5em;
+  }
+
   /* Largeur de la scrollbar */
   ::-webkit-scrollbar {
     width: 10px;
