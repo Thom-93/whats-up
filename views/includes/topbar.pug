@@ -15,6 +15,9 @@ if isAuthenticated
           input(type='text' class="form-control input-search" placeholder="user" id="search-input")
           div(id="search-menu-container")
         ul(class="navbar-nav ul-logout")
+          li(class="nav-item list-unstyled navbar-profile-container")
+            a(class="nav-link a-profile-img" href="/users/" + currentUser.username) 
+              img(src=currentUser.avatar class="img-fluid profile-user-img" id="image-profile-navbar")
           li(class="nav-item list-unstyled")
             a(class="nav-link logout-btn" href="/auth/signout") Déconnexion
             a(class="nav-link a-logout-img" href="/auth/signout") 
