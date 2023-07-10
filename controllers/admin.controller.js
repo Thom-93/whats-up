@@ -12,11 +12,16 @@ exports.adminPanel = async (req, res, next) => {
     const users = await getAllUsers();
     if (tweets && users) {
       let numberOfUsers = 0;
-      users.forEach((user) => {
+      users.forEach(() => {
         numberOfUsers++;
+      });
+      let numberOfLetters = 0;
+      tweets.forEach(() => {
+        numberOfLetters++;
       });
       res.render("admin/admin-panel", {
         numberOfUsers,
+        numberOfLetters,
         tweets,
         users,
         isAuthenticated: req.isAuthenticated(),
