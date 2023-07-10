@@ -130,7 +130,7 @@ body {
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
   background-color: rgba(255, 255, 255, 0.25);
   justify-content: center;
-  z-index: 2;
+  z-index: 10;
 }
 
 .navbar-logo {
@@ -154,6 +154,28 @@ body {
 .btn-tweet {
   display: none;
   font-variant-caps: all-petite-caps;
+}
+
+.fixed-navbar {
+  position: fixed;
+}
+
+.padding-bottom {
+  padding-bottom: 3.5em;
+}
+
+.show-btn-tweet {
+  display: block;
+}
+
+.show-logout-btn {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .padding-bottom {
+    padding-bottom: 0.5em;
+  }
 }
 
 /* Navbar End */

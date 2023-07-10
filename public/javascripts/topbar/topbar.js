@@ -7,11 +7,15 @@ window.addEventListener("DOMContentLoaded", () => {
       document.body.scrollTop > 50 ||
       document.documentElement.scrollTop > 50
     ) {
-      navbarContent.style.position = "fixed";
-      navbarContainer.style.paddingBottom = "3.5em";
+      navbarContent.classList.add("fixed-navbar");
+      navbarContainer.classList.add("padding-bottom");
+      btnTweet.classList.add("show-btn-tweet");
+      logoutBtn.classList.add("show-logout-btn");
     } else {
-      navbarContent.style.position = "inherit";
-      navbarContainer.style.paddingBottom = "0.5em";
+      navbarContent.classList.remove("fixed-navbar");
+      navbarContainer.classList.remove("padding-bottom");
+      btnTweet.classList.remove("show-btn-tweet");
+      logoutBtn.classList.remove("show-logout-btn");
     }
   };
 
