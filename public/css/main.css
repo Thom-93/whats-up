@@ -413,6 +413,7 @@ body {
 .input-new-tweet {
   box-shadow: 1em 1em 1em #00000059;
   resize: none;
+  background-color: rgba(255, 255, 255, 0.6);
   &.error {
     border: 2px solid rgba(255, 0, 0, 0.671);
   }
@@ -507,6 +508,10 @@ body {
 .btn-send:focus {
   transform: scale(0.9);
   transition: transform 0.2s;
+}
+
+.btn-send {
+  font-variant-caps: all-petite-caps;
 }
 
 .edit-letter-btn,
@@ -643,10 +648,6 @@ body {
     width: 100%;
   }
 
-  .btn-send {
-    font-variant-caps: all-petite-caps;
-  }
-
   .logout-btn:hover {
     color: rgb(194, 0, 0) !important;
   }
@@ -660,7 +661,6 @@ body {
   .form-control.input-new-tweet {
     width: 90%;
     height: 6em;
-    background-color: rgba(255, 255, 255, 0.8);
   }
 
   .profile-container {
