@@ -1,6 +1,8 @@
 if isAuthenticated
   script(src="/javascripts/topbar/search-bar.js")
   script(src="/javascripts/topbar/topbar.js")
+  script(src="/javascripts/socket-io/socket.js")
+  script(src="/javascripts/socket-io/index.js")
   navbar(class="navbar navbar-expand-lg navbar-light" id="navbar-container")
     a(class="navbar-brand" href="/letters/letters-last")
       img(class="ms-3 navbar-logo" width="40" height="40" src="/images/whats-up-logo.png" alt="twitter logo")
@@ -16,9 +18,9 @@ if isAuthenticated
           div(id="search-menu-container")
         ul(class="navbar-nav ul-logout")
           li(class="nav-item list-unstyled navbar-profile-container")
-            a(class="nav-link a-profile-img" href="/users/" + currentUser.username) 
+            a(class="nav-link a-profile-img" href="/letters") 
               img(src=currentUser.avatar class="img-fluid profile-user-img" id="image-profile-navbar")
           li(class="nav-item list-unstyled")
-            a(class="nav-link logout-btn" href="/auth/signout") Déconnexion
+            a(class="nav-link logout-btn" href="/auth/signout" id="btn-logout") Déconnexion
             a(class="nav-link a-logout-img" href="/auth/signout") 
               img(class="logout-img" width="40" height="30" src="/images/topbar/logout.svg", alt="Déconnexion")

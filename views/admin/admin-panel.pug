@@ -3,13 +3,14 @@ extends ../layout
 block content
   script(src="/javascripts/tweets/tweet.js")
   script(src="/javascripts/users/user.js")
+  script(src="/javascripts/socket-io/socket-display.js")
   div(id="admin-panel-container")
     H1(class="text-center") Administration
     div(id="admin-panel-info")
       div(class="admin-panel-info-nbr-user")
         strong user connecter
         br
-        p(class="effet-3d")= 0
+        p(class="effet-3d" id="user-log-number")= 0
       div(class="admin-panel-info-nbr-user") 
         strong user inscrit
         br

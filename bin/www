@@ -3,6 +3,7 @@ const https = require("https");
 const http = require("http");
 const app = require("../app");
 const env = require(`../environment/${process.env.NODE_ENV}`);
+const { initSocketServer } = require("../config/socket.config.js");
 
 const httpServer = http
   .createServer((req, res) => {
@@ -24,3 +25,7 @@ const httpsServer = https
     app
   )
   .listen(env.portHttps);
+
+initSocketServer(httpsServer);
+
+module.exports = { httpsServer };
