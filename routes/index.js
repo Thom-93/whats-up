@@ -8,7 +8,7 @@ const admin = require("./admin.routes");
 router.use("/letters", ensureAuthenticated, tweets);
 router.use("/users", users);
 router.use("/auth", auth);
-router.use("/admin", ensureAuthenticated, admin);
+router.use("/admin", admin);
 
 router.get("/", (req, res) => {
   res.redirect("/letters");

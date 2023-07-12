@@ -30,7 +30,7 @@ exports.tweetCreate = async (req, res, next) => {
   } catch (e) {
     const tweets = await getCurrentUserTweetsWithFollowing(req.user);
     const errors = Object.keys(e.errors).map((key) => e.errors[key].message);
-    res.status(400).render("letters/letter-form", {
+    res.status(400).render("letters/letters-last", {
       errors,
       tweets,
       tweet: {},
@@ -87,7 +87,7 @@ exports.tweetUpdate = async (req, res, next) => {
   } catch (e) {
     const errors = Object.keys(e.errors).map((key) => e.errors[key].message);
     const tweet = await getTweet(tweetId);
-    res.status(400).render("letters/letter-form", {
+    res.status(400).render("letters/letters-last", {
       errors,
       tweet,
       isAuthenticated: req.isAuthenticated(),
