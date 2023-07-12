@@ -88,8 +88,6 @@ exports.uploadImage = [
   async (req, res, next) => {
     try {
       const user = req.user;
-      console.log(req.user);
-      console.log(`chemin de l'image :${req.file.filename}`);
       user.avatar = `/images/avatars/${req.file.filename}`;
       await user.save();
       res.redirect("/");
