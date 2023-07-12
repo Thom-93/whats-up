@@ -7,5 +7,4 @@ const ioClient = io({
 
 ioClient.on("connect", () => {
   console.log("connexion client ok !");
-  localStorage.setItem("socketId", ioClient.id);
 });

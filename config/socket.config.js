@@ -10,13 +10,9 @@ const initSocketServer = (server) => {
   });
   console.log("init socket server ok");
   io.on("connect", (socket) => {
-    connectedUsers++;
     console.log("connexion ios ok");
-    io.emit("userConnected", connectedUsers);
   });
   io.on("close", (socket) => {
-    connectedUsers--;
-    io.emit("userDisconnected", connectedUsers);
     socket.disconnect(true);
   });
 };
