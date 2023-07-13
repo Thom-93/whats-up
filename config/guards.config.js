@@ -35,6 +35,18 @@ exports.ensureAuthenticated = (req, res, next) => {
   }
 };
 
+exports.ensureIsAdmin = async (req, res, next) => {
+  try {
+    if (req.user.local.admin) {
+      next();
+    } else {
+      res.redirect("/");
+    }
+  } catch (e) {
+    next(e);
+  }
+};
+
 exports.ensureAuthenticatedOnSocketHandshake = async (request, success) => {
   try {
     const cookies = cookieParser.parse(request.headers.cookie || "");

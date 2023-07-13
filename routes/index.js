@@ -1,5 +1,8 @@
 const router = require("express").Router();
-const { ensureAuthenticated } = require("../config/guards.config");
+const {
+  ensureAuthenticated,
+  ensureIsAdmin,
+} = require("../config/guards.config");
 const tweets = require("./letters.routes");
 const users = require("./users.routes");
 const auth = require("./auth.routes");
@@ -8,7 +11,7 @@ const admin = require("./admin.routes");
 router.use("/letters", ensureAuthenticated, tweets);
 router.use("/users", users);
 router.use("/auth", auth);
-router.use("/admin", admin);
+router.use("/admin", ensureIsAdmin, admin);
 
 router.get("/", (req, res) => {
   res.redirect("/letters");
