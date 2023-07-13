@@ -2,7 +2,6 @@ script(src="/javascripts/tweets/tweet.js")
 script.
   function onSubmit(token) {
     document.getElementById("letter-form").submit();
-    console.log("submit");
   }
 div(class="flex-fill new-tweet-container")
   form(id="letter-form" class="card card-new-tweet" method="post" action= tweet._id ? "/letters/update/" + tweet._id : "/letters" )

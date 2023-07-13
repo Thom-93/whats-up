@@ -32,7 +32,3 @@ window.addEventListener("DOMContentLoaded", () => {
   }
   // Connexion End
 });
-
-function onSubmit(token) {
-  document.getElementById("form-auth").submit();
-}
