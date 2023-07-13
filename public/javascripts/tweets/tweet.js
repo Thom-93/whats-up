@@ -10,7 +10,12 @@ function tweetTime() {
 
   for (let i = 0; i < timeSpan.length; i++) {
     const e = timeSpan[i];
-    const tweetTime = e.getAttribute("lettertime");
+    const tweetCreateTime = e.getAttribute("lettercreatetime");
+    const tweetUpTime = e.getAttribute("letteruptime");
+
+    const tweetTime =
+      tweetUpTime === tweetCreateTime ? tweetCreateTime : tweetUpTime;
+
     const tweetDate = new Date(tweetTime);
 
     const isSameDate = tweetDate.getDate() === currentDate.getDate();
@@ -35,7 +40,10 @@ function tweetTime() {
           )}`
         : tweetDate.toLocaleTimeString(timeZone);
 
-    e.innerHTML = time;
+    e.innerHTML =
+      tweetUpTime === tweetCreateTime
+        ? "Publié le " + time
+        : "Modifié le " + time;
   }
 }
 

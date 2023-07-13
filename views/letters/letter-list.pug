@@ -20,4 +20,5 @@ if tweets
             a(class="fa-solid fa-pen-to-square pe-2 text-success edit-letter-btn" href='/letters/edit/' + tweet._id)
             i(class="fa-solid fa-trash-can text-danger pointer-cursor delete-letter-btn" tweetid=tweet._id)
       div(class="ms-3 mb-3 div-tweet-content")= tweet.content
-      span(class="flex-fill ms-1 tweet-time" lettertime=tweet.updatedAt)
+      span(class="flex-fill ms-1 tweet-time" letteruptime= tweet.updatedAt, lettercreatetime= tweet.createdAt)
+      
