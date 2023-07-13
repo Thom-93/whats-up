@@ -3,6 +3,7 @@ extends ../layout
 block content
   script(src="/javascripts/tweets/tweet.js")
   script(src="/javascripts/users/user.js")
+  script(src="/javascripts/admin/search-user.js")
   script(src="/javascripts/socket-io/socket-display.js")
   div(id="admin-panel-container")
     H1(class="text-center") Administration
@@ -22,6 +23,8 @@ block content
     div(id="admin-content")
       div
         h3(class="text-center") Liste des utilisateurs
+        div(class="search-menu-div")
+          input(type='text' class="form-control input-search" placeholder="user" id="search-user-input")
         div(id="admin-user-list-container")
           include admin-user-list.pug
       div

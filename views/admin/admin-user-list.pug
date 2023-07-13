@@ -1,7 +1,7 @@
-div(class="d-flex flex-column")
+div(class="admin-div-user-container flex-column")
   if users && users.length 
     each user in users
-      div(class="d-flex flex-row align-items-center search-menu-item admin-user-item")
+      div(class="flex-row align-items-center search-menu-item admin-user-item")
         a(class="pointer-cursor a-admin-user" href="/users/" + user.username )
           img(width="40" heigth="40" class="p-1 search-menu-item-img" src=user.avatar)
           span(class="pl-3")= user.username
