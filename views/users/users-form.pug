@@ -1,6 +1,10 @@
 extends ../layout
 
-block content 
+block content
+  script.
+    function onSubmit(token) {
+      document.getElementById("letter-form").submit();
+    }
   div(class="d-flex content-auth mx-auto")
       a(class="logo-auth mb-5" href="/tweets")
         img(width="40" height="40" src="/images/whats-up-logo.png" alt="Whats-UP logo")
@@ -24,4 +28,4 @@ block content
               each error in errors
                 li(class="text-danger")= error
           div(class="w-100")
-            input(type="submit" value="valider" class="btn btn-primary d-block m-1 float-end label-auth") 
+            input(type="submit" value="valider" class="btn btn-primary d-block m-1 float-end label-auth g-recaptcha" data-sitekey="6Lei_BknAAAAAJ22WJ7rnXdUmV9wH4fKAo-uDh5J" data-callback="onSubmit" data-size="invisible") 
