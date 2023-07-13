@@ -16,3 +16,11 @@ ioClient.on("userCount", (count) => {
     userLogCount.innerHTML = count;
   }
 });
+
+ioClient.on("letterCount", (count) => {
+  // Mettre à jour le compteur affiché sur le client
+  const letterNumberCount = document.getElementById("letter-number-count");
+  if (letterNumberCount) {
+    letterNumberCount.innerHTML = count;
+  }
+});
