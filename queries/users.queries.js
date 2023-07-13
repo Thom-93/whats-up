@@ -55,3 +55,11 @@ exports.removeUserIdToCurrentUserFollowing = (currentUser, userId) => {
   );
   return currentUser.save();
 };
+
+exports.findUserPerEmailAndUpdateLogged = (id, value) => {
+  return User.findOneAndUpdate(id, { $set: { "local.logged": value } }).exec();
+};
+
+exports.getAllUsersLogged = () => {
+  return User.find({ "local.logged": true }).exec();
+};

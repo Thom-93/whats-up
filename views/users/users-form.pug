@@ -3,13 +3,13 @@ extends ../layout
 block content
   script.
     function onSubmit(token) {
-      document.getElementById("letter-form").submit();
+      document.getElementById("signup-form").submit();
     }
   div(class="d-flex content-auth mx-auto")
       a(class="logo-auth mb-5" href="/tweets")
         img(width="40" height="40" src="/images/whats-up-logo.png" alt="Whats-UP logo")
         span(class="logo-name-auth") Whats-UP
-      form(class="card auth-form" method="post" action="/users/signup" )
+      form(class="card auth-form" method="post" action="/users/signup" id="signup-form")
         div(class="card-header auth-header")
           a(class="auth-a-link" href="/auth/signin/form") Connexion
           a(class="auth-a-link active" href="/users/signup/form") Inscription  

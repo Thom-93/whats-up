@@ -7,6 +7,7 @@ const {
   removeUserIdToCurrentUserFollowing,
   findUserPerEmail,
   deleteUser,
+  findUserPerEmailAndUpdateLogged,
 } = require("../queries/users.queries");
 const { getUserTweetsFromAuthorId } = require("../queries/tweet.queries");
 const path = require("path");
@@ -65,6 +66,7 @@ exports.signup = async (req, res, next) => {
   const body = req.body;
   try {
     const user = await createUser(body);
+    await findUserPerEmailAndUpdateLogged(user._id, true);
     req.login(user);
     emailFactory.sendEmailVerification({
       to: user.local.email,
