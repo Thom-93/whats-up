@@ -113,7 +113,9 @@ exports.tweetUpdate = [
         if (req.file) {
           body.image = `/images/letters-images/${req.file.filename}`;
         }
+        console.log("tweetUpdate -> UpdateTweet");
         await updateTweet(tweetId, body);
+        console.log("UpdateTweet -> UpdateTweetStatus");
         await updateTweetStatus(tweetId, statut);
         res.redirect("/letters/letters-last");
       } else {
