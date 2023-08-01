@@ -9,16 +9,16 @@ const {
 } = require("../queries/tweet.queries");
 const path = require("path");
 const multer = require("multer");
-// const upload = multer({
-//   storage: multer.diskStorage({
-//     destination: (req, file, cb) => {
-//       cb(null, path.join(__dirname, "../public/images/letters-images"));
-//     },
-//     filename: (req, file, cb) => {
-//       cb(null, `${Date.now()}-${file.originalname}`);
-//     },
-//   }),
-// });
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, path.join(__dirname, "../public/images/letters-images"));
+    },
+    filename: (req, file, cb) => {
+      cb(null, `${Date.now()}-${file.originalname}`);
+    },
+  }),
+});
 const emailFactory = require("../emails");
 
 exports.tweetList = async (req, res, next) => {
@@ -37,7 +37,7 @@ exports.tweetList = async (req, res, next) => {
 };
 
 exports.tweetCreate = [
-  // upload.single("image"),
+  upload.single("image"),
   async (req, res, next) => {
     try {
       let body = req.body;
@@ -103,7 +103,7 @@ exports.tweetEdit = async (req, res, next) => {
 };
 
 exports.tweetUpdate = [
-  // upload.single("image"),
+  upload.single("image"),
   async (req, res, next) => {
     const tweetId = req.params.tweetId;
     let statut = null;
@@ -111,12 +111,9 @@ exports.tweetUpdate = [
       let body = req.body;
       if (body) {
         if (req.file) {
-          console.log("body.image -> req.file.filename");
           body.image = `/images/letters-images/${req.file.filename}`;
         }
-        console.log("tweetUpdate -> UpdateTweet");
         await updateTweet(tweetId, body);
-        console.log("UpdateTweet -> UpdateTweetStatus");
         await updateTweetStatus(tweetId, statut);
         res.redirect("/letters/letters-last");
       } else {
