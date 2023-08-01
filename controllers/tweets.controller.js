@@ -37,7 +37,7 @@ exports.tweetList = async (req, res, next) => {
 };
 
 exports.tweetCreate = [
-  upload.single("image"),
+  // upload.single("image"),
   async (req, res, next) => {
     try {
       let body = req.body;
@@ -103,7 +103,7 @@ exports.tweetEdit = async (req, res, next) => {
 };
 
 exports.tweetUpdate = [
-  upload.single("image"),
+  // upload.single("image"),
   async (req, res, next) => {
     const tweetId = req.params.tweetId;
     let statut = null;
