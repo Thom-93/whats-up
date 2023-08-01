@@ -5,8 +5,7 @@ module.exports = {
       script: "./bin/www",
       instances: "max",
       autorestart: true,
-      watch: false,
-      ignore_watch: ["*.log"],
+      watch: true,
       env: {
         NODE_ENV: "development",
       },
