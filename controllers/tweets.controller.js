@@ -40,7 +40,7 @@ exports.tweetCreate = [
   upload.single("image"),
   async (req, res, next) => {
     try {
-      const body = req.body;
+      let body = req.body;
       if (req.file) {
         body.image = `/images/letters-images/${req.file.filename}`;
       }
