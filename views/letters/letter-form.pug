@@ -4,19 +4,22 @@ script.
     document.getElementById("letter-form").submit();
   }
 div(class="flex-fill new-tweet-container")
-  form(id="letter-form" class="card card-new-tweet" method="post" action= tweet._id ? "/letters/update/" + tweet._id : "/letters" )
+  form(id="letter-form" class="card card-new-tweet" method="post" action= tweet._id ? "/letters/update/" + tweet._id : "/letters" enctype='multipart/form-data')
     if tweet._id
       div(class="card-header") Modifier une lettre
     else
       div(class="card-header") Ecrire une lettre
     div(clas="card-body")
       div(class="form-group m-3")
+        textarea(class="form-control input-new-tweet" name="content" placeholder="What is happening ?")=tweet.content
+        div(class="form-group m-3 d-flex align-items-center")
+          if tweet.image
+            img(src=tweet.image, class="img-thumbnail m-3" width="200" height="200")
+          label(for="image" class="me-1") Image:
+          input(type="file" name="image" id="image" class="input-file form-control")
         if errors
-          textarea(class="form-control input-new-tweet error" name="content" placeholder="What is happening ?")=tweet.content
           ul(class="my-2")
             each error in errors
               li(class="text-danger error-new-letter")= error
-        else
-          textarea(class="form-control input-new-tweet" name="content" placeholder="What is happening ?")=tweet.content
       div(class="w-100")
         input(type="submit" value="Send" class="g-recaptcha btn btn-primary d-block m-1 float-end btn-send" data-sitekey="6Lei_BknAAAAAJ22WJ7rnXdUmV9wH4fKAo-uDh5J" data-callback="onSubmit" data-size="invisible") 

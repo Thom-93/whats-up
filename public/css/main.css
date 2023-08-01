@@ -403,6 +403,7 @@ body {
     background-color: rgba(255, 255, 255, 0.6);
     transition: transform 0.2s;
     transform: scale(1.01);
+    z-index: 1;
   }
 }
 
@@ -530,6 +531,80 @@ body {
   &:hover {
     color: #0b5ed7;
   }
+}
+
+#div-admin-letter-image {
+  display: inline-table;
+}
+
+#div-letter-image {
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.status-null {
+  color: #1b4f63;
+  margin-left: 1em;
+  border-left: inset;
+}
+
+.time-capsule {
+  animation: rotateImage 3s linear infinite;
+}
+
+@keyframes rotateImage {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+.validate-btn-container {
+  display: flex;
+
+  .validate-btn-false,
+  .validate-btn-true {
+    text-decoration: none;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.6);
+      transition: transform 0.2s;
+    }
+  }
+
+  .validate-btn-true {
+    color: rgb(0, 170, 0);
+  }
+
+  .validate-btn-false {
+    color: rgb(194, 0, 0);
+    margin-left: 1em;
+  }
+}
+
+.img-in-pending {
+  display: flex;
+  justify-content: center;
+}
+
+/* Style pour l'image de la lettre */
+.letter-image {
+  max-width: 50%;
+  max-height: 50%;
+  cursor: pointer;
+}
+
+.letter-image.zoomed {
+  object-fit: contain;
+}
+
+.input-file {
+  font-size: small;
+  width: 23%;
+  background-color: #ffffff8f;
 }
 
 /* TWEET END   */
@@ -802,6 +877,12 @@ body {
 
   .padding-bottom {
     padding-bottom: 0.5em;
+  }
+
+  /* Style pour l'effet d'agrandissement */
+  .letter-image.zoomed {
+    z-index: 10;
+    object-fit: none;
   }
 
   /* Largeur de la scrollbar */

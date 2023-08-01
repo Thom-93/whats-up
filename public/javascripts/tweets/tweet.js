@@ -1,6 +1,8 @@
 window.addEventListener("DOMContentLoaded", () => {
   bindTweet();
   tweetTime();
+  zoomedLetterImg();
+  lettersBtnValidation();
 });
 
 function tweetTime() {
@@ -100,5 +102,120 @@ function bindTweet() {
           console.log(err);
         });
     };
+  }
+}
+
+function zoomedLetterImg() {
+  const letterImages = document.querySelectorAll(".letter-image");
+
+  letterImages.forEach((image) => {
+    let isZoomed = false;
+    image.addEventListener("click", (e) => {
+      e.preventDefault();
+      console.log("click");
+      isZoomed = !isZoomed;
+      if (isZoomed) {
+        toggleFullscreen(image);
+      } else {
+        toggleFullscreen(document);
+      }
+      image.classList.toggle("zoomed", isZoomed);
+      const container = image.parentElement;
+      container.style.position = isZoomed ? "fixed" : "static";
+      container.style.width = isZoomed ? "100%" : "auto";
+      container.style.height = isZoomed ? "100%" : "auto";
+      window.addEventListener("click", (e) => {
+        if (e.target !== image) {
+          image.classList.remove("zoomed");
+          isZoomed = false;
+        }
+      });
+    });
+  });
+}
+
+function toggleFullscreen(elem) {
+  if (
+    !document.fullscreenElement &&
+    !document.mozFullScreenElement &&
+    !document.webkitFullscreenElement &&
+    !document.msFullscreenElement
+  ) {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
+}
+
+function lettersBtnValidation() {
+  const trueBtn = document.querySelectorAll(".validate-btn-true");
+  const falseBtn = document.querySelectorAll(".validate-btn-false");
+
+  const divSucess = document.querySelector("#div-delete-sucess");
+
+  const tweetContainer = document.querySelector(
+    "#admin-tweet-validation-container"
+  );
+
+  let statut = null;
+
+  const updateStatus = (tweetId, statut) => {
+    axios
+      .put(`/admin/validate/${tweetId}`, { statut: statut })
+      .then(function () {
+        divSucess.classList.add("active-sucess");
+        divSucess.style.display = "block";
+        const tweetToDelete = document.querySelector(`i[tweetid="${tweetId}"]`);
+        if (tweetToDelete) {
+          const tweetElement = tweetToDelete.closest(".tweet-element");
+          if (tweetElement) {
+            console.log(tweetElement);
+            tweetElement.remove(); // Supprimer l'élément tweet
+            setTimeout(() => {
+              divSucess.classList.remove("active-sucess");
+              divSucess.style.display = "none";
+            }, 4000);
+          }
+        }
+      })
+      .catch(function (err) {
+        console.log("Error while updating status:", err);
+      });
+  };
+  if (tweetContainer) {
+    trueBtn.forEach((e) => {
+      e.addEventListener("click", ($event) => {
+        const tweetId = $event.target.getAttribute("tweetid");
+        if (tweetId) {
+          statut = true;
+          updateStatus(tweetId, statut);
+        }
+      });
+    });
+    falseBtn.forEach((e) => {
+      e.addEventListener("click", ($event) => {
+        const tweetId = $event.target.getAttribute("tweetid");
+        if (tweetId) {
+          statut = false;
+          updateStatus(tweetId, statut);
+        }
+      });
+    });
   }
 }

@@ -25,6 +25,14 @@ exports.updateTweet = (tweetId, tweet) => {
   );
 };
 
+exports.updateTweetStatus = (tweetId, statut) => {
+  return Tweet.findByIdAndUpdate(
+    tweetId,
+    { $set: { statut: statut } },
+    { runValidators: true }
+  );
+};
+
 exports.getCurrentUserTweetsWithFollowing = (user) => {
   return Tweet.find({ author: { $in: [...user.following, user._id] } })
     .populate("author")

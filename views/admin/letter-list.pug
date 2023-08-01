@@ -19,4 +19,14 @@ if tweets
           div(class="d-flex ms-auto")
             i(class="fa-solid fa-trash-can text-danger pointer-cursor delete-letter-btn" tweetid=tweet._id)
       div(class="ms-3 mb-3 div-tweet-content")= tweet.content
+      if tweet.image && tweet.statut
+        div(id="div-admin-letter-image" class="ms-3 mb-3")
+          img(class="letter-image" src=tweet.image)
+      if tweet.statut === null 
+        div
+          p(class="status-null")= "Image en attente de validation... "
+            img(class="time-capsule" src="/images/time-capsule.svg", alt="" width="30", height="30")
+      if tweet.statut === false
+              div
+                p(class="status-null text-danger")= "Image refusée..."
       span(class="flex-fill ms-1 tweet-time" letteruptime= tweet.updatedAt, lettercreatetime= tweet.createdAt)

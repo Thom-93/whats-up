@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const { ensureIsNotBot } = require("../config/guards.config");
 const {
   tweetList,
   tweetCreate,

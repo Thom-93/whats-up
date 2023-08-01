@@ -3,6 +3,7 @@ const {
   deleteTweet,
   getTweet,
   getCurrentUserTweetsWithFollowing,
+  updateTweetStatus,
 } = require("../queries/tweet.queries");
 const { getAllUsers, deleteUser } = require("../queries/users.queries");
 
@@ -59,6 +60,38 @@ exports.adminUserDelete = async (req, res, next) => {
       res.sendStatus(204);
     } else {
       return res.status(400).json("User not found");
+    }
+  } catch (e) {
+    next(e);
+  }
+};
+
+exports.adminTweetValidation = async (req, res, next) => {
+  try {
+    const tweetId = req.params.tweetId;
+    const statut = req.body.statut;
+    if (tweetId) {
+      await updateTweetStatus(tweetId, statut);
+      res.sendStatus(204);
+    } else {
+      return res.status(400).json("Tweet not found");
+    }
+  } catch (e) {
+    next(e);
+  }
+};
+
+exports.adminTweetValidationByMail = async (req, res, next) => {
+  try {
+    const { userId, token } = req.params;
+    const user = await findUserPerId(userId);
+
+    if (user && token && token === user.local.emailToken) {
+      user.local.emailVerified = true;
+      await user.save();
+      return res.redirect("/");
+    } else {
+      return res.status(400).json("Problem durin email verification");
     }
   } catch (e) {
     next(e);

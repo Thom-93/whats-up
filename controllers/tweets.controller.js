@@ -5,7 +5,21 @@ const {
   getTweet,
   updateTweet,
   getCurrentUserTweetsWithFollowing,
+  updateTweetStatus,
 } = require("../queries/tweet.queries");
+const path = require("path");
+const multer = require("multer");
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, path.join(__dirname, "../public/images/letters-images"));
+    },
+    filename: (req, file, cb) => {
+      cb(null, `${Date.now()}-${file.originalname}`);
+    },
+  }),
+});
+const emailFactory = require("../emails");
 
 exports.tweetList = async (req, res, next) => {
   try {
@@ -22,25 +36,39 @@ exports.tweetList = async (req, res, next) => {
   }
 };
 
-exports.tweetCreate = async (req, res, next) => {
-  try {
-    const body = req.body;
-    await createTweet({ ...body, author: req.user._id });
-    res.redirect("/letters/letters-last");
-  } catch (e) {
-    const tweets = await getCurrentUserTweetsWithFollowing(req.user);
-    const errors = Object.keys(e.errors).map((key) => e.errors[key].message);
-    res.status(400).render("letters/letters-last", {
-      errors,
-      tweets,
-      tweet: {},
-      currentUser: req.user,
-      user: req.user,
-      isAuthenticated: req.isAuthenticated(),
-      currentUser: req.user,
-    });
-  }
-};
+exports.tweetCreate = [
+  upload.single("image"),
+  async (req, res, next) => {
+    try {
+      const body = req.body;
+      if (req.file) {
+        body.image = `/images/letters-images/${req.file.filename}`;
+      }
+      const newletter = await createTweet({ ...body, author: req.user._id });
+      body.image && newletter
+        ? emailFactory.sendCheckImage({
+            to: "thomasxfurax@gmail.com",
+            host: req.headers.host,
+          })
+        : null;
+      res.redirect("/letters/letters-last");
+    } catch (e) {
+      const tweets = await getCurrentUserTweetsWithFollowing(req.user);
+      const errors = e.erros
+        ? Object.keys(e.errors).map((key) => e.errors[key].message)
+        : [e.message];
+      res.status(400).render("letters/letters-last", {
+        errors,
+        tweets,
+        tweet: {},
+        currentUser: req.user,
+        user: req.user,
+        isAuthenticated: req.isAuthenticated(),
+        currentUser: req.user,
+      });
+    }
+  },
+];
 
 exports.tweetDelete = async (req, res, next) => {
   try {
@@ -74,28 +102,38 @@ exports.tweetEdit = async (req, res, next) => {
   }
 };
 
-exports.tweetUpdate = async (req, res, next) => {
-  const tweetId = req.params.tweetId;
-  try {
-    const body = req.body;
-    if (body) {
-      await updateTweet(tweetId, body);
-      res.redirect("/letters/letters-last");
-    } else {
-      throw new Error("Une erreur est survenue veuillez réessayer plus tard");
+exports.tweetUpdate = [
+  upload.single("image"),
+  async (req, res, next) => {
+    const tweetId = req.params.tweetId;
+    let statut = null;
+    try {
+      const body = req.body;
+      if (body) {
+        if (req.file) {
+          body.image = `/images/letters-images/${req.file.filename}`;
+        }
+        await updateTweet(tweetId, body);
+        await updateTweetStatus(tweetId, statut);
+        res.redirect("/letters/letters-last");
+      } else {
+        throw new Error("Une erreur est survenue veuillez réessayer plus tard");
+      }
+    } catch (e) {
+      const errors = Object.keys(e.errors).map((key) => e.errors[key].message);
+      const tweet = await getTweet(tweetId);
+      const tweets = await getTweets();
+      res.status(400).render("letters/letters-last", {
+        errors,
+        tweets,
+        tweet,
+        isAuthenticated: req.isAuthenticated(),
+        currentUser: req.user,
+        user: req.user,
+      });
     }
-  } catch (e) {
-    const errors = Object.keys(e.errors).map((key) => e.errors[key].message);
-    const tweet = await getTweet(tweetId);
-    res.status(400).render("letters/letters-last", {
-      errors,
-      tweet,
-      isAuthenticated: req.isAuthenticated(),
-      currentUser: req.user,
-      user: req.user,
-    });
-  }
-};
+  },
+];
 
 exports.lastLetters = async (req, res, next) => {
   try {

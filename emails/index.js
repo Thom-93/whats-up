@@ -63,6 +63,24 @@ class Email {
       throw e;
     }
   }
+  async sendCheckImage(options) {
+    try {
+      const email = {
+        from: this.from,
+        subject: "Image verification",
+        to: options.to,
+        html: pug.renderFile(
+          path.join(__dirname, "templates/img-validation.pug"),
+          {
+            url: `https://${options.host}/letters`,
+          }
+        ),
+      };
+      await this.transporter.sendMail(email);
+    } catch (e) {
+      throw e;
+    }
+  }
 }
 
 module.exports = new Email();
