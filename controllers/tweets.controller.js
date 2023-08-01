@@ -111,6 +111,7 @@ exports.tweetUpdate = [
       let body = req.body;
       if (body) {
         if (req.file) {
+          console.log("body.image -> req.file.filename");
           body.image = `/images/letters-images/${req.file.filename}`;
         }
         console.log("tweetUpdate -> UpdateTweet");
