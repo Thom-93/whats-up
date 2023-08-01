@@ -108,7 +108,7 @@ exports.tweetUpdate = [
     const tweetId = req.params.tweetId;
     let statut = null;
     try {
-      const body = req.body;
+      let body = req.body;
       if (body) {
         if (req.file) {
           body.image = `/images/letters-images/${req.file.filename}`;
