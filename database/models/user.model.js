@@ -1,9 +1,20 @@
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
+const { checkForbiddenWords } = require("../../queries/forbiddenWord.queries");
 
 const userSchema = schema({
-  username: { type: String, required: true, unique: true },
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+    validate: {
+      validator: async function (words) {
+        return !(await checkForbiddenWords(words));
+      },
+      message: "La lettre contient des mots interdits.",
+    },
+  },
   local: {
     email: { type: String, required: true, unique: true },
     emailVerified: { type: Boolean, default: false },

@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 const { checkForbiddenWords } = require("../../queries/forbiddenWord.queries");
-const { bool } = require("sharp");
 
 const tweetSchema = schema(
   {
