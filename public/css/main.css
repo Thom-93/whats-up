@@ -89,6 +89,7 @@ body {
 }
 
 .profile-user-img {
+  object-fit: cover;
   border-radius: 100%;
   width: 7rem;
   height: 7rem;

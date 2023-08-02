@@ -20,6 +20,7 @@ const upload = multer({
   }),
 });
 const emailFactory = require("../emails");
+const fs = require("fs");
 
 exports.tweetList = async (req, res, next) => {
   try {
@@ -43,6 +44,18 @@ exports.tweetCreate = [
       let body = req.body;
       if (req.file) {
         body.image = `/images/letters-images/${req.file.filename}`;
+        const extension = path.extname(req.file.originalname);
+        if (
+          extension !== ".png" &&
+          extension !== ".jpg" &&
+          extension !== ".jpeg" &&
+          extension !== ".gif"
+        ) {
+          fs.unlinkSync(req.file.path);
+          throw new Error(
+            "Extension de l'image non valide, only (png, jpg, jpeg, gif)"
+          );
+        }
       }
       const newletter = await createTweet({ ...body, author: req.user._id });
       body.image && newletter

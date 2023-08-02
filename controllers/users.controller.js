@@ -26,6 +26,7 @@ const emailFactory = require("../emails");
 const moment = require("moment");
 const { v4: uuidv4 } = require("uuid");
 const User = require("../database/models/user.model");
+const fs = require("fs");
 
 exports.userList = async (req, res, next) => {
   try {
@@ -89,6 +90,18 @@ exports.uploadImage = [
   upload.single("avatar"),
   async (req, res, next) => {
     try {
+      const extension = path.extname(req.file.originalname);
+      if (
+        extension !== ".png" &&
+        extension !== ".jpg" &&
+        extension !== ".jpeg" &&
+        extension !== ".gif"
+      ) {
+        fs.unlinkSync(req.file.path);
+        throw new Error(
+          "Extension de l'image non valide, only (png, jpg, jpeg, gif)"
+        );
+      }
       const user = req.user;
       user.avatar = `/images/avatars/${req.file.filename}`;
       await user.save();
