@@ -169,7 +169,7 @@ function lettersBtnValidation() {
 
   const divSucess = document.querySelector("#div-delete-sucess");
 
-  const tweetContainer = document.querySelector(
+  const tweetValidationContainer = document.querySelector(
     "#admin-tweet-validation-container"
   );
 
@@ -181,11 +181,12 @@ function lettersBtnValidation() {
       .then(function () {
         divSucess.classList.add("active-sucess");
         divSucess.style.display = "block";
-        const tweetToDelete = document.querySelector(`i[tweetid="${tweetId}"]`);
+        const tweetToDelete = tweetValidationContainer.querySelector(
+          `i[tweetid="${tweetId}"]`
+        );
         if (tweetToDelete) {
           const tweetElement = tweetToDelete.closest(".tweet-element");
           if (tweetElement) {
-            console.log(tweetElement);
             tweetElement.remove(); // Supprimer l'élément tweet
             setTimeout(() => {
               divSucess.classList.remove("active-sucess");
@@ -198,7 +199,7 @@ function lettersBtnValidation() {
         console.log("Error while updating status:", err);
       });
   };
-  if (tweetContainer) {
+  if (tweetValidationContainer) {
     trueBtn.forEach((e) => {
       e.addEventListener("click", ($event) => {
         const tweetId = $event.target.getAttribute("tweetid");
