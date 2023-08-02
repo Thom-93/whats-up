@@ -12,7 +12,7 @@ div(class="flex-fill new-tweet-container")
     div(clas="card-body")
       div(class="form-group m-3")
         textarea(class="form-control input-new-tweet" name="content" placeholder="What is happening ?")=tweet.content
-        div(class="form-group m-3 d-flex align-items-center")
+        div(class="form-group mt-3 ms-1 d-flex align-items-center")
           if tweet.image
             img(src=tweet.image, class="img-thumbnail m-3" width="200" height="200")
           label(for="image" class="me-1") Image:

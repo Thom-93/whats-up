@@ -593,7 +593,6 @@ body {
 
 .input-file {
   font-size: small;
-  width: 23%;
   background-color: #ffffff8f;
 }
 
@@ -869,6 +868,9 @@ body {
     padding-bottom: 0.5em;
   }
 
+  .input-file {
+    width: 23%;
+  }
   /* Style pour l'effet d'agrandissement */
   .letter-image.zoomed {
     z-index: 10;
