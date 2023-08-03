@@ -45,6 +45,13 @@ exports.adminTweetDelete = async (req, res, next) => {
   try {
     const tweetId = req.params.tweetId;
     if (tweetId) {
+      const tweet = await getTweet(tweetId);
+      if (!tweet) {
+        return res.status(404).json({ message: "Tweet not found" });
+      }
+      if (tweet.image) {
+        fs.unlinkSync(path.join(__dirname, `../public/${tweet.image}`));
+      }
       await deleteTweet(tweetId);
       res.sendStatus(204);
     } else {
@@ -59,6 +66,10 @@ exports.adminUserDelete = async (req, res, next) => {
   try {
     const userId = req.params.userId;
     if (userId) {
+      const user = await findUserPerId(userId);
+      if (user.avatar && user.avatar !== "/images/avatars/default.png") {
+        fs.unlinkSync(path.join(__dirname, `../public/${user.avatar}`));
+      }
       await deleteUser(userId);
       res.sendStatus(204);
     } else {

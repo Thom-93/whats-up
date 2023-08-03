@@ -109,6 +109,11 @@ exports.uploadImage = [
           "Extension de l'image non valide, only (.png, .jpg, .jpeg, .gif)"
         );
       }
+      const imageSize = req.file.size / 1000 / 1000;
+      if (imageSize > 10) {
+        fs.unlinkSync(req.file.path);
+        throw new Error("Image trop grande, max 10Mo");
+      }
       const user = req.user;
       user.avatar = `/images/avatars/${req.file.filename}`;
       await user.save();
@@ -236,6 +241,10 @@ exports.userDelete = async (req, res, next) => {
   try {
     const userId = req.params.userId;
     if (userId) {
+      const user = await findUserPerId(userId);
+      if (user.avatar && user.avatar !== "/images/avatars/default.png") {
+        fs.unlinkSync(path.join(__dirname, `../public/${user.avatar}`));
+      }
       await deleteUser(userId);
       res.sendStatus(204);
     } else {
@@ -250,6 +259,10 @@ exports.profileDelete = async (req, res, next) => {
   try {
     const profileId = req.params.userId;
     if (profileId) {
+      const user = await findUserPerId(profileId);
+      if (user.avatar && user.avatar !== "/images/avatars/default.png") {
+        fs.unlinkSync(path.join(__dirname, `../public/${user.avatar}`));
+      }
       await deleteUser(profileId);
       req.logout();
       res.sendStatus(204);
