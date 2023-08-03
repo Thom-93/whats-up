@@ -1,3 +1,4 @@
+html,
 body {
   background: linear-gradient(
     90deg,
@@ -508,11 +509,18 @@ body {
 
 .edit-letter-btn,
 .delete-letter-btn,
+.ban-24-letter-btn,
 #delete-profile-btn {
+  cursor: pointer;
   &:hover {
     transform: scale(1.2);
     transition: transform 0.2s;
   }
+}
+
+.ban-24-letter-btn {
+  margin-right: 0.5em;
+  text-decoration: none;
 }
 
 .link-user-letter {

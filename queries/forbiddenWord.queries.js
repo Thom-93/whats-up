@@ -18,6 +18,6 @@ exports.checkForbiddenWords = async (letterContent) => {
 
     return false; // Aucun mot interdit trouvé dans la lettre
   } catch (error) {
-    throw e;
+    throw error;
   }
 };

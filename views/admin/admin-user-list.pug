@@ -6,6 +6,14 @@ div(class="admin-div-user-container flex-column")
           img(width="40" heigth="40" class="p-1 search-menu-item-img" src=user.avatar)
           span(class="pl-3")= user.username
         div(class="d-flex ms-auto")
-          i(class="fa-solid fa-trash-can text-danger pointer-cursor delete-letter-btn" userid=user._id)
+          - let userBan = userBanList.find((bannedUser) => bannedUser.email === user.local.email)
+          if userBan
+            if userBan.delay === "24H"
+              span(class="me-2 text-danger") Ban 24H
+            else
+              span(class="me-2 text-danger") Ban
+          else
+            a(class="fa fa-clock-o text-danger ban-24-letter-btn" href=`/admin/users/${user.username}/${user.local.email}/ban24H`)
+          i(class="fa-solid fa-trash-can text-danger delete-letter-btn" userid=user._id)
   else 
     span(class="p-3") Aucun utilisateur

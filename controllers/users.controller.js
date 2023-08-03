@@ -92,14 +92,15 @@ exports.uploadImage = [
     try {
       const extension = path.extname(req.file.originalname);
       if (
-        extension !== ".png" &&
-        extension !== ".jpg" &&
-        extension !== ".jpeg" &&
-        extension !== ".gif"
+        (extension !== ".png" &&
+          extension !== ".jpg" &&
+          extension !== ".jpeg" &&
+          extension !== ".gif") ||
+        !extension
       ) {
         fs.unlinkSync(req.file.path);
         throw new Error(
-          "Extension de l'image non valide, only (png, jpg, jpeg, gif)"
+          "Extension de l'image non valide, only (.png, .jpg, .jpeg, .gif)"
         );
       }
       const user = req.user;

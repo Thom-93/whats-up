@@ -3,6 +3,7 @@ const { findUserPerId } = require("../queries/users.queries");
 const jwt = require("jsonwebtoken");
 const secret = "1713e54a-f93c-4f80-975e-f17130655284";
 const axios = require("axios");
+const { checkUserBan, unBanUser } = require("../queries/banList.queries");
 
 const decodeJwtToken = (token) => {
   return jwt.verify(token, secret);
@@ -96,5 +97,40 @@ exports.ensureIsNotBot = async (req, res, next) => {
   } catch (error) {
     console.error("reCAPTCHA verification error:", error);
     return res.status(500).json({ message: "reCAPTCHA verification error" });
+  }
+};
+
+exports.ensureIsNotBan = async (req, res, next) => {
+  try {
+    if (!req.user) {
+      res.redirect("/auth/signin/form");
+    } else {
+      const userVerification = await checkUserBan(req.user.local.email);
+      if (userVerification) {
+        const banTimestamp = userVerification.createdAt.getTime();
+        const nowTimestamp = Date.now();
+        if (userVerification.delay === "24H") {
+          const banDuration = 24 * 60 * 60 * 1000; // 24 heures en millisecondes
+          const remainingTime = banTimestamp + banDuration - nowTimestamp;
+          const remainingHours = Math.ceil(remainingTime / (60 * 60 * 1000));
+          if (remainingHours <= 0) {
+            await unBanUser(req.user.local.email);
+            next();
+          } else {
+            return res.status(403).json({
+              message: `You are banned. You will be unbanned in ${remainingHours} hours.`,
+            });
+          }
+        } else {
+          return res.status(403).json({
+            message: `You are permanently banned.`,
+          });
+        }
+      } else {
+        next();
+      }
+    }
+  } catch (e) {
+    next(e);
   }
 };

@@ -1,3 +1,4 @@
+const { Ban24H, getBanList } = require("../queries/banList.queries");
 const {
   getTweets,
   deleteTweet,
@@ -11,6 +12,7 @@ exports.adminPanel = async (req, res, next) => {
   try {
     const tweets = await getTweets();
     const users = await getAllUsers();
+    const userBanList = await getBanList();
     if (tweets && users) {
       let numberOfUsers = 0;
       users.forEach(() => {
@@ -25,6 +27,7 @@ exports.adminPanel = async (req, res, next) => {
         numberOfLetters,
         tweets,
         users,
+        userBanList,
         isAuthenticated: req.isAuthenticated(),
         currentUser: req.user,
         user: req.user,
@@ -92,6 +95,24 @@ exports.adminTweetValidationByMail = async (req, res, next) => {
       return res.redirect("/");
     } else {
       return res.status(400).json("Problem durin email verification");
+    }
+  } catch (e) {
+    next(e);
+  }
+};
+
+exports.banUser24H = async (req, res, next) => {
+  try {
+    const username = req.params.username;
+    const userEmail = req.params.userEmail;
+    const delay = "24H";
+    console.log(username, userEmail);
+    if (username && userEmail) {
+      const userToBan = [username, userEmail, delay];
+      await Ban24H(userToBan);
+      res.sendStatus(204);
+    } else {
+      return res.status(400).json("Problem durin Ban24H");
     }
   } catch (e) {
     next(e);

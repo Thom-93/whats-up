@@ -8,12 +8,6 @@ const userSchema = schema({
     type: String,
     required: true,
     unique: true,
-    validate: {
-      validator: async function (words) {
-        return !(await checkForbiddenWords(words));
-      },
-      message: "La lettre contient des mots interdits.",
-    },
   },
   local: {
     email: { type: String, required: true, unique: true },

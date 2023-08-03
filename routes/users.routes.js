@@ -18,7 +18,7 @@ const {
 router.get("/", userList);
 router.get("/follow/:userId", ensureAuthenticated, followUser);
 router.get("/unfollow/:userId", ensureAuthenticated, unfollowUser);
-router.get("/:username", userProfile);
+router.get("/:username", ensureAuthenticated, userProfile);
 router.get("/signup/form", signupForm);
 router.post("/signup", signup);
 router.post("/update/image", ensureAuthenticated, uploadImage);
@@ -26,6 +26,6 @@ router.get("/email-verification/:userId/:token", emailLinkVerification);
 router.post("/forgot-password", initResetPassword);
 router.get("/reset-password/:userId/:token", resetPasswordForm);
 router.post("/reset-password/:userId/:token", resetPassword);
-router.delete("/:userId", profileDelete);
+router.delete("/:userId", ensureAuthenticated, profileDelete);
 
 module.exports = router;

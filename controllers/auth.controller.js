@@ -1,3 +1,4 @@
+const { checkUserBan } = require("../queries/banList.queries");
 const {
   findUserPerEmail,
   findUserPerEmailAndUpdateLogged,
@@ -22,6 +23,7 @@ exports.signin = async (req, res, next) => {
           await findUserPerEmailAndUpdateLogged(user._id, true);
           req.login(user);
           res.redirect("/");
+          return;
         } else {
           res.render("auth/auth-form", { error: "Wrong Password" });
         }
