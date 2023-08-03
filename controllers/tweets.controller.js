@@ -43,7 +43,6 @@ exports.tweetCreate = [
     try {
       let body = req.body;
       if (req.file) {
-        body.image = `/images/letters-images/${req.file.filename}`;
         const extension = path.extname(req.file.originalname);
         if (
           (extension !== ".png" &&
@@ -57,6 +56,12 @@ exports.tweetCreate = [
             "Extension de l'image non valide, only (.png, .jpg, .jpeg, .gif)"
           );
         }
+        const imageSize = req.file.size / 1000 / 1000;
+        if (imageSize > 10) {
+          fs.unlinkSync(req.file.path);
+          throw new Error("Image trop grande, max 10Mo");
+        }
+        body.image = `/images/letters-images/${req.file.filename}`;
       }
       const newletter = await createTweet({ ...body, author: req.user._id });
       body.image && newletter
@@ -87,6 +92,13 @@ exports.tweetCreate = [
 exports.tweetDelete = async (req, res, next) => {
   try {
     const tweetId = req.params.tweetId;
+    const tweet = await getTweet(tweetId); // Assume you have a function to get the tweet by tweetId
+    if (!tweet) {
+      return res.status(404).json({ message: "Tweet not found" });
+    }
+    if (tweet.image) {
+      fs.unlinkSync(path.join(__dirname, `../public/${tweet.image}`));
+    }
     await deleteTweet(tweetId);
     const tweets = await getCurrentUserTweetsWithFollowing(req.user);
     res.render("letters/letter-list", {

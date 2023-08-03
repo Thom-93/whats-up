@@ -637,6 +637,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-width: 100%;
 }
 
 .letter-image-validation {
