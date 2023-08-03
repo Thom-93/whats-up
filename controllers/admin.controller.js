@@ -7,6 +7,7 @@ const {
   updateTweetStatus,
 } = require("../queries/tweet.queries");
 const { getAllUsers, deleteUser } = require("../queries/users.queries");
+const fs = require("fs");
 
 exports.adminPanel = async (req, res, next) => {
   try {
