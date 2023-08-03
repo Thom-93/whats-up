@@ -27,6 +27,7 @@ const moment = require("moment");
 const { v4: uuidv4 } = require("uuid");
 const User = require("../database/models/user.model");
 const fs = require("fs");
+const { checkForbiddenWords } = require("../queries/forbiddenWord.queries");
 
 exports.userList = async (req, res, next) => {
   try {
@@ -66,17 +67,22 @@ exports.signupForm = (req, res, next) => {
 exports.signup = async (req, res, next) => {
   const body = req.body;
   try {
-    const user = await createUser(body);
-    await findUserPerEmailAndUpdateLogged(user._id, true);
-    req.login(user);
-    emailFactory.sendEmailVerification({
-      to: user.local.email,
-      host: req.headers.host,
-      username: user.username,
-      userId: user._id,
-      token: user.local.emailToken,
-    });
-    res.redirect("/");
+    const usernameCheck = await checkForbiddenWords(body.username);
+    if (!usernameCheck) {
+      const user = await createUser(body);
+      await findUserPerEmailAndUpdateLogged(user._id, true);
+      req.login(user);
+      emailFactory.sendEmailVerification({
+        to: user.local.email,
+        host: req.headers.host,
+        username: user.username,
+        userId: user._id,
+        token: user.local.emailToken,
+      });
+      res.redirect("/");
+    } else {
+      throw new Error("Le nom d'utilisateur est interdit");
+    }
   } catch (e) {
     res.render("users/users-form", {
       errors: [e.message],

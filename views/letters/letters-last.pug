@@ -29,7 +29,7 @@ block content
                     i(class="fa-solid fa-trash-can text-danger pointer-cursor delete-letter-btn" tweetid=tweet._id)
             div(class="ms-3 mb-3 div-tweet-content")= tweet.content
             if tweet.image && tweet.statut
-              div(id="div-letter-image" class="ms-3 mb-3")
+              div(id="div-letter-image" class="m-3")
                 img(class="letter-image" src=tweet.image)
             if tweet.statut === null 
               div

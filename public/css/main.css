@@ -9,6 +9,7 @@ body {
 }
 
 .content {
+  margin: 0 auto;
   max-width: 1200px;
   margin-top: 20px;
   flex-direction: column;
@@ -34,9 +35,8 @@ body {
 }
 
 .profile-container {
-  width: 30rem;
   max-width: 300px;
-  min-width: 200px;
+  min-width: 300px;
   color: #657786;
   background-color: rgba(255, 255, 255, 0.4);
   border-radius: 2em;
@@ -531,16 +531,6 @@ body {
   }
 }
 
-#div-admin-letter-image {
-  display: inline-table;
-}
-
-#div-letter-image {
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-}
-
 .status-null {
   color: #1b4f63;
   margin-left: 1em;
@@ -589,9 +579,14 @@ body {
 }
 
 /* Style pour l'image de la lettre */
+
+#div-letter-image {
+  display: flex;
+  justify-content: center;
+}
+
 .letter-image {
-  max-width: 50%;
-  max-height: 50%;
+  max-width: -webkit-fill-available;
   cursor: pointer;
 }
 
@@ -628,7 +623,24 @@ body {
 
 #admin-content {
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#admin-validation-container {
+  display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.letter-image-validation {
+  cursor: pointer;
+  width: 100%;
+}
+
+#admin-tweet-validation-container {
+  width: 90%;
 }
 
 #admin-user-list-container {
@@ -782,6 +794,7 @@ body {
   .content {
     flex-direction: inherit;
     align-items: baseline;
+    justify-content: center;
   }
 
   .auth-form {
@@ -878,6 +891,10 @@ body {
 
   .input-file {
     width: 23%;
+  }
+
+  #admin-tweet-validation-container {
+    width: 50%;
   }
   /* Style pour l'effet d'agrandissement */
   .letter-image.zoomed {

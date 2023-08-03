@@ -28,10 +28,10 @@ block content
         div(id="admin-user-list-container")
           include admin-user-list.pug
       div
-        h3(class="text-center") Liste des lettres
-        div(class="d-flex flex-fill flex-column" id="admin-tweet-list-container")
+        h3(class="text-center mt-1") Liste des lettres
+        div(class="d-flex flex-fill flex-column m-1" id="admin-tweet-list-container")
           include letter-list.pug
-      div
+      div(id="admin-validation-container")
         h3(class="text-center") En attente de validation...
-        div(class="d-flex flex-fill flex-column" id="admin-tweet-validation-container")
+        div(class="d-flex flex-fill flex-column m-1" id="admin-tweet-validation-container")
           include letter-validation.pug

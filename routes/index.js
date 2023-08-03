@@ -10,7 +10,7 @@ const auth = require("./auth.routes");
 const admin = require("./admin.routes");
 
 router.use("/letters", ensureIsNotBan, ensureAuthenticated, tweets);
-router.use("/users", ensureIsNotBan, users);
+router.use("/users", users);
 router.use("/auth", auth);
 router.use("/admin", ensureIsNotBan, ensureIsAdmin, ensureAuthenticated, admin);
 

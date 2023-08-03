@@ -17,7 +17,7 @@ html(lang="en")
     title Whats-UP
   body
     div(class="loader")
-    if user
+    if user || currentUser
       include includes/topbar.pug
     else
     include ./includes/delete-sucess.pug
