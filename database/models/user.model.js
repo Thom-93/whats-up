@@ -19,7 +19,7 @@ const userSchema = schema(
       admin: { type: Boolean, default: false },
       logged: { type: Boolean, default: false },
     },
-    avatar: { type: String, default: "/images/default-profile.svg" },
+    avatar: { type: String, default: "/images/avatars/default.svg" },
     following: { type: [schema.Types.ObjectId], ref: "user" },
   },
   { timestamps: true }

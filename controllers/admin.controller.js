@@ -72,7 +72,7 @@ exports.adminUserDelete = async (req, res, next) => {
     const userId = req.params.userId;
     if (userId) {
       const user = await findUserPerId(userId);
-      if (user.avatar && user.avatar !== "/images/avatars/default.png") {
+      if (user.avatar && user.avatar !== "/images/avatars/default.svg") {
         fs.unlinkSync(path.join(__dirname, `../public/${user.avatar}`));
       }
       await deleteUser(userId);
