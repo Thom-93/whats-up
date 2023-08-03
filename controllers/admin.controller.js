@@ -3,11 +3,15 @@ const {
   getTweets,
   deleteTweet,
   getTweet,
-  getCurrentUserTweetsWithFollowing,
   updateTweetStatus,
 } = require("../queries/tweet.queries");
-const { getAllUsers, deleteUser } = require("../queries/users.queries");
+const {
+  getAllUsers,
+  deleteUser,
+  findUserPerId,
+} = require("../queries/users.queries");
 const fs = require("fs");
+const path = require("path");
 
 exports.adminPanel = async (req, res, next) => {
   try {
