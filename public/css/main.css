@@ -590,6 +590,11 @@ body {
   cursor: pointer;
 }
 
+.letter-image.admin {
+  max-width: 50%;
+  cursor: pointer;
+}
+
 .letter-image.zoomed {
   object-fit: contain;
 }
