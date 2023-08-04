@@ -762,42 +762,9 @@ body {
 
 /* Safari */
 
-@supports (-webkit-touch-callout: none) {
-  /* Définir la couleur de fond de l'encoche */
-  .body {
-    background-color: #ff0000; /* Couleur de fond souhaitée */
-    padding-top: env(
-      safe-area-inset-top
-    ); /* Ajuster le contenu pour l'encoche */
-    background-color: safari-top-tabbar-inset; /* Couleur de fond de l'encoche */
-  }
-}
-
-/* Browsers which partially support CSS Environment variables (iOS 11.0-11.2). */
-@supports (padding-top: constant(safe-area-inset-top)) {
-  .body {
-    --safe-area-inset-top: constant(safe-area-inset-top);
-    height: calc(100% + var(--safe-area-inset-top));
-  }
-}
-/* Browsers which fully support CSS Environment variables (iOS 11.2+). */
-@supports (padding-top: env(safe-area-inset-top)) {
-  .body {
-    --safe-area-inset-top: env(safe-area-inset-top);
-    height: calc(100% + var(--safe-area-inset-top));
-  }
-}
-
-/* Styles spécifiques pour Safari sur iOS */
-@supports (padding: max(0px)) {
-  /* Définir la couleur de fond de l'encoche */
-  .body {
-    background-color: #ff0000; /* Couleur de fond souhaitée */
-    padding-top: constant(
-      safe-area-inset-top,
-      20px
-    ); /* Ajuster le contenu pour l'encoche */
-  }
+body {
+  padding-bottom: calc(1em + env(safe-area-inset-bottom));
+  background-color: calc(red + env(safe-area-inset-bottom));
 }
 
 /* Autre Navigateur */
