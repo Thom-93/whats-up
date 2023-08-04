@@ -1,6 +1,11 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
 html,
 body {
-  background: linear-gradient(
+  background-color: linear-gradient(
     90deg,
     rgba(37, 149, 191, 1) 0%,
     rgba(37, 191, 170, 1) 37%,
@@ -761,18 +766,6 @@ body {
 /* MEDIA QUERIES */
 
 /* Safari */
-
-body {
-  --safe-area-inset-top: env(safe-area-inset-top);
-  --safe-area-inset-bottom: env(safe-area-inset-bottom);
-  height: calc(
-    100% + (var(--safe-area-inset-top) + var(--safe-area-inset-bottom))
-  );
-}
-
-footer {
-  padding-bottom: calc(1em + env(safe-area-inset-bottom));
-}
 
 /* Autre Navigateur */
 
