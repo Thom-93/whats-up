@@ -763,8 +763,15 @@ body {
 /* Safari */
 
 body {
+  --safe-area-inset-top: env(safe-area-inset-top);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
+  height: calc(
+    100% + (var(--safe-area-inset-top) + var(--safe-area-inset-bottom))
+  );
+}
+
+footer {
   padding-bottom: calc(1em + env(safe-area-inset-bottom));
-  background-color: calc(red + env(safe-area-inset-bottom));
 }
 
 /* Autre Navigateur */
