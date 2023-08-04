@@ -760,6 +760,19 @@ body {
 
 /* MEDIA QUERIES */
 
+/* Safari */
+
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) and (stroke-color: transparent) {
+    /* Définir la couleur de fond de l'encoche */
+    .header {
+      background-color: #ff0000; /* Couleur de fond souhaitée */
+    }
+  }
+}
+
+/* Autre Navigateur */
+
 @media screen and (min-width: 900px) {
   #admin-content {
     flex-direction: row;
