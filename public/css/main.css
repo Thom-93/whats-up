@@ -765,7 +765,7 @@ body {
 @supports (-webkit-touch-callout: none) {
   /* Définir la couleur de fond de l'encoche */
   .header {
-    background-color: #ffffff; /* Couleur de fond souhaitée */
+    background-color: #ff0000; /* Couleur de fond souhaitée */
     padding-top: env(
       safe-area-inset-top
     ); /* Ajuster le contenu pour l'encoche */
@@ -773,9 +773,19 @@ body {
   }
 }
 
-body {
-  padding: env(safe-area-inset-top, 20px) env(safe-area-inset-right, 20px)
-    env(safe-area-inset-bottom, 20px) env(safe-area-inset-left, 20px);
+/* Browsers which partially support CSS Environment variables (iOS 11.0-11.2). */
+@supports (padding-top: constant(safe-area-inset-top)) {
+  .body {
+    --safe-area-inset-top: constant(safe-area-inset-top);
+    height: calc(100% + var(--safe-area-inset-top));
+  }
+}
+/* Browsers which fully support CSS Environment variables (iOS 11.2+). */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .body {
+    --safe-area-inset-top: env(safe-area-inset-top);
+    height: calc(100% + var(--safe-area-inset-top));
+  }
 }
 
 /* Autre Navigateur */
