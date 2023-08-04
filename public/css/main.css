@@ -3,21 +3,18 @@
   margin: 0;
 }
 
-html,
 body {
-  --background-gradient: -webkit-linear-gradient(
-    90deg,
-    rgba(37, 149, 191, 1) 0%,
-    rgba(37, 191, 170, 1) 37%,
-    rgba(37, 191, 119, 1) 100%
-  );
   background: linear-gradient(
     90deg,
     rgba(37, 149, 191, 1) 0%,
     rgba(37, 191, 170, 1) 37%,
     rgba(37, 191, 119, 1) 100%
   );
-  background-color: var(--background-gradient);
+  background-color: none;
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
 }
 
 .content {
