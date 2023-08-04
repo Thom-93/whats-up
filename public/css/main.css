@@ -10,13 +10,24 @@ body {
   height: calc(
     100% + (var(--safe-area-inset-top) + var(--safe-area-inset-bottom))
   );
-  background-color: #25bf83;
   background: linear-gradient(
     90deg,
     rgba(37, 149, 191, 1) 0%,
     rgba(37, 191, 170, 1) 37%,
     rgba(37, 191, 119, 1) 100%
   );
+}
+
+@viewport {
+  viewport-fit: cover;
+}
+
+body {
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+
+  /*iOS 11.2 >*/
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .content {
