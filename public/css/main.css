@@ -764,7 +764,7 @@ body {
 
 @supports (-webkit-touch-callout: none) {
   /* Définir la couleur de fond de l'encoche */
-  .header {
+  .body {
     background-color: #ff0000; /* Couleur de fond souhaitée */
     padding-top: env(
       safe-area-inset-top
@@ -791,7 +791,7 @@ body {
 /* Styles spécifiques pour Safari sur iOS */
 @supports (padding: max(0px)) {
   /* Définir la couleur de fond de l'encoche */
-  .header {
+  .body {
     background-color: #ff0000; /* Couleur de fond souhaitée */
     padding-top: constant(
       safe-area-inset-top,
