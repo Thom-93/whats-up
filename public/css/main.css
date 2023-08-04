@@ -11,7 +11,12 @@ body {
     rgba(37, 191, 170, 1) 37%,
     rgba(37, 191, 119, 1) 100%
   );
-  background-color: #25bf848c;
+  background-color: linear-gradient(
+    90deg,
+    rgba(37, 149, 191, 1) 0%,
+    rgba(37, 191, 170, 1) 37%,
+    rgba(37, 191, 119, 1) 100%
+  );
 }
 
 .content {
