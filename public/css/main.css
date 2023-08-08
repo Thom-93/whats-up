@@ -350,7 +350,7 @@ body {
 /* AUTH  END */
 /* TWEET START   */
 #tweet-list-container {
-  margin-top: 1em;
+  margin: 1em 0em 1em 0em;
   width: -webkit-fill-available;
   animation-name: tweet-come-bottom;
   animation-duration: 500ms;
