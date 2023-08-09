@@ -360,7 +360,7 @@ body {
 /* AUTH  END */
 /* TWEET START   */
 #tweet-list-container {
-  margin: 1em 0em 1em 0em;
+  margin: 1em 0em 2em 0em;
   width: -webkit-fill-available;
   animation-name: tweet-come-bottom;
   animation-duration: 500ms;
@@ -775,6 +775,45 @@ body {
 }
 
 /* LOADER END */
+
+/* FOOTER START */
+
+#footer-container {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  background-color: rgba(255, 255, 255, 0.25);
+  bottom: 0px;
+  width: -webkit-fill-available;
+  align-items: center;
+  font-variant-caps: small-caps;
+}
+
+#feedback-container {
+  display: flex;
+  align-items: center;
+  & > #btn-feedback {
+    margin: 0em 0.3em 0em 0.5em;
+    cursor: pointer;
+  }
+}
+
+#Whats-UP-2021 {
+  margin: 0em 0.5em 0em 0.5em;
+}
+
+#logo-feedback {
+  background-size: cover;
+  margin-right: 0.5em;
+  width: 19px;
+  height: 19px;
+}
+
+.grecaptcha-badge {
+  bottom: 29px !important;
+}
+
+/* FOOTER END */
 
 /* MEDIA QUERIES */
 

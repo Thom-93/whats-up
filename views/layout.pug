@@ -24,3 +24,6 @@ html(lang="en")
     include ./includes/delete-secu.pug
     .container-fluid
       block content 
+  if user || currentUser
+    footer
+      include includes/footer.pug
