@@ -220,10 +220,12 @@ body {
   position: absolute;
   background: white;
   z-index: 1;
-  top: -3px;
+  overflow: auto;
+  top: -1px;
   border-radius: 0.3em;
   left: 0px;
   width: -webkit-fill-available;
+  height: 30em;
   box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
     0 1px 3px 1px rgba(60, 64, 67, 0.15);
   background-color: rgba(255, 255, 255, 0.25);
