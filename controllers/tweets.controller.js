@@ -25,13 +25,17 @@ const fs = require("fs");
 exports.tweetList = async (req, res, next) => {
   try {
     const tweets = await getCurrentUserTweetsWithFollowing(req.user);
-    res.render("letters/letter", {
-      tweets,
-      isAuthenticated: req.isAuthenticated(),
-      currentUser: req.user,
-      user: req.user,
-      editable: true,
-    });
+    if (tweets) {
+      res.render("letters/letter", {
+        tweets,
+        isAuthenticated: req.isAuthenticated(),
+        currentUser: req.user,
+        user: req.user,
+        editable: true,
+      });
+    } else {
+      return res.status(400).json("No tweets found");
+    }
   } catch (e) {
     next(e);
   }
@@ -92,20 +96,24 @@ exports.tweetCreate = [
 exports.tweetDelete = async (req, res, next) => {
   try {
     const tweetId = req.params.tweetId;
-    const tweet = await getTweet(tweetId); // Assume you have a function to get the tweet by tweetId
-    if (!tweet) {
-      return res.status(404).json({ message: "Tweet not found" });
+    if (tweetId) {
+      const tweet = await getTweet(tweetId); // Assume you have a function to get the tweet by tweetId
+      if (!tweet) {
+        return res.status(404).json({ message: "Tweet not found" });
+      }
+      if (tweet.image) {
+        fs.unlinkSync(path.join(__dirname, `../public/${tweet.image}`));
+      }
+      await deleteTweet(tweetId);
+      const tweets = await getCurrentUserTweetsWithFollowing(req.user);
+      res.render("letters/letter-list", {
+        tweets,
+        currentUser: req.user,
+        editable: true,
+      });
+    } else {
+      throw new Error("Une erreur est survenue veuillez réessayer plus tard");
     }
-    if (tweet.image) {
-      fs.unlinkSync(path.join(__dirname, `../public/${tweet.image}`));
-    }
-    await deleteTweet(tweetId);
-    const tweets = await getCurrentUserTweetsWithFollowing(req.user);
-    res.render("letters/letter-list", {
-      tweets,
-      currentUser: req.user,
-      editable: true,
-    });
   } catch (e) {
     next(e);
   }

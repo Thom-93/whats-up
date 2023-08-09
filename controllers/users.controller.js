@@ -32,8 +32,16 @@ const { checkForbiddenWords } = require("../queries/forbiddenWord.queries");
 exports.userList = async (req, res, next) => {
   try {
     const search = req.query.search;
-    const users = await searchUsersPerUsername(search);
-    res.render("includes/search-menu", { users });
+    if (search) {
+      const users = await searchUsersPerUsername(search);
+      if (users) {
+        res.render("includes/search-menu", { users });
+      } else {
+        return res.status(400).json("No users found");
+      }
+    } else {
+      return res.status(400).json("search is empty");
+    }
   } catch (e) {
     next(e);
   }
@@ -42,15 +50,27 @@ exports.userList = async (req, res, next) => {
 exports.userProfile = async (req, res, next) => {
   try {
     const username = req.params.username;
-    const user = await findUserPerUsername(username);
-    const tweets = await getUserTweetsFromAuthorId(user._id);
-    res.render("letters/letter", {
-      tweets,
-      isAuthenticated: req.isAuthenticated(),
-      currentUser: req.user,
-      user,
-      editable: false,
-    });
+    if (username) {
+      const user = await findUserPerUsername(username);
+      if (user) {
+        const tweets = await getUserTweetsFromAuthorId(user._id);
+        if (tweets) {
+          res.render("letters/letter", {
+            tweets,
+            isAuthenticated: req.isAuthenticated(),
+            currentUser: req.user,
+            user,
+            editable: false,
+          });
+        } else {
+          return res.status(400).json("No tweets found");
+        }
+      } else {
+        return res.status(400).json("No user found");
+      }
+    } else {
+      return res.status(400).json("username is empty");
+    }
   } catch (e) {
     next(e);
   }
@@ -115,9 +135,13 @@ exports.uploadImage = [
         throw new Error("Image trop grande, max 10Mo");
       }
       const user = req.user;
-      user.avatar = `/images/avatars/${req.file.filename}`;
-      await user.save();
-      res.redirect("/");
+      if (user) {
+        user.avatar = `/images/avatars/${req.file.filename}`;
+        await user.save();
+        res.redirect("/");
+      } else {
+        throw new Error("No user found");
+      }
     } catch (e) {
       next(e);
     }
@@ -127,11 +151,15 @@ exports.uploadImage = [
 exports.followUser = async (req, res, next) => {
   try {
     const userId = req.params.userId;
-    const [, user] = await Promise.all([
-      addUserIdToCurrentUserFollowing(req.user, userId),
-      findUserPerId(userId),
-    ]);
-    res.redirect(`/users/${user.username}`);
+    if (userId) {
+      const [, user] = await Promise.all([
+        addUserIdToCurrentUserFollowing(req.user, userId),
+        findUserPerId(userId),
+      ]);
+      res.redirect(`/users/${user.username}`);
+    } else {
+      return res.status(400).json("user id not found");
+    }
   } catch (e) {
     next(e);
   }
@@ -140,11 +168,15 @@ exports.followUser = async (req, res, next) => {
 exports.unfollowUser = async (req, res, next) => {
   try {
     const userId = req.params.userId;
-    const [, user] = await Promise.all([
-      removeUserIdToCurrentUserFollowing(req.user, userId),
-      findUserPerId(userId),
-    ]);
-    res.redirect(`/users/${user.username}`);
+    if (userId) {
+      const [, user] = await Promise.all([
+        removeUserIdToCurrentUserFollowing(req.user, userId),
+        findUserPerId(userId),
+      ]);
+      res.redirect(`/users/${user.username}`);
+    } else {
+      return res.status(400).json("user id not found");
+    }
   } catch (e) {
     next(e);
   }
@@ -153,14 +185,17 @@ exports.unfollowUser = async (req, res, next) => {
 exports.emailLinkVerification = async (req, res, next) => {
   try {
     const { userId, token } = req.params;
-    const user = await findUserPerId(userId);
-
-    if (user && token && token === user.local.emailToken) {
-      user.local.emailVerified = true;
-      await user.save();
-      return res.redirect("/");
+    if (userId) {
+      const user = await findUserPerId(userId);
+      if (user && token && token === user.local.emailToken) {
+        user.local.emailVerified = true;
+        await user.save();
+        return res.redirect("/");
+      } else {
+        return res.status(400).json("user not found or token invalid");
+      }
     } else {
-      return res.status(400).json("Problem durin email verification");
+      return res.status(400).json("user id not found");
     }
   } catch (e) {
     next(e);
@@ -183,9 +218,12 @@ exports.initResetPassword = async (req, res, next) => {
           token: user.local.passwordToken,
         });
         return res.status(200).end();
+      } else {
+        return res.status(400).json("user not found");
       }
+    } else {
+      return res.status(400).json("email is empty");
     }
-    return res.status(400).json("Utilisateur inconnu");
   } catch (e) {
     next(e);
   }
@@ -194,15 +232,19 @@ exports.initResetPassword = async (req, res, next) => {
 exports.resetPasswordForm = async (req, res, next) => {
   try {
     const { userId, token } = req.params;
-    const user = await findUserPerId(userId);
-    if (user && user.local.passwordToken === token) {
-      return res.render("auth/auth-reset-password", {
-        url: `https://${req.headers.host}/users/reset-password/${user._id}/${user.local.passwordToken}`,
-        errors: null,
-        isAuthenticated: false,
-      });
+    if (userId) {
+      const user = await findUserPerId(userId);
+      if (user && user.local.passwordToken === token) {
+        return res.render("auth/auth-reset-password", {
+          url: `https://${req.headers.host}/users/reset-password/${user._id}/${user.local.passwordToken}`,
+          errors: null,
+          isAuthenticated: false,
+        });
+      } else {
+        return res.status(400).json("user not found or token invalid");
+      }
     } else {
-      return res.status(400).json("L'utilisateur n'existe pas !");
+      return res.status(400).json("user id not found");
     }
   } catch (e) {
     next(e);
@@ -213,24 +255,28 @@ exports.resetPassword = async (req, res, next) => {
   try {
     const { userId, token } = req.params;
     const { password } = req.body;
-    const user = await findUserPerId(userId);
-    if (
-      password &&
-      user &&
-      user.local.passwordToken === token &&
-      moment() < moment(user.local.passwordTokenExpiration)
-    ) {
-      user.local.password = await User.hashPassword(password);
-      user.local.passwordToken = null;
-      user.local.passwordTokenExpiration = null;
-      await user.save();
-      return res.redirect("/");
+    if (userId) {
+      const user = await findUserPerId(userId);
+      if (
+        password &&
+        user &&
+        user.local.passwordToken === token &&
+        moment() < moment(user.local.passwordTokenExpiration)
+      ) {
+        user.local.password = await User.hashPassword(password);
+        user.local.passwordToken = null;
+        user.local.passwordTokenExpiration = null;
+        await user.save();
+        return res.redirect("/");
+      } else {
+        return res.render("auth/auth-reset-password", {
+          url: `https://${req.headers.host}/users/reset-password/${user._id}/${user.local.passwordToken}`,
+          errors: ["Une erreur c'est produite"],
+          isAuthenticated: false,
+        });
+      }
     } else {
-      return res.render("auth/auth-reset-password", {
-        url: `https://${req.headers.host}/users/reset-password/${user._id}/${user.local.passwordToken}`,
-        errors: ["Une erreur c'est produite"],
-        isAuthenticated: false,
-      });
+      return res.status(400).json("user id not found");
     }
   } catch (e) {
     next(e);
@@ -242,13 +288,17 @@ exports.userDelete = async (req, res, next) => {
     const userId = req.params.userId;
     if (userId) {
       const user = await findUserPerId(userId);
-      if (user.avatar && user.avatar !== "/images/avatars/default.svg") {
-        fs.unlinkSync(path.join(__dirname, `../public/${user.avatar}`));
+      if (user) {
+        if (user.avatar && user.avatar !== "/images/avatars/default.svg") {
+          fs.unlinkSync(path.join(__dirname, `../public/${user.avatar}`));
+        }
+        await deleteUser(userId);
+        res.sendStatus(204);
+      } else {
+        return res.status(400).json("user not found");
       }
-      await deleteUser(userId);
-      res.sendStatus(204);
     } else {
-      return res.status(400).json("User not found");
+      return res.status(400).json("user id not found");
     }
   } catch (e) {
     next(e);
@@ -260,14 +310,18 @@ exports.profileDelete = async (req, res, next) => {
     const profileId = req.params.userId;
     if (profileId) {
       const user = await findUserPerId(profileId);
-      if (user.avatar && user.avatar !== "/images/avatars/default.svg") {
-        fs.unlinkSync(path.join(__dirname, `../public/${user.avatar}`));
+      if (user) {
+        if (user.avatar && user.avatar !== "/images/avatars/default.svg") {
+          fs.unlinkSync(path.join(__dirname, `../public/${user.avatar}`));
+        }
+        await deleteUser(profileId);
+        req.logout();
+        res.sendStatus(204);
+      } else {
+        return res.status(400).json("user not found");
       }
-      await deleteUser(profileId);
-      req.logout();
-      res.sendStatus(204);
     } else {
-      return res.status(400).json("Profile not found");
+      return res.status(400).json("user id is empty");
     }
   } catch (e) {
     next(e);

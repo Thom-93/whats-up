@@ -9,25 +9,6 @@ const decodeJwtToken = (token) => {
   return jwt.verify(token, secret);
 };
 
-const verifyCaptcha = async (token) => {
-  try {
-    const response = await axios.post(
-      "https://www.google.com/recaptcha/api/siteverify",
-      null,
-      {
-        params: {
-          secret: "6Lei_BknAAAAAERYIEsymIe7HwgsWzK-3oLnBWR5",
-          response: token,
-        },
-      }
-    );
-
-    return response.data.success;
-  } catch (e) {
-    next(e);
-  }
-};
-
 exports.ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     next();

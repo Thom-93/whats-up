@@ -60,7 +60,7 @@ exports.adminTweetDelete = async (req, res, next) => {
       await deleteTweet(tweetId);
       res.sendStatus(204);
     } else {
-      return res.status(400).json("Tweet not found");
+      return res.status(400).json("Tweet id not found");
     }
   } catch (e) {
     next(e);
@@ -104,7 +104,6 @@ exports.adminTweetValidationByMail = async (req, res, next) => {
   try {
     const { userId, token } = req.params;
     const user = await findUserPerId(userId);
-
     if (user && token && token === user.local.emailToken) {
       user.local.emailVerified = true;
       await user.save();
@@ -121,14 +120,17 @@ exports.banUser24H = async (req, res, next) => {
   try {
     const username = req.params.username;
     const userEmail = req.params.userEmail;
-    const delay = "24H";
-    console.log(username, userEmail);
     if (username && userEmail) {
-      const userToBan = [username, userEmail, delay];
-      await Ban24H(userToBan);
-      res.sendStatus(204);
+      const delay = "24H";
+      if (username && userEmail) {
+        const userToBan = [username, userEmail, delay];
+        await Ban24H(userToBan);
+        res.sendStatus(204);
+      } else {
+        return res.status(400).json("Problem durin Ban24H");
+      }
     } else {
-      return res.status(400).json("Problem durin Ban24H");
+      return res.status(400).json("No user found");
     }
   } catch (e) {
     next(e);
