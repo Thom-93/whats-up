@@ -14,7 +14,7 @@ body {
   background-size: auto;
   background-repeat: no-repeat;
   background-position: center;
-  height: 100%;
+  min-height: 100vh;
 }
 
 .content {
@@ -36,7 +36,11 @@ body {
 /* INPUT Start*/
 
 .form-control {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+  &:focus {
+    background-color: rgba(255, 255, 255, 0.25);
+  }
 }
 
 /* INPUT End */
@@ -208,6 +212,11 @@ body {
   display: block;
 }
 
+.form-control.input-search {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
 /* Navbar End */
 
 /* Search-bar Start */
@@ -358,6 +367,7 @@ body {
 }
 
 /* AUTH  END */
+
 /* TWEET START   */
 #tweet-list-container {
   margin: 1em 0em 2em 0em;
@@ -425,6 +435,7 @@ body {
   box-shadow: 1em 1em 1em #00000059;
   resize: none;
   background-color: rgba(255, 255, 255, 0.6);
+  height: 6em;
   &.error {
     border: 2px solid rgba(255, 0, 0, 0.671);
   }
@@ -623,6 +634,7 @@ body {
 }
 
 /* TWEET END   */
+
 /* ADMIN START   */
 .a-admin-user {
   text-decoration: none;
@@ -776,6 +788,59 @@ body {
 
 /* LOADER END */
 
+/* FEEDBACK START */
+
+.new-feedback-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 9em;
+}
+
+.card-new-feedback {
+  min-width: 20em;
+  background-color: rgba(255, 255, 255, 0.4);
+  box-shadow: black 1px 2px 8px;
+}
+
+.input-new-feedback {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+  &:focus {
+    background-color: rgba(255, 255, 255, 0.25);
+  }
+  &.message {
+    justify-content: center;
+    min-height: 5em;
+  }
+}
+
+.char-count {
+  color: rgba(0, 0, 0, 0.54);
+  &.no-more-chars {
+    color: #ff0000d9;
+  }
+  &.feedback-message,
+  &.letter-char-count {
+    display: flex;
+    justify-content: end;
+  }
+}
+
+.email {
+  margin-left: 1em;
+  filter: blur(4px);
+  transition: background-color 0.3s, filter 0.3s;
+  &.email:hover {
+    filter: none; /* Rétablir le flou en cas de focus */
+  }
+}
+
+.error-new-letter {
+}
+
+/* FEEDBACK END */
+
 /* FOOTER START */
 
 #footer-container {
@@ -795,6 +860,8 @@ body {
   & > #btn-feedback {
     margin: 0em 0.3em 0em 0.5em;
     cursor: pointer;
+    text-decoration: none;
+    color: black;
   }
 }
 
@@ -803,6 +870,7 @@ body {
 }
 
 #logo-feedback {
+  background: url("../images/utils/logo-feedback/logo-feedback.svg");
   background-size: cover;
   margin-right: 0.5em;
   width: 19px;
@@ -837,13 +905,36 @@ body {
 
   .form-control.input-search {
     width: 300px;
+  }
+
+  .form-control.input-new-feedback {
     background-color: rgba(255, 255, 255, 0.25);
     border-color: rgba(255, 255, 255, 0.4);
+    &:hover {
+      border: 3px solid rgba(255, 255, 255, 0.4);
+    }
+    &:focus {
+      border: 3px solid rgba(255, 255, 255, 0.4);
+    }
   }
 
   .form-control.input-new-tweet {
     width: 90%;
-    height: 6em;
+    height: 7em;
+  }
+
+  .card-new-feedback {
+    width: 30em;
+  }
+
+  .input-new-feedback {
+    &.sujet {
+      width: 50%;
+    }
+
+    &.message {
+      min-height: 10em;
+    }
   }
 
   .profile-container {
@@ -958,6 +1049,10 @@ body {
 
   #admin-tweet-validation-container {
     width: 50%;
+  }
+
+  .letter-char-count {
+    width: 90%;
   }
 
   /* Style pour l'effet d'agrandissement */

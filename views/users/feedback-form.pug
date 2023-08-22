@@ -1,0 +1,28 @@
+extends ../layout
+
+block content
+  script.
+    function onSubmit(token) {
+      document.getElementById("feedback-form").submit();
+    }
+  script(src="/javascripts/feedback/feedback-char-count.js")
+  div(class="flex-fill new-feedback-container")
+    form(class="card card-new-feedback" method="post" action="/users/feedback/send" enctype='application/x-www-form-urlencoded' id="feedback-form")
+      div(class="card-header") Donner votre avis
+      div(clas="card-body")
+        div(class="form-group m-3")
+          label(class="label-auth") Email :
+          span(class="email" type="email" name="email" )= currentUser.local.email
+        div(class="form-group m-3")
+          label(class="label-auth") Sujet :
+          input(class="form-control input-new-feedback sujet" type="subject" name="subject")
+        div(class="form-group m-3")
+          label(class="label-auth") Message :
+          textarea(class="form-control input-new-feedback message" type="message" name="message" placeholder="donner votre avis ici !")
+          span(class="char-count feedback-message") 0/1000
+          if errors
+            ul(class="my-2")
+              each error in errors
+                li(class="text-danger error-new-letter")= error
+        div(class="w-100")
+          input(type="submit" value="Send" class="g-recaptcha btn btn-primary d-block m-1 float-end btn-send" data-sitekey="6Lei_BknAAAAAJ22WJ7rnXdUmV9wH4fKAo-uDh5J" data-callback="onSubmit" data-size="invisible") 

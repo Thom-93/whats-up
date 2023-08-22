@@ -44,6 +44,7 @@ class Email {
       throw e;
     }
   }
+
   async sendResetPasswordLink(options) {
     try {
       const email = {
@@ -73,6 +74,28 @@ class Email {
           path.join(__dirname, "templates/img-validation.pug"),
           {
             url: `https://${options.host}/letters`,
+          }
+        ),
+      };
+      await this.transporter.sendMail(email);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async sendEmailFeedback(options) {
+    try {
+      const email = {
+        from: this.from,
+        subject: options.subject,
+        to: "thomasxfurax@gmail.com",
+        html: pug.renderFile(
+          path.join(__dirname, "templates/feedback-email.pug"),
+          {
+            username: options.username,
+            email: options.email,
+            subject: options.subject,
+            message: options.message,
           }
         ),
       };

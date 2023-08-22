@@ -84,31 +84,87 @@ exports.signupForm = (req, res, next) => {
   });
 };
 
+exports.feedbackForm = (req, res, next) => {
+  res.render("users/feedback-form", {
+    errors: null,
+    isAuthenticated: req.isAuthenticated(),
+    currentUser: req.user,
+  });
+};
+
 exports.signup = async (req, res, next) => {
-  const body = req.body;
-  try {
-    const usernameCheck = await checkForbiddenWords(body.username);
-    if (!usernameCheck) {
-      const user = await createUser(body);
-      await findUserPerEmailAndUpdateLogged(user._id, true);
-      req.login(user);
-      emailFactory.sendEmailVerification({
-        to: user.local.email,
-        host: req.headers.host,
-        username: user.username,
-        userId: user._id,
-        token: user.local.emailToken,
+  if (!req.isAuthenticated()) {
+    const body = req.body;
+    try {
+      const usernameCheck = await checkForbiddenWords(body.username);
+      if (!usernameCheck) {
+        const user = await createUser(body);
+        await findUserPerEmailAndUpdateLogged(user._id, true);
+        req.login(user);
+        emailFactory.sendEmailVerification({
+          to: user.local.email,
+          host: req.headers.host,
+          username: user.username,
+          userId: user._id,
+          token: user.local.emailToken,
+        });
+        res.redirect("/");
+      } else {
+        throw new Error("Le nom d'utilisateur est interdit");
+      }
+    } catch (e) {
+      res.render("users/users-form", {
+        errors: [e.message],
+        isAuthenticated: req.isAuthenticated(),
+        currentUser: req.user,
       });
-      res.redirect("/");
-    } else {
-      throw new Error("Le nom d'utilisateur est interdit");
     }
-  } catch (e) {
-    res.render("users/users-form", {
-      errors: [e.message],
-      isAuthenticated: req.isAuthenticated(),
-      currentUser: req.user,
-    });
+  } else {
+    res.redirect("/");
+  }
+};
+
+exports.sendFeedback = async (req, res, next) => {
+  if (req.isAuthenticated()) {
+    const body = req.body;
+    const email = req.user.local.email;
+    const subject = body.subject;
+    const message = body.message;
+    const username = req.user.username;
+
+    if (!email || !subject || !message) {
+      return res.status(400).json("email, subject or message is empty");
+    } else if (email.length > 255 || subject.length > 255) {
+      return res.status(400).json("email or subject is too long");
+    } else if (message.length > 1000) {
+      return res.status(400).json("message is too long");
+    }
+
+    try {
+      const messageCheck = await checkForbiddenWords(message);
+      const subjectCheck = await checkForbiddenWords(subject);
+
+      if (!messageCheck && !subjectCheck) {
+        emailFactory.sendEmailFeedback({
+          host: req.headers.host,
+          username: username,
+          email: email,
+          subject: subject,
+          message: message,
+        });
+        res.redirect("/");
+      } else {
+        throw new Error("il y a des mots interdit");
+      }
+    } catch (e) {
+      res.render("users/feedback-form", {
+        errors: [e.message],
+        isAuthenticated: req.isAuthenticated(),
+        currentUser: req.user,
+      });
+    }
+  } else {
+    res.redirect("/");
   }
 };
 

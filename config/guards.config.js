@@ -9,6 +9,14 @@ const decodeJwtToken = (token) => {
   return jwt.verify(token, secret);
 };
 
+exports.checkIfIsLoged = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    res.redirect("/");
+  } else {
+    next();
+  }
+};
+
 exports.ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     next();

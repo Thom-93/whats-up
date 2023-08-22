@@ -6,7 +6,7 @@ const tweetSchema = schema(
   {
     content: {
       type: String,
-      maxlength: [140, "Lettre trop longue"],
+      maxlength: [300, "Lettre trop longue"],
       minlength: [1, "Lettre trop court"],
       required: [true, "Champ requis"],
       validate: {
