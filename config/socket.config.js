@@ -13,7 +13,7 @@ const initSocketServer = (server) => {
 
   console.log("Socket server initialized.");
 
-  io.on("connect", async (socket) => {
+  io.on("connect", (socket) => {
     console.log("connexion ios ok");
     if (socket.request.user.local.admin) {
       socket.join("admin");
