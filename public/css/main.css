@@ -605,6 +605,7 @@ body {
 .img-in-pending {
   display: flex;
   justify-content: center;
+  filter: blur(30px);
 }
 
 /* Style pour l'image de la lettre */
@@ -756,6 +757,38 @@ body {
     0.09em 0.09em 0 #27ce27, 0.0925em 0.0925em 0 #27ce27,
     0.095em 0.095em 0 #27ce27, 0.0975em 0.0975em 0 #27ce27,
     0.1em 0.1em 0 #27ce27;
+}
+
+.div-img-flou {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .btn-img-more-flou,
+  .btn-img-less-flou {
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 1em;
+    width: 1.5em;
+    height: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .btn-img-more-flou:hover,
+  .btn-img-less-flou:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    transition: transform 0.2s;
+    transform: scale(1.1);
+  }
+
+  .btn-img-more-flou {
+    border: 2px solid #940909;
+  }
+
+  .btn-img-less-flou {
+    border: 2px solid #2598be;
+    margin-left: 1em;
+  }
 }
 
 /* ADMIN END  */

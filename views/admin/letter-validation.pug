@@ -1,3 +1,4 @@
+script(src="/javascripts/admin/img-blur.js")
 if tweets
   each tweet in tweets
     if tweet.statut === null
@@ -22,6 +23,10 @@ if tweets
                 i(class="fa-solid fa-times validate-btn-false" tweetid=tweet._id)
           div(class="ms-3 mb-3 mt-2 div-tweet-content")= tweet.content
           if tweet.image
+            span(class="text-center") Flou
+            div(class="div-img-flou")
+              button(class="btn-img-more-flou") +
+              button(class="btn-img-less-flou") -
             div(id="div-letter-image " class="m-3 img-in-pending")
               img(class="letter-image-validation" width="5em" src=tweet.image)
           span(class="flex-fill ms-1 tweet-time" letteruptime= tweet.updatedAt, lettercreatetime= tweet.createdAt)
