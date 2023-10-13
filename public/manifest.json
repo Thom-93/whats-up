@@ -1,0 +1,15 @@
+{
+  "short_name": "W-UP",
+  "name": "Whats-UP",
+  "icons": [
+    {
+      "src": "/images/whats-up-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#2595bf",
+  "theme_color": "#0000ff",
+  "display": "standalone"
+}

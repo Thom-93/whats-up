@@ -4,9 +4,10 @@ const path = require("path");
 const index = require("./routes");
 const errorHandler = require("errorhandler");
 const cookieParser = require("cookie-parser");
+const http2Express = require("http2-express-bridge");
 require("./database");
 
-const app = express();
+const app = http2Express(express);
 module.exports = app;
 
 app.use(cookieParser());
