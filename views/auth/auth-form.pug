@@ -16,11 +16,11 @@ block content
           a(class="auth-a-link" href="/users/signup/form") Inscription  
         div(clas="card-body")
           div(class="form-group m-3")
-            label(class="label-auth") Email :
-            input(class="form-control" type="email" name="email")
+            label(class="label-auth" for="email") Email :
+            input(class="form-control" type="email" name="email" id="email")
           div(class="form-group m-3")
-            label(class="label-auth") Password : 
-            input(class="form-control" type="password" name="password")
+            label(class="label-auth" for="password") Password : 
+            input(class="form-control" type="password" name="password" id="password")
             if error
             ul(class="my-2")
                 li(class="auth-error")= error 
