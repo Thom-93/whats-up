@@ -5,6 +5,7 @@ const index = require("./routes");
 const errorHandler = require("errorhandler");
 const cookieParser = require("cookie-parser");
 const http2Express = require("http2-express-bridge");
+const staticPath = path.join(__dirname, "public");
 require("./database");
 
 const app = http2Express(express);
@@ -17,7 +18,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
 app.use(morgan("short"));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(staticPath));
 app.use(express.json());
 app.use(
   express.urlencoded({
