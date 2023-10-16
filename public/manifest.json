@@ -3,7 +3,7 @@
   "name": "Whats-UP",
   "icons": [
     {
-      "src": "/images/whats-up-logo.png",
+      "src": "/images/whats-up-logo.webp",
       "sizes": "512x512",
       "type": "image/png"
     }
