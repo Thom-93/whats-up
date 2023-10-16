@@ -300,6 +300,7 @@ body {
 }
 
 .logo-auth {
+  margin-bottom: 3rem;
   text-decoration: none;
   font-size: x-large;
   font-style: italic;
@@ -874,6 +875,19 @@ body {
 
 /* FEEDBACK END */
 
+/* Users-form START */
+
+.users-form-container {
+  display: flex;
+  max-width: 1000px;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  flex-direction: column;
+}
+
+/* Users-form END */
+
 /* FOOTER START */
 
 #footer-container {
@@ -919,6 +933,14 @@ body {
 /* MEDIA QUERIES */
 
 @media screen and (min-width: 900px) {
+  /* Users-form START */
+
+  .users-form-container {
+    margin: auto;
+  }
+
+  /* Users-form END */
+
   #admin-content {
     flex-direction: row;
   }
