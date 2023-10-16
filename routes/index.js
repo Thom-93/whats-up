@@ -20,10 +20,11 @@ router.get("/", (req, res) => {
   } else {
     res.redirect("/auth/signin/form");
   }
+  res.end();
 });
 
-// router.get("*", (req, res) => {
-//   res.redirect("/letters");
-// });
+router.get("*", (req, res) => {
+  res.redirect("/");
+});
 
 module.exports = router;
