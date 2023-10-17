@@ -196,7 +196,12 @@ exports.uploadImage = [
         if (extension !== ".gif") {
           const webpBuffer = await sharp(req.file.path).webp().toBuffer();
           const webpFilename = `${req.file.filename}.webp`;
-          fs.unlinkSync(path.join(__dirname, `../public/${user.avatar}`));
+          if (
+            fs.existsSync(path.join(__dirname, `../public/${user.avatar}`)) &&
+            user.avatar !== "/images/avatars/default.svg"
+          ) {
+            fs.unlinkSync(path.join(__dirname, `../public/${user.avatar}`));
+          }
           fs.writeFileSync(`public/images/avatars/${webpFilename}`, webpBuffer);
           user.avatar = `/images/avatars/${webpFilename}`;
           fs.unlinkSync(req.file.path);
