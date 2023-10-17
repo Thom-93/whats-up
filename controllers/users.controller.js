@@ -28,6 +28,7 @@ const { v4: uuidv4 } = require("uuid");
 const User = require("../database/models/user.model");
 const fs = require("fs");
 const { checkForbiddenWords } = require("../queries/forbiddenWord.queries");
+const sharp = require("sharp");
 
 exports.userList = async (req, res, next) => {
   try {
@@ -192,7 +193,16 @@ exports.uploadImage = [
       }
       const user = req.user;
       if (user) {
-        user.avatar = `/images/avatars/${req.file.filename}`;
+        if (extension !== ".gif") {
+          const webpBuffer = await sharp(req.file.path).webp().toBuffer();
+          const webpFilename = `${req.file.filename}.webp`;
+          fs.unlinkSync(path.join(__dirname, `../public/${user.avatar}`));
+          fs.writeFileSync(`public/images/avatars/${webpFilename}`, webpBuffer);
+          user.avatar = `/images/avatars/${webpFilename}`;
+          fs.unlinkSync(req.file.path);
+        } else {
+          user.avatar = `/images/avatars/${req.file.filename}`;
+        }
         await user.save();
         res.redirect("/");
       } else {
