@@ -54,7 +54,7 @@ exports.adminTweetDelete = async (req, res, next) => {
       if (!tweet) {
         return res.status(404).json({ message: "Tweet not found" });
       }
-      if (tweet.image) {
+      if (tweet.image && fs.existsSync(tweet.image)) {
         fs.unlinkSync(path.join(__dirname, `../public/${tweet.image}`));
       }
       await deleteTweet(tweetId);

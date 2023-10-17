@@ -21,6 +21,7 @@ const upload = multer({
 });
 const emailFactory = require("../emails");
 const fs = require("fs");
+const sharp = require("sharp");
 
 exports.tweetList = async (req, res, next) => {
   try {
@@ -65,7 +66,18 @@ exports.tweetCreate = [
           fs.unlinkSync(req.file.path);
           throw new Error("Image trop grande, max 10Mo");
         }
-        body.image = `/images/letters-images/${req.file.filename}`;
+        if (extension !== ".gif") {
+          const webpBuffer = await sharp(req.file.path).webp().toBuffer();
+          const webpFilename = `${req.file.filename}.webp`;
+          fs.writeFileSync(
+            `public/images/letters-images/${webpFilename}`,
+            webpBuffer
+          );
+          body.image = `/images/letters-images/${webpFilename}`;
+          fs.unlinkSync(req.file.path);
+        } else {
+          body.image = `/images/letters-images/${req.file.filename}`;
+        }
       }
       const newletter = await createTweet({ ...body, author: req.user._id });
       body.image && newletter
@@ -97,11 +109,14 @@ exports.tweetDelete = async (req, res, next) => {
   try {
     const tweetId = req.params.tweetId;
     if (tweetId) {
-      const tweet = await getTweet(tweetId); // Assume you have a function to get the tweet by tweetId
+      const tweet = await getTweet(tweetId);
       if (!tweet) {
         return res.status(404).json({ message: "Tweet not found" });
       }
-      if (tweet.image) {
+      if (
+        tweet.image &&
+        fs.existsSync(path.join(__dirname, `../public/${tweet.image}`))
+      ) {
         fs.unlinkSync(path.join(__dirname, `../public/${tweet.image}`));
       }
       await deleteTweet(tweetId);
@@ -144,8 +159,27 @@ exports.tweetUpdate = [
     try {
       let body = req.body;
       if (body) {
+        console.log(body.oldImage);
         if (req.file) {
-          body.image = `/images/letters-images/${req.file.filename}`;
+          const extension = path.extname(req.file.originalname);
+          if (extension !== ".gif") {
+            const webpBuffer = await sharp(req.file.path).webp().toBuffer();
+            const webpFilename = `${req.file.filename}.webp`;
+            fs.writeFileSync(
+              `public/images/letters-images/${webpFilename}`,
+              webpBuffer
+            );
+            body.image = `/images/letters-images/${webpFilename}`;
+            fs.unlinkSync(req.file.path);
+          } else {
+            body.image = `/images/letters-images/${req.file.filename}`;
+          }
+          if (
+            body.oldImage &&
+            fs.existsSync(path.join(__dirname, `../public/${body.oldImage}`))
+          ) {
+            fs.unlinkSync(path.join(__dirname, `../public/${body.oldImage}`));
+          }
         }
         await updateTweet(tweetId, body);
         await updateTweetStatus(tweetId, statut);

@@ -17,6 +17,7 @@ div(class="flex-fill new-tweet-container")
         div(class="form-group mt-3 ms-1 d-flex align-items-center")
           if tweet.image
             img(src=tweet.image, class="img-thumbnail m-3" width="200" height="200")
+            input(type="hidden" name="oldImage" value=tweet.image)
           label(for="image" class="me-1") Image:
           input(type="file" name="image" id="image" class="input-file form-control")
         if errors
