@@ -30,8 +30,6 @@ router.get(
   unfollowUser
 );
 router.get("/:username", ensureIsNotBan, ensureAuthenticated, userProfile);
-router.get("/signup/form", checkIfIsLoged, signupForm);
-router.post("/signup", checkIfIsLoged, signup);
 router.post("/update/image", ensureIsNotBan, ensureAuthenticated, uploadImage);
 router.get("/email-verification/:userId/:token", emailLinkVerification);
 router.post("/forgot-password", initResetPassword);

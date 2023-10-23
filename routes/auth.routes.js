@@ -1,13 +1,14 @@
 const router = require("express").Router();
-const { checkIfIsLoged } = require("../config/guards.config");
 const {
-  signinForm,
   signin,
   signout,
+  authForm,
+  signup,
 } = require("../controllers/auth.controller");
 
-router.get("/signin/form", checkIfIsLoged, signinForm);
-router.post("/signin", checkIfIsLoged, signin);
+router.get("/form", authForm);
+router.post("/sign-in", signin);
+router.post("/sign-up", signup);
 router.get("/signout", signout);
 
 module.exports = router;

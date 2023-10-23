@@ -1,11 +1,14 @@
 const { checkUserBan } = require("../queries/banList.queries");
+const { checkForbiddenWords } = require("../queries/forbiddenWord.queries");
 const {
   findUserPerEmail,
   findUserPerEmailAndUpdateLogged,
+  createUser,
 } = require("../queries/users.queries");
+const emailFactory = require("../emails");
 
-exports.signinForm = (req, res, next) => {
-  res.render("auth/auth-form", {
+exports.authForm = (req, res, next) => {
+  res.render("auth/auth-form-v2", {
     errors: null,
     isAuthenticated: req.isAuthenticated(),
     currentUser: req.user,
@@ -23,29 +26,62 @@ exports.signin = async (req, res, next) => {
           if (match) {
             await findUserPerEmailAndUpdateLogged(user._id, true);
             req.login(user);
-            res.redirect("/");
+            res.redirect("/letters");
             return;
           } else {
-            res.render("auth/auth-form", { error: "Wrong Password" });
+            res.render("auth/auth-form-v2", { error: "Wrong Password" });
           }
         } else {
-          res.render("auth/auth-form", { error: "Email not found" });
+          res.render("auth/auth-form-v2", { error: "Email not found" });
         }
       } else {
-        res.render("auth/auth-form", { error: "Wrong Email or Password" });
+        res.render("auth/auth-form-v2", { error: "Wrong Email or Password" });
       }
     } else {
-      res.redirect("/");
+      res.redirect("/letters");
     }
   } catch (e) {
     next(e);
   }
 };
+
+exports.signup = async (req, res, next) => {
+  try {
+    if (!req.isAuthenticated()) {
+      const body = req.body;
+      const usernameCheck = await checkForbiddenWords(body.username);
+      if (!usernameCheck) {
+        const user = await createUser(body);
+        await findUserPerEmailAndUpdateLogged(user._id, true);
+        req.login(user);
+        emailFactory.sendEmailVerification({
+          to: user.local.email,
+          host: req.headers.host,
+          username: user.username,
+          userId: user._id,
+          token: user.local.emailToken,
+        });
+        res.redirect("/letters");
+      } else {
+        throw new Error("Le nom d'utilisateur est interdit");
+      }
+    } else {
+      throw new Error("Vous êtes déjà connecté");
+    }
+  } catch (e) {
+    res.render("auth/auth-form-v2", {
+      errors: [e.message],
+      isAuthenticated: req.isAuthenticated(),
+      currentUser: req.user,
+    });
+  }
+};
+
 exports.signout = async (req, res, next) => {
   try {
     await findUserPerEmailAndUpdateLogged(req.user._id, false);
     req.logout();
-    res.redirect("/auth/signin/form");
+    res.redirect("/auth/form");
   } catch (e) {
     next(e);
   }

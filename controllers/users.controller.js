@@ -77,52 +77,12 @@ exports.userProfile = async (req, res, next) => {
   }
 };
 
-exports.signupForm = (req, res, next) => {
-  res.render("users/users-form", {
-    errors: null,
-    isAuthenticated: req.isAuthenticated(),
-    currentUser: req.user,
-  });
-};
-
 exports.feedbackForm = (req, res, next) => {
   res.render("users/feedback-form", {
     errors: null,
     isAuthenticated: req.isAuthenticated(),
     currentUser: req.user,
   });
-};
-
-exports.signup = async (req, res, next) => {
-  if (!req.isAuthenticated()) {
-    const body = req.body;
-    try {
-      const usernameCheck = await checkForbiddenWords(body.username);
-      if (!usernameCheck) {
-        const user = await createUser(body);
-        await findUserPerEmailAndUpdateLogged(user._id, true);
-        req.login(user);
-        emailFactory.sendEmailVerification({
-          to: user.local.email,
-          host: req.headers.host,
-          username: user.username,
-          userId: user._id,
-          token: user.local.emailToken,
-        });
-        res.redirect("/");
-      } else {
-        throw new Error("Le nom d'utilisateur est interdit");
-      }
-    } catch (e) {
-      res.render("users/users-form", {
-        errors: [e.message],
-        isAuthenticated: req.isAuthenticated(),
-        currentUser: req.user,
-      });
-    }
-  } else {
-    res.redirect("/");
-  }
 };
 
 exports.sendFeedback = async (req, res, next) => {

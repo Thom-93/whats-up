@@ -21,7 +21,7 @@ exports.ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
   } else {
-    res.redirect("/auth/signin/form");
+    res.redirect("/auth/form");
   }
 };
 
@@ -92,7 +92,7 @@ exports.ensureIsNotBot = async (req, res, next) => {
 exports.ensureIsNotBan = async (req, res, next) => {
   try {
     if (!req.user) {
-      res.redirect("/auth/signin/form");
+      res.redirect("/auth/form");
     } else {
       const userVerification = await checkUserBan(req.user.local.email);
       if (userVerification) {

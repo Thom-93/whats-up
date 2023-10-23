@@ -1,0 +1,77 @@
+extends ../layout
+
+block content 
+  script(src="/javascripts/auth/auth-form-v2.js")
+  script.
+    function onSubmit(token) {
+      document.getElementById("sign-in-form").submit();
+      document.getElementById("sign-up-form").submit();
+      grecaptcha.execute();
+    }
+  div(class="g-recaptcha" data-sitekey="6Lei_BknAAAAAJ22WJ7rnXdUmV9wH4fKAo-uDh5J" data-callback="onSubmit" data-size="invisible")
+  main(class="main-auth")
+    .box-auth
+      .inner-box-auth
+        .forms-wrap-auth
+          form(action="/auth/sign-in", method="post", autocomplete="off", class="form-auth sign-in-form")
+            .logo-form-auth
+              img(src="/images/whats-up-logo.webp", alt="easyclass")
+              h4 Whats-UP
+            .heading-auth
+              h2 Content 
+              h2 De vous revoir !
+              h6 Pas encore inscrit ?
+              a(class="toggle") S'inscrire
+            .actual-form
+              .input-wrap-auth
+                input(type="text", name="email", minlength="4", class="input-field-auth", autocomplete="off", required)
+                label(class="label-auth" for="email") Email
+              .input-wrap-auth
+                input(type="password", name="password", minlength="4", class="input-field-auth", autocomplete="off", required)
+                label(class="label-auth" for="password") Password
+              input(type="submit", value="Connexion", class="sign-btn")
+              p.text-auth
+                | Mot de passe oublier ? 
+                a(id="forgot") Get help
+          form(action="/auth/sign-up", method="post", autocomplete="off", class="form-auth sign-up-form")
+            .logo-form-auth
+              img(src="/images/whats-up-logo.webp", alt="easyclass")
+              h4 Whats-UP
+            .heading-auth
+              h2 Inscription
+              h6 Déja inscrit ?
+              a(class="toggle") Se connecter
+            .actual-form
+              .input-wrap-auth
+                input(type="text", name="username", minlength="4", class="input-field-auth", autocomplete="off", required)
+                label(class="label-auth" for="username") Username
+              .input-wrap-auth
+                input(type="email", name="email", class="input-field-auth", autocomplete="off", required)
+                label(class="label-auth" for="email") Email
+              .input-wrap-auth
+                input(type="password", name="password", minlength="4", class="input-field-auth", autocomplete="off", required)
+                label(class="label-auth" for="password") Password
+              input(type="submit", value="S'inscrire", class="sign-btn")
+              p.text-auth
+                | En vous inscrivant, vous acceptez les 
+                a(href="/CGU/Condition-d'utilisation") Conditions d'utilisation
+                |  et 
+                a(href="/CGU/politique-de-confidentialite") Politique de confidentialité
+        if error
+          ul(class="my-2")
+            li(class="auth-error")= error
+        .carousel-auth
+          .images-wrapper-auth
+            img(src="/images/login-form/image1.webp", class="image-auth img-1 show", alt="")
+            img(src="/images/login-form/image2.webp", class="image-auth img-2", alt="")
+            img(src="/images/login-form/image3.png", class="image-auth img-3", alt="")
+          .text-slider-auth
+            .text-wrap-auth
+              .text-group-auth
+                h2 Publier des messages
+                h2 Suivez vos amis
+                h2 Inviter tous vos amis
+            .bullets
+              span(class="active", data-value="1")
+              span(data-value="2")
+              span(data-value="3")

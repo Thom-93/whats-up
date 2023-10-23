@@ -43,11 +43,11 @@ const extractUserFromToken = async (req, res, next) => {
         next();
       } else {
         res.clearCookie("jwt");
-        res.redirect("/auth/signin/form");
+        res.redirect("/auth/form");
       }
     } catch (e) {
       res.clearCookie("jwt");
-      res.redirect("/auth/signin/form");
+      res.redirect("/auth/form");
     }
   } else {
     next();
