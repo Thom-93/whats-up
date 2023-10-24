@@ -11,13 +11,13 @@ block content
       div(class="card-header") Donner votre avis
       div(clas="card-body")
         div(class="form-group m-3")
-          label(class="label-auth") Email :
+          label(class="label") Email :
           span(class="email" type="email" name="email" )= currentUser.local.email
         div(class="form-group m-3")
-          label(class="label-auth") Sujet :
+          label(class="label") Sujet :
           input(class="form-control input-new-feedback sujet" type="subject" name="subject")
         div(class="form-group m-3")
-          label(class="label-auth") Message :
+          label(class="label") Message :
           textarea(class="form-control input-new-feedback message" type="message" name="message" placeholder="donner votre avis ici !")
           span(class="char-count feedback-message") 0/1000
           if errors
