@@ -99,7 +99,12 @@ class Email {
           }
         ),
       };
-      await this.transporter.sendMail(email);
+      const send = await this.transporter.sendMail(email);
+      if (send) {
+        return true;
+      } else {
+        throw new Error("un probleme est survenue lors de l'envoie du mail");
+      }
     } catch (e) {
       throw e;
     }

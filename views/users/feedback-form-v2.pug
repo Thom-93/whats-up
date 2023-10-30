@@ -1,0 +1,37 @@
+extends ../layout
+
+block content
+  script.
+    function onSubmit(token) {
+      document.getElementById("feedback-form").submit();
+    }
+  script(src="/javascripts/feedback/feedback.js")
+  .container-feedback
+      .contact-box-feedback
+        .div-left-feedback
+          .left-feedback
+        .right-feedback
+          h2.h2-feedback Nous contacter
+          form(action="/users/feedback/send", method="post", autocomplete="off", class="form-feedback", id="feedback-form")
+            div.wrapper-AWS-input
+              div.input-data-AWS-input
+                span(type="email", name="email", class="feedback-input email", required)= currentUser.local.email
+                div.underline-AWS-input
+                label(for="email") Email     
+            div.wrapper-AWS-input
+              div.input-data-AWS-input
+                input(type="text", name="subject", minlength="4", maxlength="50", class="feedback-input", autocomplete="off", required)
+                div.underline-AWS-input
+                label(for="subject") Sujet
+            div.wrapper-AWS-input
+              .div-message-container
+                textarea(class="input-message-feedback" type="message" name="message" placeholder="donner votre avis ici !", minlength="10", maxlength="1000", required)
+                label(class="label-message-feedback" for="message") Message
+                span(class="char-count feedback-message") 0/1000
+            div.progress-bar
+              button.btn-feedback(type="submit") Send
+          if errors
+            ul(class="my-2")
+              each error in errors
+                li(class="text-danger error-new-letter")= error
+  div#success-message(data-success-message=successMessage, style="display: none;")

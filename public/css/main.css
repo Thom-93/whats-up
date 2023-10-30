@@ -294,7 +294,7 @@ body {
 
 /* AUTH START */
 
-/* TEST */
+/* Auth-Form START */
 
 .main-auth {
   width: 100%;
@@ -688,7 +688,7 @@ body {
     padding: 1rem 2rem 1.5rem;
   }
 }
-/* TEST */
+/* Auth-Form END */
 
 .content-auth {
   max-width: 1000px;
@@ -1224,29 +1224,64 @@ body {
 
 /* FEEDBACK START */
 
-.new-feedback-container {
+.div-message-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.div-message-container textarea:focus ~ label {
+  color: #2ecc71;
+}
+
+.label-message-feedback {
+  order: 1;
+}
+
+.feedback-message {
+  order: 3;
+}
+
+.input-message-feedback {
+  order: 2;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+  justify-content: center;
+  min-height: 5em;
+  margin-top: 1em;
+  &:focus {
+    background-color: rgba(255, 255, 255, 0.25);
+    border-style: none;
+    outline: none;
+  }
+}
+
+span.feedback-input {
+  color: #000000;
+  font-size: 1.2em;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 9em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+
+  &.email {
+    filter: blur(4px);
+    padding-top: 4px;
+    &:hover {
+      filter: blur(0px);
+    }
+  }
 }
 
-.card-new-feedback {
-  min-width: 20em;
-  background-color: rgba(255, 255, 255, 0.4);
-  box-shadow: black 1px 2px 8px;
+.input-data-AWS-input span.feedback-input ~ label {
+  transform: translateY(-20px);
+  font-size: 15px;
+  color: rgb(37, 191, 119);
+  border: none;
 }
 
-.input-new-feedback {
-  background-color: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.4);
-  &:focus {
-    background-color: rgba(255, 255, 255, 0.25);
-  }
-  &.message {
-    justify-content: center;
-    min-height: 5em;
-  }
+.input-data-AWS-input span.feedback-input ~ .underline-AWS-input:before {
+  transform: scaleX(1);
 }
 
 .char-count {
@@ -1261,18 +1296,153 @@ body {
   }
 }
 
-.email {
-  margin-left: 1em;
-  filter: blur(4px);
-  transition: background-color 0.3s, filter 0.3s;
-  &.email:hover {
-    filter: none; /* Rétablir le flou en cas de focus */
+.container-feedback {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 34px 100px;
+  margin-bottom: 1em;
+}
+
+.container-feedback:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: url("img/bg.jpg") no-repeat center;
+  background-size: cover;
+  filter: blur(50px);
+  z-index: -1;
+}
+.contact-box-feedback {
+  max-width: 850px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #fff;
+  box-shadow: 0px 0px 19px 5px rgba(0, 0, 0, 0.19);
+}
+
+.div-left-feedback {
+  overflow: hidden;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(37, 149, 191, 1) 0%,
+    rgba(37, 191, 170, 1) 37%,
+    rgba(37, 191, 119, 1) 100%
+  );
+}
+
+.left-feedback {
+  overflow: hidden;
+  background: url("/images/feed-back-img.png") no-repeat center;
+  height: 100%;
+  transition: transform 0.5s;
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 0.5s;
   }
 }
 
-.error-new-letter {
+.right-feedback {
+  padding: 25px 40px;
 }
 
+.h2-feedback {
+  position: relative;
+  padding: 0 0 10px;
+  margin-bottom: 10px;
+}
+
+.h2-feedback:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  height: 4px;
+  width: 50px;
+  border-radius: 2px;
+  background-color: #2ecc71;
+}
+
+.field-feedback {
+  width: 100%;
+  border: 2px solid rgba(0, 0, 0, 0);
+  outline: none;
+  background-color: rgba(230, 230, 230, 0.6);
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  margin-bottom: 22px;
+  transition: 0.3s;
+}
+
+.form-feedback {
+  text-align: justify;
+}
+
+.textarea-feedback {
+  min-height: 150px;
+}
+
+.btn-feedback {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: #000000;
+  color: #fff;
+  font-size: 1.1rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-feedback:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(37, 149, 191, 1) 0%,
+    rgba(37, 191, 170, 1) 37%,
+    rgba(37, 191, 119, 1) 100%
+  );
+}
+
+.progress-bar {
+  display: block;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(37, 149, 191, 1); /* Couleur de fond du bouton */
+  transition: background-color 0.5s ease-in-out; /* Animation du fond */
+}
+
+.feedback-input {
+  border-style: none;
+  &:focus {
+    outline: none;
+  }
+}
+
+.textarea-feedback {
+  margin-top: 2em;
+}
+
+@media screen and (max-width: 880px) {
+  .contact-box-feedback {
+    grid-template-columns: 1fr;
+  }
+  .left-feedback {
+    height: 200px;
+  }
+}
 /* FEEDBACK END */
 
 /* Users-form START */
@@ -1330,6 +1500,65 @@ body {
 
 /* FOOTER END */
 
+/* AWS INPUT START */
+
+.wrapper-AWS-input {
+  background: #fff;
+  padding: 30px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1em;
+  border-radius: 10px;
+}
+.wrapper-AWS-input .input-data-AWS-input {
+  height: 40px;
+  width: 100%;
+  position: relative;
+}
+.wrapper-AWS-input .input-data-AWS-input input {
+  height: 100%;
+  width: 100%;
+  border: none;
+  font-size: 17px;
+  border-bottom: 2px solid silver;
+}
+.input-data-AWS-input input:focus ~ label,
+.input-data-AWS-input input:valid ~ label {
+  transform: translateY(-20px);
+  font-size: 15px;
+  color: rgb(37, 191, 119);
+  border: none;
+}
+.wrapper-AWS-input .input-data-AWS-input label {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  color: grey;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.input-data-AWS-input .underline-AWS-input {
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  bottom: 0;
+}
+.input-data-AWS-input .underline-AWS-input:before {
+  position: absolute;
+  content: "";
+  height: 100%;
+  width: 100%;
+  background: rgb(37, 191, 119);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+.input-data-AWS-input input:focus ~ .underline-AWS-input:before,
+.input-data-AWS-input input:valid ~ .underline-AWS-input:before {
+  transform: scaleX(1);
+}
+
+/* AWS INPUT END */
+
 /* MEDIA QUERIES */
 
 @media screen and (min-width: 900px) {
@@ -1382,13 +1611,11 @@ body {
     width: 30em;
   }
 
-  .input-new-feedback {
+  .input-message-feedback {
+    min-height: 10em;
+    max-height: 580px;
     &.sujet {
       width: 50%;
-    }
-
-    &.message {
-      min-height: 10em;
     }
   }
 
@@ -1508,6 +1735,17 @@ body {
 
   .letter-char-count {
     width: 90%;
+  }
+
+  .wrapper-AWS-input {
+    width: 450px;
+  }
+
+  span.feedback-input {
+    &:hover {
+      transform: scale(1.1);
+      transition: transform 0.2s;
+    }
   }
 
   /* Style pour l'effet d'agrandissement */

@@ -78,7 +78,7 @@ exports.userProfile = async (req, res, next) => {
 };
 
 exports.feedbackForm = (req, res, next) => {
-  res.render("users/feedback-form", {
+  res.render("users/feedback-form-v2", {
     errors: null,
     isAuthenticated: req.isAuthenticated(),
     currentUser: req.user,
@@ -106,19 +106,26 @@ exports.sendFeedback = async (req, res, next) => {
       const subjectCheck = await checkForbiddenWords(subject);
 
       if (!messageCheck && !subjectCheck) {
-        emailFactory.sendEmailFeedback({
+        const sendMail = await emailFactory.sendEmailFeedback({
           host: req.headers.host,
           username: username,
           email: email,
           subject: subject,
           message: message,
         });
-        res.redirect("/");
+        if (sendMail) {
+          const successMessage = "Votre message a été envoyé avec succès.";
+          res.render("users/feedback-form-v2", {
+            successMessage: successMessage,
+            isAuthenticated: req.isAuthenticated(),
+            currentUser: req.user,
+          });
+        }
       } else {
         throw new Error("il y a des mots interdit");
       }
     } catch (e) {
-      res.render("users/feedback-form", {
+      res.render("users/feedback-form-v2", {
         errors: [e.message],
         isAuthenticated: req.isAuthenticated(),
         currentUser: req.user,
