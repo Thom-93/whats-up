@@ -1320,6 +1320,7 @@ span.feedback-input {
   z-index: -1;
 }
 .contact-box-feedback {
+  border-radius: 3.3rem;
   max-width: 850px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1331,6 +1332,7 @@ span.feedback-input {
 }
 
 .div-left-feedback {
+  border-radius: 3.3rem 0rem 0rem 3.3rem;
   overflow: hidden;
   height: 100%;
   background: linear-gradient(
