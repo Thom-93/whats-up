@@ -22,10 +22,12 @@ const upload = multer({
 const emailFactory = require("../emails");
 const fs = require("fs");
 const sharp = require("sharp");
+const { countUserFollowers } = require("../queries/users.queries");
 
 exports.tweetList = async (req, res, next) => {
   try {
     const tweets = await getCurrentUserTweetsWithFollowing(req.user);
+    const followersCount = await countUserFollowers(req.user._id);
     if (tweets) {
       res.render("letters/letter", {
         tweets,
@@ -33,6 +35,7 @@ exports.tweetList = async (req, res, next) => {
         currentUser: req.user,
         user: req.user,
         editable: true,
+        followersCount,
       });
     } else {
       return res.status(400).json("No tweets found");

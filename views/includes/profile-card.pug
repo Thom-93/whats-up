@@ -1,0 +1,69 @@
+if currentUser._id.toString() == user._id.toString()
+  script(src="/javascripts/profile.js")
+  script(src="/javascripts/users/delete-user.js")
+else
+script(src="/javascripts/users/profile-card-animation.js")
+.modal-profile-card
+  img(src=user.avatar, alt="")
+  .close-profile-card
+.container-profile-card
+  .card-profile-card
+    .header-profile-card
+      if currentUser._id.toString() == user._id.toString()
+        label.label-profile-card
+          input(type="checkbox")
+          span.menu-profile-card
+            span.hamburger-profile-card
+          ul
+            li 
+              a(href="/users/card/form") Modifier ma carte de profile
+            form(id="form-container" action="/users/update/image" method="post" enctype='multipart/form-data') 
+              input(type="file" name="avatar" class="d-none" id="input-avatar")        
+              li Changer d'avatar
+            if currentUser.local.admin && currentUser._id.toString() == user._id.toString()
+              li
+                a(href=`admin/${currentUser._id}/panel`) Panel admin
+            else
+            li(class="delete-profile-card-li")
+              i(id="delete-profile-card-btn" profileid=currentUser._id) Supprimer mon compte
+      else
+      .main-profile-card
+        .image-profile-card(style=`background: url(${user.avatar}) no-repeat center / cover`)
+          .hover-profile-card
+            i.fas.fa-camera.fa-2x
+        a(class="name-profile-card" href=(currentUser._id.toString() == user._id.toString() ? "/" : href="/users/" + user.username ))= `${user.pseudo}`
+        a.sub-name-profile-card(href=(currentUser._id.toString() == user._id.toString() ? "/" : href="/users/" + user.username ))= "@" + user.username
+    .content-profile-card
+      .left-profile-card
+        .about-container-profile-card
+          h3.title-profile-card About
+          p.text-profile-card= user.bio
+        .icons-container-profile-card
+          if user.socialNetworks.facebook !== "undefined" && user.socialNetworks.facebook !== ""
+            a.icon-profile-card(href=`${user.socialNetworks.facebook}`)
+              i.fab.fa-facebook
+          if user.socialNetworks.instagram !== "undefined" && user.socialNetworks.instagram !== ""
+            a.icon-profile-card(href=`${user.socialNetworks.instagram}`)
+              i.fab.fa-instagram
+          if user.socialNetworks.twitter !== "undefined" && user.socialNetworks.twitter !== ""
+            a.icon-profile-card(href=`${user.socialNetworks.twitter}`)
+              i.fab.fa-twitter
+        .buttons-wrap-profile-card
+          if currentUser._id.toString() !== user._id.toString()
+            .follow-wrap-profile-card
+              if currentUser.following.map( objId => objId.toString() ).includes(user._id.toString())
+                a.follow-profile-card( href="/users/unfollow/" + user._id) unfollow 
+              else 
+                a.follow-profile-card(href="/users/follow/" + user._id) follow
+          .share-wrap-profile-card
+            a.share-profile-card(href="#" class="share-link" data=user.username) Share
+      .right-profile-card
+        div
+          h3.number-profile-card= tweets && tweets.filter( t => t.author.id.toString() === user._id.toString()).length
+          h3.number-title-profile-card Posts
+        div
+          h3.number-profile-card= user.following.length
+          h3.number-title-profile-card Following
+        div
+          h3.number-profile-card= followersCount
+          h3.number-title-profile-card Followers

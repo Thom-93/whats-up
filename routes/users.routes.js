@@ -19,6 +19,8 @@ const {
   profileDelete,
   feedbackForm,
   sendFeedback,
+  userCardForm,
+  userCardUpdate,
 } = require("../controllers/users.controller");
 
 router.get("/", userList);
@@ -38,5 +40,7 @@ router.post("/reset-password/:userId/:token", resetPassword);
 router.delete("/:userId", ensureIsNotBan, ensureAuthenticated, profileDelete);
 router.get("/feedback/form", ensureAuthenticated, feedbackForm);
 router.post("/feedback/send", ensureAuthenticated, sendFeedback);
+router.get("/card/form", ensureAuthenticated, userCardForm);
+router.post("/card/update", ensureAuthenticated, userCardUpdate);
 
 module.exports = router;

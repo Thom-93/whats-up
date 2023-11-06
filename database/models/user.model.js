@@ -9,6 +9,11 @@ const userSchema = schema(
       required: true,
       unique: true,
     },
+    pseudo: {
+      type: String,
+      required: true,
+      default: "Anonyme",
+    },
     local: {
       email: { type: String, required: true, unique: true },
       emailVerified: { type: Boolean, default: false },
@@ -21,6 +26,15 @@ const userSchema = schema(
     },
     avatar: { type: String, default: "/images/avatars/default.svg" },
     following: { type: [schema.Types.ObjectId], ref: "user" },
+    bio: {
+      type: String,
+      maxlength: [91, "Bio trop longue"],
+    },
+    socialNetworks: {
+      twitter: { type: String },
+      facebook: { type: String },
+      instagram: { type: String },
+    },
   },
   { timestamps: true }
 );

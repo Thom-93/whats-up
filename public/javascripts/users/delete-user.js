@@ -3,7 +3,7 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 function bindAndDeleteProfile() {
-  const elements = document.querySelector("#delete-profile-btn");
+  const elements = document.querySelector("#delete-profile-card-btn");
   const profileContainer = document.querySelector("#form-container");
 
   const divSecu = document.querySelector("#div-delete-secu");

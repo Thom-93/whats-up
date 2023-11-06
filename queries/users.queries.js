@@ -56,10 +56,30 @@ exports.removeUserIdToCurrentUserFollowing = (currentUser, userId) => {
   return currentUser.save();
 };
 
+exports.countUserFollowers = (userId) => {
+  return User.countDocuments({ following: userId });
+};
+
 exports.findUserPerEmailAndUpdateLogged = (id, value) => {
   return User.findOneAndUpdate(id, { $set: { "local.logged": value } }).exec();
 };
 
 exports.getAllUsersLogged = () => {
   return User.find({ "local.logged": true }).exec();
+};
+
+exports.updateCardUser = (userId, updatedData) => {
+  return User.findByIdAndUpdate(
+    userId,
+    {
+      $set: {
+        pseudo: updatedData.pseudo,
+        bio: updatedData.bio,
+        "socialNetworks.twitter": updatedData.twitter,
+        "socialNetworks.facebook": updatedData.facebook,
+        "socialNetworks.instagram": updatedData.instagram,
+      },
+    },
+    { runValidators: true }
+  );
 };

@@ -1,0 +1,54 @@
+extends ../layout
+
+block content
+  script(src="/javascripts/users/edit-card-user.js")
+  .edit-card-container
+    .modal-profile-card
+      img(src=currentUser.avatar, alt="")
+      .close-profile-card 
+    form(id="form-edit-card-container" action="/users/card/update" method="post")
+      if errors
+        ul(class="edit-card-errors")
+          each error in errors
+            li(class="card-error")= error
+      .container-profile-card
+        .card-profile-card
+          .header-profile-card
+            .main-profile-card
+              .image-profile-card(style=`background: url(${currentUser.avatar}) no-repeat center / cover`)
+                .hover-profile-card
+                  i.fas.fa-camera.fa-2x
+              input(type="text", class="name-profile-card edit", value=currentUser.pseudo, name="pseudo")
+              a.sub-name-profile-card(href="")= "@" + currentUser.username
+          .content-profile-card
+            .left-profile-card
+              .about-container-profile-card.edit-card
+                h3.title-profile-card About
+                textarea.text-profile-card.edit-card(id="edit-card-message", maxlength="90", name="bio")= currentUser.bio
+                div.social-icon-container
+                  div
+                    a.icon-profile-card#facebook-icon()
+                      i.fab.fa-facebook
+                    a.icon-profile-card#instagram-icon()
+                      i.fab.fa-instagram
+                    a.icon-profile-card#twitter-icon()
+                      i.fab.fa-twitter
+                  div
+                    input(type="text", id="facebook-input", name="facebook", class="input-facebook-icon", value=`${currentUser.socialNetworks.facebook}`)
+                    input(type="text", id="instagram-input", name="instagram", class="input-instagram-icon", value=`${currentUser.socialNetworks.instagram}`)
+                    input(type="text", id="twitter-input", name="twitter", class="input-twitter-icon", value=`${currentUser.socialNetworks.twitter}`)
+              .buttons-wrap-profile-card
+                .share-wrap-profile-card
+                  a.share-profile-card(href="#" class="share-link" data=currentUser.username) Share
+            .right-profile-card.edit-card
+              div
+                h3.number-profile-card= tweets && tweets.filter( t => t.author.id.toString() === currentUser._id.toString()).length
+                h3.number-title-profile-card Posts
+              div
+                h3.number-profile-card= currentUser.following.length
+                h3.number-title-profile-card Following
+              div
+                h3.number-profile-card= followersCount
+                h3.number-title-profile-card Followers
+      div(class="")
+        input(type="submit" value="valider" class="btn-card-edit-validate" ) 
