@@ -11,10 +11,10 @@ if tweets
             img(width="40" height="40" class="rounded-circle" src=tweet.author.avatar)
         if tweet.author._id.toString() === currentUser._id.toString()
           a(class="link-user-letter" href="/")
-            span(class="flex-fill ms-1 fw-bold")= tweet.author.username
+            span(class="flex-fill ms-1 fw-bold")= tweet.author.pseudo
         else
           a(class="link-user-letter" href="/users/" + tweet.author.username) 
-            span(class="flex-fill ms-1 fw-bold")= tweet.author.username
+            span(class="flex-fill ms-1 fw-bold")= tweet.author.pseudo
         if editable && tweet.author._id.toString() === currentUser._id.toString()
           div(class="d-flex ms-auto")
             a(class="fa-solid fa-pen-to-square pe-2 text-success edit-letter-btn" href='/letters/edit/' + tweet._id)

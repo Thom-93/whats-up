@@ -1,7 +1,7 @@
 window.addEventListener("DOMContentLoaded", () => {
   bindTweet();
   tweetTime();
-  zoomedLetterImg();
+  seeLetterImg();
   lettersBtnValidation();
 });
 
@@ -105,64 +105,6 @@ function bindTweet() {
   }
 }
 
-function zoomedLetterImg() {
-  const letterImages = document.querySelectorAll(".letter-image");
-
-  letterImages.forEach((image) => {
-    let isZoomed = false;
-    image.addEventListener("click", (e) => {
-      e.preventDefault();
-      console.log("click");
-      isZoomed = !isZoomed;
-      if (isZoomed) {
-        toggleFullscreen(image);
-      } else {
-        toggleFullscreen(document);
-      }
-      image.classList.toggle("zoomed", isZoomed);
-      const container = image.parentElement;
-      container.style.position = isZoomed ? "fixed" : "static";
-      container.style.width = isZoomed ? "100%" : "auto";
-      container.style.height = isZoomed ? "100%" : "auto";
-      window.addEventListener("click", (e) => {
-        if (e.target !== image) {
-          image.classList.remove("zoomed");
-          isZoomed = false;
-        }
-      });
-    });
-  });
-}
-
-function toggleFullscreen(elem) {
-  if (
-    !document.fullscreenElement &&
-    !document.mozFullScreenElement &&
-    !document.webkitFullscreenElement &&
-    !document.msFullscreenElement
-  ) {
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen();
-    } else if (elem.msRequestFullscreen) {
-      elem.msRequestFullscreen();
-    } else if (elem.mozRequestFullScreen) {
-      elem.mozRequestFullScreen();
-    } else if (elem.webkitRequestFullscreen) {
-      elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-    }
-  } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-      document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    }
-  }
-}
-
 function lettersBtnValidation() {
   const trueBtn = document.querySelectorAll(".validate-btn-true");
   const falseBtn = document.querySelectorAll(".validate-btn-false");
@@ -220,3 +162,54 @@ function lettersBtnValidation() {
     });
   }
 }
+
+function seeLetterImg() {
+  const letters = document.querySelectorAll(".letter-image");
+
+  letters.forEach((letter) => {
+    let isOutSide = false;
+
+    letter.addEventListener("click", (e) => {
+      const msg = letter.querySelector(".letter");
+      isOutSide = !isOutSide;
+      if (isOutSide) {
+        msg.style.zIndex = "3";
+        letter.style.cursor = "default";
+        letter.classList.add("letter-hover");
+      }
+      window.addEventListener("click", (e) => {
+        if (!letter.contains(e.target)) {
+          msg.style.zIndex = "1";
+          letter.style.cursor = "pointer";
+          letter.classList.remove("letter-hover");
+          isOutSide = false;
+        }
+      });
+    });
+  });
+}
+
+// letterImages.forEach((image) => {
+//   let isZoomed = false;
+//   image.addEventListener("click", (e) => {
+//     e.preventDefault();
+//     console.log("click");
+//     isZoomed = !isZoomed;
+//     if (isZoomed) {
+//       toggleFullscreen(image);
+//     } else {
+//       toggleFullscreen(document);
+//     }
+//     image.classList.toggle("zoomed", isZoomed);
+//     const container = image.parentElement;
+//     container.style.position = isZoomed ? "fixed" : "static";
+//     container.style.width = isZoomed ? "100%" : "auto";
+//     container.style.height = isZoomed ? "100%" : "auto";
+//     window.addEventListener("click", (e) => {
+//       if (e.target !== image) {
+//         image.classList.remove("zoomed");
+//         isZoomed = false;
+//       }
+//     });
+//   });
+// });

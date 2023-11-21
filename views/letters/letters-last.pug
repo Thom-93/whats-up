@@ -5,12 +5,15 @@ block content
   div(class="d-flex letter-last-content flex-column")
     H1(class="fw-bold" id="h1-tweet-list-container") Last letters...
     include ../letters/letter-form
-    div(class="d-flex flex-fill flex-column" id="tweet-list-container")
-      if tweets 
-        each tweet in tweets
-          div(class="card tweet-element")
-            div(class="card-body d-flex flex-column")
-              div(class="d-flex align-items-center")
+    div(class="d-flex flex-fill flex-column letter-last" id="tweet-list-container")
+    if tweets 
+      each tweet in tweets
+        .letter-image.letter-last
+          div.animated-mail
+            div.back-fold
+            div.letter
+              div.letter-border
+              div.letter-title
                 if tweet.author._id.toString() === currentUser._id.toString()
                   a(class="link-user-letter" href="/")
                     img(width="40" height="40" class="rounded-circle" src=tweet.author.avatar)
@@ -19,23 +22,28 @@ block content
                     img(width="40" height="40" class="rounded-circle" src=tweet.author.avatar)
                 if tweet.author._id.toString() === currentUser._id.toString()
                   a(class="link-user-letter" href="/")
-                    span(class="flex-fill ms-1 fw-bold")= tweet.author.username
+                    span(class="flex-fill ms-1 fw-bold")= tweet.author.pseudo
                 else
                   a(class="link-user-letter" href="/users/" + tweet.author.username) 
-                    span(class="flex-fill ms-1 fw-bold")= tweet.author.username
+                    span(class="flex-fill ms-1 fw-bold")= tweet.author.pseudo
                 if editable && tweet.author._id.toString() === currentUser._id.toString()
-                  div(class="d-flex ms-auto")
+                  div(class="letter-edit-btns")
                     a(class="fa-solid fa-pen-to-square pe-2 text-success edit-letter-btn" href='/letters/edit/' + tweet._id)
                     i(class="fa-solid fa-trash-can text-danger pointer-cursor delete-letter-btn" tweetid=tweet._id)
-            div(class="ms-3 mb-3 div-tweet-content")= tweet.content
-            if tweet.image && tweet.statut
-              div(id="div-letter-image" class="m-3")
-                img(class="letter-image" src=tweet.image)
-            if tweet.statut === null 
-              div
-                p(class="status-null")= "Image en attente de validation... "
-                  img(class="time-capsule" src="/images/time-capsule.svg", alt="" width="30", height="30")
-            if tweet.statut === false
-              div
-                p(class="status-null text-danger")= "Image refusée..."
-            span(class="flex-fill ms-1 tweet-time" letteruptime= tweet.updatedAt, lettercreatetime= tweet.createdAt)
+              div.letter-context= tweet.content
+              if tweet.image && tweet.statut
+                div(id="div-letter-image" class="m-3")
+                  img(class="div-letter-image-img" src=tweet.image, alt="image supprimez ou cassé" )
+              if tweet.statut === null 
+                div
+                  p(class="status-null")= "Image en attente de validation... "
+                    img(class="time-capsule" src="/images/time-capsule.svg", alt="" width="30", height="30")
+              if tweet.statut === false
+                      div
+                        p(class="status-null text-danger")= "Image refusée..."
+              span(class="flex-fill ms-1 tweet-time" letteruptime= tweet.updatedAt, lettercreatetime= tweet.createdAt)
+              div.letter-stamp
+                div.letter-stamp-inner
+            div.top-fold
+            div.body
+            div.left-fold
