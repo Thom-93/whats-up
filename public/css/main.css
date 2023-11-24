@@ -2707,9 +2707,6 @@ span.feedback-input {
     transform: translate(-50%, -50%);
     cursor: pointer;
     z-index: 1;
-    &.letter-last {
-      margin-left: 23.5em;
-    }
   }
 
   .animated-mail {
