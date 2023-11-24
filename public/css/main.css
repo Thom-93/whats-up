@@ -8,17 +8,13 @@ a {
 }
 
 body {
-  background: linear-gradient(
-    90deg,
-    rgba(37, 149, 191, 1) 0%,
-    rgba(37, 191, 170, 1) 37%,
-    rgba(37, 191, 119, 1) 100%
-  );
-  background-color: #25bf848f;
+  background: linear-gradient(to bottom, #00f2fe, #4facfe);
+  background-color: #4facfe;
   background-size: auto;
   background-repeat: no-repeat;
   background-position: center;
   min-height: 100vh;
+  overflow-y: scroll;
 }
 
 .content {
@@ -57,12 +53,8 @@ body {
   text-decoration: none;
   &:hover {
     color: black;
-    background: linear-gradient(
-      90deg,
-      rgba(37, 149, 191, 1) 0%,
-      rgba(37, 191, 170, 1) 37%,
-      rgba(37, 191, 119, 1) 100%
-    );
+    background: linear-gradient(to bottom, #00f2fe, #4facfe);
+    transition: color 0.5s ease;
   }
 }
 
@@ -458,16 +450,12 @@ body {
   border-radius: 0.8rem;
   font-size: 0.8rem;
   margin-bottom: 2rem;
-  transition: 0.3s;
+  transition: background-color 0.3s;
 }
 
 .sign-btn:hover {
-  background: linear-gradient(
-    90deg,
-    rgba(37, 149, 191, 1) 0%,
-    rgba(37, 191, 170, 1) 37%,
-    rgba(37, 191, 119, 1) 100%
-  );
+  background-color: rgb(37, 191, 119);
+  transition: background-color 0.3s;
 }
 
 .text-auth {
@@ -508,12 +496,7 @@ body {
   width: 55%;
   left: 45%;
   top: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(37, 149, 191, 1) 0%,
-    rgba(37, 191, 170, 1) 37%,
-    rgba(37, 191, 119, 1) 100%
-  );
+  background: linear-gradient(to bottom, #00f2fe, #4facfe);
   border-radius: 2rem;
   display: grid;
   grid-template-rows: auto 1fr;
@@ -539,6 +522,7 @@ body {
 .img-1 {
   transform: translate(0, -50px);
   height: 87%;
+  object-fit: cover;
 }
 
 .img-2 {
@@ -1546,12 +1530,7 @@ span.feedback-input {
   border-radius: 3.3rem 0rem 0rem 3.3rem;
   overflow: hidden;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(37, 149, 191, 1) 0%,
-    rgba(37, 191, 170, 1) 37%,
-    rgba(37, 191, 119, 1) 100%
-  );
+  background: linear-gradient(to bottom, #00f2fe, #4facfe);
 }
 
 .left-feedback {
@@ -1616,16 +1595,12 @@ span.feedback-input {
   border: none;
   outline: none;
   cursor: pointer;
-  transition: 0.3s;
+  transition: background-color 0.3s;
 }
 
 .btn-feedback:hover {
-  background: linear-gradient(
-    90deg,
-    rgba(37, 149, 191, 1) 0%,
-    rgba(37, 191, 170, 1) 37%,
-    rgba(37, 191, 119, 1) 100%
-  );
+  background-color: rgb(37, 191, 119);
+  transition: background-color 0.3s;
 }
 
 .progress-bar {
@@ -1830,8 +1805,9 @@ span.feedback-input {
     cursor: pointer;
   }
   &:hover {
-    background: red;
+    background-color: red;
     color: black;
+    transition: color 0.5s ease;
   }
 }
 
@@ -1957,12 +1933,8 @@ span.feedback-input {
   text-decoration: none;
   &:hover {
     color: black;
-    background: linear-gradient(
-      90deg,
-      rgba(37, 149, 191, 1) 0%,
-      rgba(37, 191, 170, 1) 37%,
-      rgba(37, 191, 119, 1) 100%
-    );
+    background: linear-gradient(to bottom, #00f2fe, #4facfe);
+    transition: color 0.5s ease;
   }
 }
 
@@ -2164,9 +2136,11 @@ span.feedback-input {
   text-transform: uppercase;
   margin-left: 3px;
   border-radius: 18.1px;
-  &:focus {
-    transform: scale(0.9);
-    transition: transform 0.2s;
+  &:hover {
+    background: linear-gradient(to right, #4facfe 0%, #00f2fe 140%);
+    color: #fff;
+    border: none;
+    transition: border 0.3s ease;
   }
 }
 
@@ -2669,7 +2643,7 @@ span.feedback-input {
 
   /* Fond de la scrollbar */
   ::-webkit-scrollbar-track {
-    background: rgb(37, 191, 119);
+    background: linear-gradient(to bottom, #00f2fe, #4facfe);
   }
 
   /* Style de la poignée de la scrollbar */
