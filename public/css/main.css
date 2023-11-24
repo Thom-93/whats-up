@@ -2666,7 +2666,7 @@ span.feedback-input {
 
 @media screen and (max-width: 900px) {
   #tweet-list-container {
-    margin: 10em 0em 2em 11.5em;
+    margin: 10em 0em 2em 12em;
     &.letter-last {
       margin: 10em 0em 2em 0em;
     }
