@@ -21,7 +21,7 @@ if tweets
       div(class="ms-3 mb-3 div-tweet-content")= tweet.content
       if tweet.image && tweet.statut
         div(id="div-admin-letter-image" class="ms-3 mb-3")
-          img(class="letter-image admin" src=tweet.image)
+          img(class="letter-image-admin" src=tweet.image)
       if tweet.statut === null 
         div
           p(class="status-null")= "Image en attente de validation... "
