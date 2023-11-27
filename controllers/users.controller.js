@@ -7,7 +7,7 @@ const {
   removeUserIdToCurrentUserFollowing,
   findUserPerEmail,
   deleteUser,
-  findUserPerEmailAndUpdateLogged,
+  findUserPerIdAndUpdateLogged,
   countUserFollowers,
   updateCardUser,
 } = require("../queries/users.queries");

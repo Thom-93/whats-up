@@ -35,6 +35,7 @@ const userSchema = schema(
       facebook: { type: String },
       instagram: { type: String },
     },
+    lastActiveTime: { type: Date },
   },
   { timestamps: true }
 );

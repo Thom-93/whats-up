@@ -1,17 +1,17 @@
-window.addEventListener("DOMContentLoaded", () => {
-  userLogDisplay();
-});
+// window.addEventListener("DOMContentLoaded", () => {
+//   userLogDisplay();
+// });
 
-const userLogDisplay = () => {
-  const userLogCounter = document.getElementById("user-log-number");
+// const userLogDisplay = () => {
+//   const userLogCounter = document.getElementById("user-log-number");
 
-  if (userLogCounter) {
-    ioClient.on("userConnected", (connectedUsers) => {
-      userLogCounter.innerHTML = connectedUsers;
-    });
+//   if (userLogCounter) {
+//     ioClient.on("userConnected", (connectedUsers) => {
+//       userLogCounter.innerHTML = connectedUsers;
+//     });
 
-    ioClient.on("userDisconnected", (connectedUsers) => {
-      userLogCounter.innerHTML = connectedUsers;
-    });
-  }
-};
+//     ioClient.on("userDisconnected", (connectedUsers) => {
+//       userLogCounter.innerHTML = connectedUsers;
+//     });
+//   }
+// };

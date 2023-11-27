@@ -18,6 +18,7 @@ exports.adminPanel = async (req, res, next) => {
     const tweets = await getTweets();
     const users = await getAllUsers();
     const userBanList = await getBanList();
+    const currentTime = Date.now();
     if (tweets && users) {
       let numberOfUsers = 0;
       users.forEach(() => {
@@ -27,9 +28,20 @@ exports.adminPanel = async (req, res, next) => {
       tweets.forEach(() => {
         numberOfLetters++;
       });
+
+      let numberOfUsersLogged = 0;
+      for (const user of users) {
+        if (user.lastActiveTime) {
+          const timeSinceLastActivity = currentTime - user.lastActiveTime;
+          if (timeSinceLastActivity < 900000) {
+            numberOfUsersLogged++;
+          }
+        }
+      }
       res.render("admin/admin-panel", {
         numberOfUsers,
         numberOfLetters,
+        numberOfUsersLogged,
         tweets,
         users,
         userBanList,

@@ -60,7 +60,7 @@ exports.countUserFollowers = (userId) => {
   return User.countDocuments({ following: userId });
 };
 
-exports.findUserPerEmailAndUpdateLogged = (id, value) => {
+exports.findUserPerIdAndUpdateLogged = (id, value) => {
   return User.findOneAndUpdate(id, { $set: { "local.logged": value } }).exec();
 };
 
@@ -82,4 +82,8 @@ exports.updateCardUser = (userId, updatedData) => {
     },
     { runValidators: true }
   );
+};
+
+exports.findUserIdAndUpdateLastActiveTime = (id, value) => {
+  return User.findByIdAndUpdate(id, { $set: { lastActiveTime: value } }).exec();
 };
