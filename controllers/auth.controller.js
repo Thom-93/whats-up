@@ -2,7 +2,7 @@ const { checkUserBan } = require("../queries/banList.queries");
 const { checkForbiddenWords } = require("../queries/forbiddenWord.queries");
 const {
   findUserPerEmail,
-  findUserPerEmailAndUpdateLogged,
+  findUserPerIdAndUpdateLogged,
   createUser,
 } = require("../queries/users.queries");
 const emailFactory = require("../emails");
@@ -24,7 +24,7 @@ exports.signin = async (req, res, next) => {
         if (user) {
           const match = await user.comparePassword(password);
           if (match) {
-            await findUserPerEmailAndUpdateLogged(user._id, true);
+            await findUserPerIdAndUpdateLogged(user._id, true);
             req.login(user);
             res.redirect("/letters");
             return;
@@ -52,7 +52,7 @@ exports.signup = async (req, res, next) => {
       const usernameCheck = await checkForbiddenWords(body.username);
       if (!usernameCheck) {
         const user = await createUser(body);
-        await findUserPerEmailAndUpdateLogged(user._id, true);
+        await findUserPerIdAndUpdateLogged(user._id, true);
         req.login(user);
         emailFactory.sendEmailVerification({
           to: user.local.email,
@@ -79,7 +79,7 @@ exports.signup = async (req, res, next) => {
 
 exports.signout = async (req, res, next) => {
   try {
-    await findUserPerEmailAndUpdateLogged(req.user._id, false);
+    await findUserPerIdAndUpdateLogged(req.user._id, false);
     req.logout();
     res.redirect("/auth/form");
   } catch (e) {
