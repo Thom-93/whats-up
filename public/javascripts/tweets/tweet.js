@@ -2,7 +2,6 @@ window.addEventListener("DOMContentLoaded", () => {
   bindTweet();
   tweetTime();
   seeLetterImg();
-  lettersBtnValidation();
 });
 
 function tweetTime() {
@@ -102,64 +101,6 @@ function bindTweet() {
           console.log(err);
         });
     };
-  }
-}
-
-function lettersBtnValidation() {
-  const trueBtn = document.querySelectorAll(".validate-btn-true");
-  const falseBtn = document.querySelectorAll(".validate-btn-false");
-
-  const divSucess = document.querySelector("#div-delete-sucess");
-
-  const tweetValidationContainer = document.querySelector(
-    "#admin-tweet-validation-container"
-  );
-
-  let statut = null;
-
-  const updateStatus = (tweetId, statut) => {
-    axios
-      .put(`/admin/validate/${tweetId}`, { statut: statut })
-      .then(function () {
-        divSucess.classList.add("active-sucess");
-        divSucess.style.display = "block";
-        const tweetToDelete = tweetValidationContainer.querySelector(
-          `i[tweetid="${tweetId}"]`
-        );
-        if (tweetToDelete) {
-          const tweetElement = tweetToDelete.closest(".tweet-element");
-          if (tweetElement) {
-            tweetElement.remove(); // Supprimer l'élément tweet
-            setTimeout(() => {
-              divSucess.classList.remove("active-sucess");
-              divSucess.style.display = "none";
-            }, 4000);
-          }
-        }
-      })
-      .catch(function (err) {
-        console.log("Error while updating status:", err);
-      });
-  };
-  if (tweetValidationContainer) {
-    trueBtn.forEach((e) => {
-      e.addEventListener("click", ($event) => {
-        const tweetId = $event.target.getAttribute("tweetid");
-        if (tweetId) {
-          statut = true;
-          updateStatus(tweetId, statut);
-        }
-      });
-    });
-    falseBtn.forEach((e) => {
-      e.addEventListener("click", ($event) => {
-        const tweetId = $event.target.getAttribute("tweetid");
-        if (tweetId) {
-          statut = false;
-          updateStatus(tweetId, statut);
-        }
-      });
-    });
   }
 }
 

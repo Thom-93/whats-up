@@ -28,7 +28,6 @@ function bindAndDeleteProfile() {
     });
 
     const deleteProfile = (profileId) => {
-      console.log(profileId);
       axios
         .delete("/users/" + profileId)
         .then(function () {

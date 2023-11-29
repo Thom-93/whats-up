@@ -38,7 +38,7 @@ exports.adminPanel = async (req, res, next) => {
           }
         }
       }
-      res.render("admin/admin-panel", {
+      res.render("admin/admin-panel-v2", {
         numberOfUsers,
         numberOfLetters,
         numberOfUsersLogged,

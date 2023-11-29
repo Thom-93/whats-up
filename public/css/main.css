@@ -1274,6 +1274,7 @@ body {
   cursor: pointer;
   width: 528px;
   height: 300px;
+  filter: blur(15px);
 }
 
 #admin-tweet-validation-container {
@@ -1363,32 +1364,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  .btn-img-more-flou,
-  .btn-img-less-flou {
-    background-color: rgba(255, 255, 255, 0.4);
-    border-radius: 1em;
-    width: 1.5em;
-    height: 1.5em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .btn-img-more-flou:hover,
-  .btn-img-less-flou:hover {
-    background-color: rgba(255, 255, 255, 0.6);
-    transition: transform 0.2s;
-    transform: scale(1.1);
-  }
-
-  .btn-img-more-flou {
-    border: 2px solid #940909;
-  }
-
-  .btn-img-less-flou {
-    border: 2px solid #2598be;
-    margin-left: 1em;
-  }
 }
 
 /* ADMIN END  */
@@ -2212,6 +2187,248 @@ span.feedback-input {
 .close-profile-card:after {
   transform: translate(-50%, -50%) rotate(135deg);
 }
+/* ADMIN DASHBOARD START */
+
+/* dashboard.css */
+
+/* Styles pour le tableau de bord */
+
+.container-dashboard {
+  overflow: hidden;
+}
+
+.dashboard {
+  display: flex;
+  width: 100vw;
+  height: 93vh;
+}
+
+.sidebar {
+  min-width: 250px;
+  background-color: #333;
+  color: white;
+  padding-top: 20px;
+}
+
+.dashboard-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.dashboard-sidebar-menu {
+  padding: 0px;
+  list-style-type: none;
+
+  .dashboard-sidebar-a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding-left: 10px;
+
+    .dashboard-sidebar-icon {
+      width: 20px;
+    }
+
+    &.active {
+      background-color: #555;
+      border-left: 2.5px solid rgb(255, 0, 0);
+    }
+  }
+
+  .dashboard-sidebar-li:hover {
+    background-color: #555;
+    border-left: 2.5px solid rgb(255, 0, 0);
+  }
+
+  .dashboard-menu-item {
+    display: block;
+    padding: 10px 0;
+    text-decoration: none;
+    color: white;
+    margin-left: 1em;
+  }
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 20px;
+
+  .container-dashboard-table-user,
+  .container-dashboard-table-letter,
+  .container-dashboard-table-image {
+    max-height: 43.2em;
+    max-width: 99%;
+    overflow-y: scroll;
+    border: 2px solid black;
+    overflow-x: hidden;
+    text-align: center;
+  }
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Styles pour les indicateurs */
+
+.indicator-container {
+  .row {
+    justify-content: center;
+  }
+}
+
+.card-counter {
+  box-shadow: 2px 2px 10px #dadada;
+  margin: 5px;
+  padding: 20px 10px;
+  background-color: #fff;
+  height: 100px;
+  border-radius: 5px;
+  transition: 0.3s linear all;
+  display: flex;
+  justify-content: space-between;
+  text-align: end;
+}
+
+.card-counter:hover {
+  box-shadow: 4px 4px 20px #dadada;
+  transition: 0.3s linear all;
+}
+
+.card-counter.primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.card-counter.danger {
+  background-color: #ef5350;
+  color: #fff;
+}
+
+.card-counter.success {
+  background-color: #66bb6a;
+  color: #fff;
+}
+
+.card-counter.info {
+  background-color: #26c6da;
+  color: #fff;
+}
+
+.card-counter i {
+  font-size: 5em;
+  opacity: 0.2;
+}
+
+.count-span-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-counter .count-numbers {
+  font-size: 32px;
+}
+
+.card-counter .count-name {
+  font-style: italic;
+  text-transform: capitalize;
+  opacity: 0.5;
+  font-size: 18px;
+}
+
+/* Styles pour la catégorie Utilisateurs */
+.dashboard-category {
+  display: none;
+  margin-bottom: 40px;
+}
+
+.dashboard-table {
+  width: 100%;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.dashboard-button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.ban-button {
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+}
+
+.delete-user-button,
+.delete-letter-button {
+  background-color: #333;
+  color: white;
+  border: none;
+}
+
+#user-search {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Img en attente */
+.dashboard-img-td {
+  display: flex;
+  width: inherit;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-img-more-flou,
+.btn-img-less-flou {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 1em;
+  width: 1.5em;
+  height: 1.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn-img-more-flou:hover,
+.btn-img-less-flou:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+  transition: transform 0.2s;
+  transform: scale(1.1);
+}
+
+.btn-img-more-flou {
+  border: 2px solid #940909;
+}
+
+.btn-img-less-flou {
+  border: 2px solid #25be98;
+  margin-left: 1em;
+}
+
+.approve-button {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+}
+
+.reject-button {
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+}
+
+/* ADMIN DASHBOARD END */
 
 @media screen and (min-width: 900px) {
   .container-profile-card {

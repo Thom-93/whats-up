@@ -1,0 +1,134 @@
+extends ../layout
+
+block content
+  script(src="/javascripts/tweets/tweet.js")
+  script(src="/javascripts/users/user.js")
+  script(src="/javascripts/admin/admin-panel.js")
+  .container-dashboard
+    .dashboard
+      .sidebar
+        h1.dashboard-title Administration
+        ul.dashboard-sidebar-menu
+          li.dashboard-sidebar-li
+            a(data-category=".indicator-container").dashboard-sidebar-a
+              i.fa.fa-bar-chart.dashboard-sidebar-icon
+              span.dashboard-menu-item Dashboard
+          li.dashboard-sidebar-li
+            a(data-category=".dashboard-category-users").dashboard-sidebar-a
+              i.fa.fa-users.dashboard-sidebar-icon
+              span.dashboard-menu-item Utilisateurs
+          li.dashboard-sidebar-li
+            a(data-category=".dashboard-category-letters").dashboard-sidebar-a
+              i.fa.fa-envelope.dashboard-sidebar-icon
+              span.dashboard-menu-item Lettres
+          li.dashboard-sidebar-li
+            a(data-category=".dashboard-category-images").dashboard-sidebar-a
+              i.fa.fa-image.dashboard-sidebar-icon
+              span.dashboard-menu-item Img en Attente
+      .dashboard-content
+        .dashboard-header
+          h2.dashboard-welcome Bienvenue dans l'Administration
+        .indicator-container
+          .row
+            .col-md-3
+              .card-counter.info
+                i.fa.fa-users
+                .count-span-container
+                  span.count-numbers= numberOfUsersLogged
+                  span.count-name User Connecter
+            .col-md-3
+              .card-counter.danger
+                i.fa.fa-ticket
+                .count-span-container
+                  span.count-numbers= numberOfLetters
+                  span.count-name Lettres
+            .col-md-3
+              .card-counter.success
+                i.fa.fa-database
+                .count-span-container
+                  span.count-numbers= numberOfUsers
+                  span.count-name User Inscrit
+        .dashboard-category.dashboard-category-users
+          h3 Utilisateurs
+          .container-dashboard-table-user
+            input#user-search(type="text", placeholder="Rechercher un utilisateur")
+            table.dashboard-table
+              thead
+                tr
+                  th Username
+                  th Pseudo
+                  th Email
+                  th Email Vérifié
+                  th Following
+                  th LAT
+                  th Actions
+              tbody
+                each user in users
+                  tr.user-tr-container
+                    td= user.username
+                    td= user.pseudo
+                    td= user.local.email
+                    td= user.local.emailVerified ? 'Oui' : 'Non'
+                    td= user.following.length
+                    if user.lastActiveTime
+                      td= user.lastActiveTime.toLocaleString(undefined, {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'})
+                    else
+                      td= "N/A"
+                    td
+                      - let userBan = userBanList.find((bannedUser) => bannedUser.email === user.local.email)
+                      if userBan
+                        if userBan.delay === "24H"
+                          span(class="me-2 text-danger") Ban 24H
+                      else
+                        button(data-username=user.username, data-userEmail=user.local.email).dashboard-button.ban-button Bannir
+                      button(data-userid=user._id).dashboard-button.delete-user-button Supprimer
+        .dashboard-category.dashboard-category-letters
+          h3 Lettres
+          .container-dashboard-table-letter
+            table.dashboard-table
+              thead
+                tr
+                  th Username
+                  th Message
+                  th Image
+                  th Date de Création
+                  th Actions
+              tbody
+                each tweet in tweets
+                  tr.letter-tr-container
+                    td= tweet.author.username
+                    td= tweet.content
+                    if tweet.image
+                      td 
+                        img(width="100px", src=tweet.image)
+                    else
+                      td Pas d'image
+                    td= tweet.createdAt
+                    td
+                      button(data-tweetid=tweet._id).dashboard-button.delete-letter-button Supprimer
+        .dashboard-category.dashboard-category-images
+          h3 Img en Attente
+          .container-dashboard-table-image
+            table.dashboard-table
+              thead
+                tr
+                  th Nom du Fichier
+                  th Flou
+                  th Auteur
+                  th Date de Soumission
+                  th Actions
+              tbody
+                if tweets
+                  each tweet in tweets
+                    if tweet.statut === null
+                      tr.img-tr-validation
+                        td 
+                          img(class="letter-image-validation", src=tweet.image)
+                        td.dashboard-img-td
+                          button.btn-img-more-flou +
+                          button.btn-img-less-flou -
+                        td= tweet.author.username
+                        td= tweet.createdAt
+                        td
+                          button(tweetid=tweet._id).dashboard-button.approve-button Approuver
+                          button(tweetid=tweet._id).dashboard-button.reject-button Rejeter
