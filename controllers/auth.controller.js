@@ -51,6 +51,14 @@ exports.signup = async (req, res, next) => {
       const body = req.body;
       const usernameCheck = await checkForbiddenWords(body.username);
       if (!usernameCheck) {
+        const isValidEmail = (email) => {
+          // Utilisation d'une expression régulière pour vérifier la présence de "@"
+          const emailPattern = /\S+@\S+\.\S+/;
+          return emailPattern.test(email);
+        };
+        if (!isValidEmail(body.email)) {
+          throw new Error("Email invalide");
+        }
         const user = await createUser(body);
         await findUserPerIdAndUpdateLogged(user._id, true);
         req.login(user);
