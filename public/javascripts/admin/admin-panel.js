@@ -2,7 +2,6 @@ window.addEventListener("DOMContentLoaded", () => {
   categorieSelect();
   bindAndDeleteTweet();
   bindAndDeleteUser();
-  bindAndBanUser();
   blurImage();
   lettersBtnValidation();
   searchUser();
@@ -122,43 +121,6 @@ function bindAndDeleteUser() {
             }, 4000);
           }
         }
-      })
-      .catch(function (err) {
-        console.log(err);
-      });
-  };
-}
-
-function bindAndBanUser() {
-  const banButton = document.querySelectorAll(".ban-button");
-  const usersContainer = document.querySelector(
-    ".container-dashboard-table-user"
-  );
-  const divSucess = document.querySelector("#div-delete-sucess");
-
-  if (usersContainer) {
-    banButton.forEach((e) => {
-      e.addEventListener("click", ($event) => {
-        const userEmail = $event.target.getAttribute("data-userEmail");
-        const username = $event.target.getAttribute("data-username");
-        if (username && userEmail) {
-          banUser(username, userEmail);
-        }
-      });
-    });
-  }
-
-  const banUser = (username, userEmail) => {
-    axios
-      .post(`/admin/users/${username}/${userEmail}/ban24H`)
-      .then(function () {
-        divSucess.classList.add("active-sucess");
-        divSucess.style.display = "block";
-        tweetElement.remove(); // Supprimer l'élément tweet
-        setTimeout(() => {
-          divSucess.classList.remove("active-sucess");
-          divSucess.style.display = "none";
-        }, 4000);
       })
       .catch(function (err) {
         console.log(err);

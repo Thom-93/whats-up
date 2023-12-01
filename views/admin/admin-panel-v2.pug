@@ -80,7 +80,7 @@ block content
                         if userBan.delay === "24H"
                           span(class="me-2 text-danger") Ban 24H
                       else
-                        button(data-username=user.username, data-userEmail=user.local.email).dashboard-button.ban-button Bannir
+                        a(href=`/admin/users/${user.username}/${user.local.email}/ban24H`).dashboard-button.ban-button Bannir
                       button(data-userid=user._id).dashboard-button.delete-user-button Supprimer
         .dashboard-category.dashboard-category-letters
           h3 Lettres

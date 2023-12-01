@@ -2365,6 +2365,7 @@ span.feedback-input {
   background-color: #ff6b6b;
   color: white;
   border: none;
+  text-decoration: none;
 }
 
 .delete-user-button,

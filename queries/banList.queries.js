@@ -5,7 +5,6 @@ exports.getBanList = () => {
 };
 
 exports.Ban24H = (userToBan) => {
-  console.log(userToBan);
   const banUser = new BanList({
     username: userToBan[0],
     email: userToBan[1],
